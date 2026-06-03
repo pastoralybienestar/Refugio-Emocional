@@ -76,191 +76,317 @@
 
         const EMOTIONS = [
             {
-                id: 'sadness', name: 'Tristeza', icon: 'cloud-rain', emoji: '💧',
-                color: 'bg-blue-50 text-blue-700 border-blue-200', btn3d: 'border-b-4 border-blue-300 hover:bg-blue-100',
-                description: 'Es natural sentirse así. La tristeza nos ayuda a procesar pérdidas y cambios, permitiendo que la mente se adapte a una nueva realidad.',
-                example: 'Como cuando terminas una relación, pierdes una oportunidad o extrañas a alguien. Sientes un nudo en la garganta y baja energía.',
+                id: 'sadness',
+                name: 'Tristeza',
+                emoji: '🌧️',
+                color: 'bg-blue-50 text-blue-600 border-blue-200',
+                btn3d: 'hover:border-blue-400 hover:shadow-[0_4px_0_#93c5fd] shadow-[0_4px_0_#bfdbfe]',
+                description: 'Es natural sentirse así. La tristeza nos ayuda a procesar pérdidas, soltar el pasado y pedir apoyo.',
+                example: 'Como cuando terminas una etapa importante o pierdes a alguien. Sientes pesadez, ganas de llorar o aislamiento.',
                 activities: [
-                    { title: 'Permítete sentir', desc: 'Llorar libera oxitocina y endorfinas que alivian el dolor físico y emocional.' },
-                    { title: 'Escritura terapéutica', desc: 'Escribe todo lo que sientes sin filtro. Ayuda a exteriorizar el dolor.' },
-                    { title: 'Autocuidado básico', desc: 'Si no puedes hacer mucho, enfócate en lo básico: come algo rico, toma una ducha caliente.' }
+                    { title: 'Permítete sentir', desc: 'No reprimas las lágrimas si surgen. Es una liberación necesaria.' },
+                    { title: 'Escribe sin filtro', desc: 'Saca todo de tu cabeza al papel. No tiene que tener sentido, solo sácalo.' },
+                    { title: 'Busca confort', desc: 'Una manta cálida, una bebida caliente o un abrazo pueden ayudar.' }
                 ]
             },
             {
-                id: 'anger', name: 'Enojo', icon: 'zap', emoji: '🌋',
-                color: 'bg-red-50 text-red-700 border-red-200', btn3d: 'border-b-4 border-red-300 hover:bg-red-100',
-                description: 'El enojo es un mecanismo de defensa. Te avisa que tus límites han sido cruzados o que percibes una injusticia.',
-                example: 'Alguien se lleva el crédito por tu trabajo o te tratan con falta de respeto. Sientes calor, tensión muscular y respiración rápida.',
+                id: 'anger',
+                name: 'Enojo',
+                emoji: '🌋',
+                color: 'bg-red-50 text-red-600 border-red-200',
+                btn3d: 'hover:border-red-400 hover:shadow-[0_4px_0_#f87171] shadow-[0_4px_0_#fecaca]',
+                description: 'El enojo es una alarma. Te avisa que un límite ha sido cruzado o que algo te parece profundamente injusto.',
+                example: 'Como cuando alguien minimiza tu esfuerzo o te falta al respeto. Sientes calor, tensión y ganas de reaccionar rápido.',
                 activities: [
-                    { title: 'Tiempo fuera (Time-out)', desc: 'Aléjate físicamente de la situación por 15 minutos antes de responder.' },
-                    { title: 'Descarga física', desc: 'Haz ejercicio intenso, aprieta un cojín o rasga papel para liberar la adrenalina.' },
-                    { title: 'Comunicación asertiva', desc: 'Usa frases que empiecen con "Yo siento..." en lugar de "Tú hiciste...".' }
+                    { title: 'Descarga física', desc: 'Camina rápido, haz flexiones, o aprieta y suelta los puños con fuerza.' },
+                    { title: 'Técnica del 10 al 0', desc: 'Cuenta hacia atrás lentamente, respirando profundo en cada número.' },
+                    { title: 'Expresa sin destruir', desc: 'Escribe tu enojo en un papel y luego rómpelo.' }
                 ]
             },
             {
-                id: 'anxiety', name: 'Ansiedad', icon: 'shield-alert', emoji: '🌀',
-                color: 'bg-orange-50 text-orange-700 border-orange-200', btn3d: 'border-b-4 border-orange-300 hover:bg-orange-100',
-                description: 'La ansiedad es tu cerebro intentando prepararte para un peligro futuro, pero a veces exagera la amenaza.',
-                example: 'Antes de presentar un examen importante o al pensar en el futuro. Sientes taquicardia, sudoración y pensamientos catastróficos.',
+                id: 'anxiety',
+                name: 'Ansiedad',
+                emoji: '🌪️',
+                color: 'bg-orange-50 text-orange-600 border-orange-200',
+                btn3d: 'hover:border-orange-400 hover:shadow-[0_4px_0_#fb923c] shadow-[0_4px_0_#fed7aa]',
+                description: 'Tu cuerpo está en alerta máxima por algo que "podría" pasar. Vamos a traer a tu cerebro de vuelta al presente.',
+                example: 'Como la noche antes de una entrega final. Tienes taquicardia, respiración corta y no puedes dejar de pensar en lo peor.',
                 activities: [
-                    { title: 'Técnica 5-4-3-2-1', desc: 'Busca 5 cosas visuales, 4 táctiles, 3 auditivas, 2 olfativas y 1 gustativa para volver al presente.' },
-                    { title: 'Cambio de temperatura', desc: 'Sostén un hielo o lávate la cara con agua muy fría. Reinicia el nervio vago.' },
-                    { title: 'Círculo de preocupación', desc: 'Dibuja qué está bajo tu control y qué no, y suelta lo que está fuera de tu círculo.' }
+                    { title: 'Técnica 5-4-3-2-1', desc: 'Identifica 5 cosas que ves, 4 que tocas, 3 que oyes, 2 que hueles y 1 que saboreas.' },
+                    { title: 'Choque térmico', desc: 'Mójate la cara o las muñecas con agua muy fría para resetear el sistema nervioso.' },
+                    { title: 'Enraizamiento', desc: 'Presiona los pies firmes contra el suelo y siente el soporte de la tierra.' }
                 ]
             },
             {
-                id: 'fear', name: 'Miedo', icon: 'shield', emoji: '👻',
-                color: 'bg-purple-50 text-purple-700 border-purple-200', btn3d: 'border-b-4 border-purple-300 hover:bg-purple-100',
-                description: 'Una respuesta primitiva y necesaria ante un peligro inminente. Busca proteger tu integridad.',
-                example: 'Caminar solo de noche por una calle oscura o recibir un diagnóstico médico. Sientes parálisis o deseo de huir.',
+                id: 'fear',
+                name: 'Miedo',
+                emoji: '🛡️',
+                color: 'bg-purple-50 text-purple-600 border-purple-200',
+                btn3d: 'hover:border-purple-400 hover:shadow-[0_4px_0_#c084fc] shadow-[0_4px_0_#e9d5ff]',
+                description: 'El miedo es tu guardián, intenta protegerte del peligro, pero a veces su alarma es demasiado fuerte y te paraliza.',
+                example: 'Como cuando tienes que exponer frente a un público hostil. Sientes vacío en el estómago y ganas de huir.',
                 activities: [
-                    { title: 'Validar la amenaza', desc: 'Pregúntate: ¿Es un peligro real aquí y ahora, o es imaginario?' },
-                    { title: 'Busca tu red segura', desc: 'Habla con alguien de confianza que te transmita seguridad y protección.' },
-                    { title: 'Abrazo de mariposa', desc: 'Cruza tus brazos sobre tu pecho y date golpecitos alternados en los hombros.' }
+                    { title: 'Tu Refugio Mental', desc: 'Cierra los ojos y visualiza con detalle un sitio donde nada pueda dañarte.' },
+                    { title: 'Abrazo de mariposa', desc: 'Cruza tus manos sobre el pecho y da golpecitos rítmicos alternando los hombros.' },
+                    { title: 'Cuestiona la amenaza', desc: 'Pregúntate: ¿Este peligro es 100% real ahora mismo o es una posibilidad?' }
                 ]
             },
             {
-                id: 'stress', name: 'Estrés', icon: 'flame', emoji: '🤯',
-                color: 'bg-amber-50 text-amber-700 border-amber-200', btn3d: 'border-b-4 border-amber-300 hover:bg-amber-100',
-                description: 'Sobrecarga. Sentir que las demandas superan tus recursos o tiempo disponible.',
-                example: 'Semana de finales combinada con problemas familiares. Sientes tensión en hombros, insomnio e irritabilidad.',
+                id: 'stress',
+                name: 'Estrés',
+                emoji: '🔥',
+                color: 'bg-amber-50 text-amber-700 border-amber-200',
+                btn3d: 'hover:border-amber-400 hover:shadow-[0_4px_0_#fbbf24] shadow-[0_4px_0_#fde68a]',
+                description: 'La balanza se rompió: sientes que tienes demasiadas demandas y muy pocos recursos para enfrentarlas.',
+                example: 'Como cuando trabajas y estudias al mismo tiempo y tienes entregas cruzadas. Sientes rigidez en el cuello y prisa constante.',
                 activities: [
-                    { title: 'Matriz de Eisenhower', desc: 'Clasifica tus tareas en: Urgente/Importante para saber por dónde empezar.' },
-                    { title: 'Micro-pausas', desc: 'Por cada 45 mins de trabajo, levántate y estírate durante 5 minutos.' },
-                    { title: 'Respiración diafragmática', desc: 'Respira inflando el abdomen, no el pecho. Calma el sistema nervioso simpático.' }
+                    { title: 'La Regla de 3', desc: 'Elige solo las 3 tareas más críticas de hoy. Lo demás se reprograma.' },
+                    { title: 'Pausa de 5 minutos', desc: 'Aléjate de la pantalla. Estira el cuello y toma un vaso de agua completo.' },
+                    { title: 'Respiración de Caja', desc: 'Inhala en 4s, sostén 4s, exhala 4s, sostén sin aire 4s.' }
                 ]
             },
             {
-                id: 'disgust', name: 'Desagrado', icon: 'thumbs-down', emoji: '🤢',
-                color: 'bg-lime-50 text-lime-700 border-lime-200', btn3d: 'border-b-4 border-lime-300 hover:bg-lime-100',
-                description: 'Rechazo profundo hacia algo tóxico, ya sea físico o social.',
-                example: 'Presenciar una injusticia social o ver a alguien siendo cruel. Sientes náuseas o rechazo visceral.',
+                id: 'disgust',
+                name: 'Desagrado',
+                emoji: '🛑',
+                color: 'bg-lime-50 text-lime-700 border-lime-200',
+                btn3d: 'hover:border-lime-400 hover:shadow-[0_4px_0_#a3e635] shadow-[0_4px_0_#d9f99d]',
+                description: 'Una respuesta de protección instintiva. Te avisa sobre lo que es tóxico, abusivo o va en contra de tus valores fundamentales.',
+                example: 'Como cuando alguien hace un comentario ofensivo disfrazado de broma. Sientes rechazo inmediato y distancia física.',
                 activities: [
-                    { title: 'Establecimiento de límites', desc: 'Aprende a decir "No" de forma clara a aquello que vulnera tus valores.' },
-                    { title: 'Limpieza del entorno', desc: 'Despejar tu espacio físico o digital (redes sociales) ayuda a procesar el rechazo.' },
-                    { title: 'Reafirmación de valores', desc: 'Escribe por qué esa situación te molesta para clarificar tu ética personal.' }
+                    { title: 'Reafirma tus límites', desc: 'Identifica exactamente qué te causó rechazo para no permitirlo de nuevo.' },
+                    { title: 'Limpieza física', desc: 'Lávate las manos o la cara; ayuda psicológicamente a "soltar" el evento.' },
+                    { title: 'Distancia estratégica', desc: 'Aléjate físicamente del entorno o de la persona por unos minutos.' }
                 ]
             },
             {
-                id: 'love', name: 'Amor', icon: 'heart', emoji: '💖',
-                color: 'bg-rose-50 text-rose-700 border-rose-200', btn3d: 'border-b-4 border-rose-300 hover:bg-rose-100',
-                description: 'El pegamento social. Implica conexión, afecto, empatía y cuidado por uno mismo y por los demás.',
-                example: 'Un abrazo sincero o lograr algo por lo que te esforzaste mucho. Sientes calidez en el pecho y expansión.',
+                id: 'love',
+                name: 'Amor',
+                emoji: '💖',
+                color: 'bg-rose-50 text-rose-600 border-rose-200',
+                btn3d: 'hover:border-rose-400 hover:shadow-[0_4px_0_#fb7185] shadow-[0_4px_0_#fecdd3]',
+                description: 'La emoción de la conexión profunda. No solo hacia otros, sino hacia ti mismo. Expande tu energía y fortalece vínculos.',
+                example: 'Como cuando te sientes incondicionalmente aceptado por un amigo, o logras perdonarte un error.',
                 activities: [
-                    { title: 'Nutrir el vínculo', desc: 'Dile a alguien importante cuánto lo aprecias de forma inesperada.' },
-                    { title: 'Acto de autocompasión', desc: 'Trátate a ti mismo con la misma amabilidad con la que tratarías a tu mejor amigo.' },
-                    { title: 'Tiempo de calidad', desc: 'Dedica tiempo sin pantallas ni distracciones a alguien que amas, incluyéndote a ti.' }
+                    { title: 'Autocompasión', desc: 'Háblate en voz alta como le hablarías a tu mejor amigo si estuviera sufriendo.' },
+                    { title: 'Acto de servicio', desc: 'Haz algo pequeño y desinteresado por otra persona hoy.' },
+                    { title: 'Apreciación', desc: 'Envía un mensaje a alguien diciéndole exactamente por qué lo valoras.' }
                 ]
             },
             {
-                id: 'joy', name: 'Alegría', icon: 'smile', emoji: '🌟',
-                color: 'bg-yellow-50 text-yellow-700 border-yellow-200', btn3d: 'border-b-4 border-yellow-300 hover:bg-yellow-100',
-                description: 'Sensación de plenitud y satisfacción. Promueve la resiliencia y el bienestar general.',
-                example: 'Alcanzar una meta o pasar tiempo con amigos. Sientes ligereza, ganas de sonreír y energía alta.',
+                id: 'joy',
+                name: 'Alegría',
+                emoji: '✨',
+                color: 'bg-yellow-50 text-yellow-600 border-yellow-200',
+                btn3d: 'hover:border-yellow-400 hover:shadow-[0_4px_0_#facc15] shadow-[0_4px_0_#fef08a]',
+                description: 'La señal de que tus necesidades están cubiertas. Disfrutarla fortalece tu "batería de resiliencia" para momentos difíciles.',
+                example: 'Como cuando apruebas esa materia difícil o comes tu comida favorita. Sientes ligereza y energía.',
                 activities: [
-                    { title: 'Saborear el momento', desc: 'Detente un segundo a registrar conscientemente lo bien que te sientes ahora.' },
-                    { title: 'Diario de gratitud', desc: 'Anota 3 cosas buenas que te pasaron hoy, por pequeñas que sean.' },
-                    { title: 'Compartir la emoción', desc: 'La alegría se multiplica cuando la compartimos. Llama a alguien para contarle.' }
+                    { title: 'Comparte la chispa', desc: 'Llama o escribe a alguien para contarle la buena noticia.' },
+                    { title: 'Ancla el momento', desc: 'Toma una foto mental (o real) y nombra 3 cosas que hicieron este momento especial.' },
+                    { title: 'Celébralo', desc: 'Pon tu canción favorita, date un gusto o simplemente baila.' }
                 ]
             },
             {
-                id: 'calm', name: 'Calma', icon: 'wind', emoji: '🍃',
-                color: 'bg-emerald-50 text-emerald-700 border-emerald-200', btn3d: 'border-b-4 border-emerald-300 hover:bg-emerald-100',
-                description: 'Estado de homeostasis y equilibrio. Ideal para tomar decisiones y conectar con el interior.',
-                example: 'Estar sentado frente a la naturaleza en silencio. Sientes respiración pausada y mente clara.',
+                id: 'calm',
+                name: 'Calma',
+                emoji: '🍃',
+                color: 'bg-emerald-50 text-emerald-600 border-emerald-200',
+                btn3d: 'hover:border-emerald-400 hover:shadow-[0_4px_0_#34d399] shadow-[0_4px_0_#a7f3d0]',
+                description: 'El estado base del bienestar. Un equilibrio donde el cuerpo no gasta energía extra y la mente tiene claridad.',
+                example: 'Como sentarte a tomar un café en silencio en la mañana, sin revisar el celular ni pensar en urgencias.',
                 activities: [
-                    { title: 'Mindfulness', desc: 'Observa tus pensamientos pasar sin aferrarte a ellos, como nubes en el cielo.' },
-                    { title: 'Escaneo corporal', desc: 'Lleva tu atención desde la punta de los pies hasta la cabeza, relajando cada parte.' },
-                    { title: 'Anclaje en rutinas', desc: 'Mantén este estado realizando actividades repetitivas (como regar plantas o tejer).' }
+                    { title: 'Observación consciente', desc: 'Siéntate y simplemente observa tu entorno, sin juzgar, solo notando formas y colores.' },
+                    { title: 'Respiración natural', desc: 'Sigue el ritmo de tu respiración sin intentar cambiarla ni forzarla.' },
+                    { title: 'Lectura o creación', desc: 'Aprovecha la claridad mental para leer, escribir o organizar tus ideas.' }
                 ]
             }
         ];
 
         const PSICO_CONTENT = [
-            { title: "Autoconocimiento", icon: "search", color: "indigo", desc: "La capacidad de reconocer y entender tus propias emociones, pensamientos y valores. Es la base de la inteligencia emocional.", tip: "¿Por qué reaccioné de esta manera hoy? ¿Qué herida antigua tocó esta situación?" },
-            { title: "Autoconcepto", icon: "user-check", color: "teal", desc: "La imagen mental y las creencias que tienes sobre ti mismo (ej. 'soy inteligente', 'soy tímido'). Se forma por experiencias.", tip: "Escribe 5 etiquetas positivas que te definan y elimina 1 etiqueta negativa que ya no te sirva." },
-            { title: "Autoestima", icon: "heart", color: "rose", desc: "La valoración emocional que haces de tu autoconcepto. Es cuánto te quieres, te aceptas y te respetas con tus defectos.", tip: "Háblate en segunda persona ('Tú puedes hacer esto') en lugar de en primera para crear distancia compasiva." },
-            { title: "Autopercepción", icon: "eye", color: "amber", desc: "Cómo interpretas tu propio comportamiento. A veces hacemos algo y luego deducimos cómo nos sentimos al respecto.", tip: "Si un amigo viera tus acciones de hoy, ¿qué pensaría de ti? Ajusta tu comportamiento a tus valores." },
-            { title: "Regulación Emocional", icon: "sliders", color: "blue", desc: "La habilidad de influir en qué emociones tenemos, cuándo las tenemos y cómo las experimentamos y expresamos.", tip: "Entre el estímulo y tu respuesta hay una pausa. Usa esa pausa de 3 segundos para respirar antes de reaccionar." },
-            { title: "Resiliencia", icon: "shield", color: "emerald", desc: "La capacidad de adaptarse de manera positiva frente a la adversidad, el trauma, la tragedia o el estrés severo.", tip: "Recuerda una crisis pasada que superaste. ¿Qué fortalezas usaste entonces que puedes usar ahora?" },
-            { title: "Empatía", icon: "users", color: "purple", desc: "La capacidad de comprender y compartir los sentimientos de otra persona. Ver el mundo desde sus zapatos.", tip: "Escucha para comprender, no para responder. No ofrezcas soluciones a menos que te las pidan." },
-            { title: "Límites Saludables", icon: "hand", color: "red", desc: "Reglas claras que estableces para enseñarle a la gente cómo tratarte y qué comportamientos son aceptables para ti.", tip: "Aprende a decir: 'Me encantaría ayudarte, pero en este momento no tengo la capacidad para hacerlo'." },
-            { title: "Distorsiones Cognitivas", icon: "brain-circuit", color: "orange", desc: "Errores de pensamiento sistémicos (ej. pensar en blanco/negro, catastrofizar) que afectan nuestro estado de ánimo.", tip: "Cuando pienses 'Todo me sale mal', pregúntate: ¿Es 100% cierto esto? ¿Hay excepciones?" },
-            { title: "Autocompasión", icon: "sun", color: "yellow", desc: "Tratarnos a nosotros mismos con amabilidad, cuidado y comprensión cuando fallamos o sufrimos, en lugar de criticarnos.", tip: "El sufrimiento es parte de la experiencia humana compartida. No estás solo en sentirte así." }
+            { 
+                title: "Autoconocimiento", emoji: "🪞", color: "indigo", 
+                shortDesc: "El mapa de tu mundo interior.",
+                desc: "Es la capacidad de observar y entender tus propias emociones, pensamientos, fortalezas y áreas de mejora en tiempo real. Es el cimiento de toda la inteligencia emocional: no puedes gestionar lo que no conoces.", 
+                myth: "Mito: 'Ya me conozco, soy así y punto'. Realidad: El autoconocimiento es un proceso dinámico, cambiamos constantemente.",
+                tip: "Práctica: Cada noche, pregúntate: '¿Cuál fue la emoción más fuerte que sentí hoy y qué la detonó?'" 
+            },
+            { 
+                title: "Autoconcepto", emoji: "👤", color: "teal", 
+                shortDesc: "La historia que te cuentas sobre ti.",
+                desc: "Es el conjunto de creencias, imágenes y etiquetas que tienes sobre ti mismo (ej. 'soy inteligente', 'soy torpe', 'soy buen amigo'). Se forma a través de tus experiencias y de lo que otros te han reflejado a lo largo de tu vida.", 
+                myth: "Mito: 'Mi autoconcepto es la verdad absoluta'. Realidad: Es solo una creencia basada en experiencias pasadas, y puedes reescribirla.",
+                tip: "Práctica: Haz una lista de 3 etiquetas negativas que te pones y busca evidencias reales que demuestren lo contrario." 
+            },
+            { 
+                title: "Autoestima", emoji: "💖", color: "rose", 
+                shortDesc: "Cuánto valoras tu propia historia.",
+                desc: "Mientras el autoconcepto es lo que piensas de ti, la autoestima es cómo te sientes respecto a eso. Es el sentido de valor propio, el merecimiento y el respeto incondicional hacia ti mismo, incluso cuando te equivocas.", 
+                myth: "Mito: 'La autoestima alta es creerse superior al resto'. Realidad: Es sentirte valioso sin necesidad de compararte con nadie.",
+                tip: "Práctica: Trátate como tratarías a tu mejor amigo. Si fallas, dite: 'Hiciste lo mejor que pudiste, vamos a intentar de nuevo'." 
+            },
+            { 
+                title: "Autopercepción", emoji: "👁️", color: "amber", 
+                shortDesc: "Tus acciones revelan tus emociones.",
+                desc: "Es la teoría de que muchas veces descubrimos nuestras propias actitudes y emociones al observar cómo nos comportamos (ej. 'Si estoy temblando la pierna y mordiendo el lápiz, debo estar ansioso').", 
+                myth: "Mito: 'Siempre sé por qué hago las cosas'. Realidad: Muchas veces actuamos en piloto automático y luego justificamos la acción.",
+                tip: "Práctica: Observa tu postura corporal ahora mismo. ¿Estás tenso, encorvado, relajado? Tu cuerpo te dice cómo está tu mente." 
+            },
+            { 
+                title: "Regulación Emocional", emoji: "🎛️", color: "blue", 
+                shortDesc: "El termostato de tu mente.",
+                desc: "No es reprimir ni ocultar lo que sientes, sino tener la capacidad de influir en cómo experimentas y expresas tus emociones. Es el espacio de pausa que creas entre un estímulo externo y tu respuesta a él.", 
+                myth: "Mito: 'Controlar mis emociones significa no llorar ni enojarme nunca'. Realidad: Significa sentir la emoción sin dejar que ella tome las decisiones por ti.",
+                tip: "Práctica: Usa la regla de los 3 segundos. Antes de responder a un ataque, cuenta internamente hasta 3 respirando profundo." 
+            },
+            { 
+                title: "Resiliencia", emoji: "🌱", color: "emerald", 
+                shortDesc: "Tu capacidad de rebotar y crecer.",
+                desc: "La habilidad psicológica de adaptarse positivamente frente a la adversidad, el trauma, la tragedia o el estrés severo. No es ser invulnerable, es permitirte que el dolor te atraviese y usarlo como motor de transformación.", 
+                myth: "Mito: 'Las personas resilientes no sufren'. Realidad: Sufren, pero encuentran un significado en ese dolor para seguir avanzando.",
+                tip: "Práctica: Recuerda la última crisis que superaste. ¿Qué fortaleza interna descubriste de ti mismo en ese momento?" 
+            },
+            { 
+                title: "Empatía", emoji: "🤝", color: "purple", 
+                shortDesc: "Ver el mundo con otros ojos.",
+                desc: "La capacidad de comprender, resonar y compartir la perspectiva y los sentimientos de otra persona. No requiere que estés de acuerdo con el otro, solo que valides que su emoción es real e importante para él.", 
+                myth: "Mito: 'Ser empático significa solucionar el problema del otro'. Realidad: Significa acompañar, muchas veces en silencio, sin intentar arreglar nada.",
+                tip: "Práctica: Cuando alguien te cuente un problema, elimina el 'Al menos...' de tu vocabulario. Simplemente di: 'Lamento mucho que pases por esto'." 
+            },
+            { 
+                title: "Límites Saludables", emoji: "🛑", color: "red", 
+                shortDesc: "El cerco que protege tu energía.",
+                desc: "Reglas claras y asertivas que estableces para enseñarle al mundo cómo tratarte y qué comportamientos no estás dispuesto a tolerar. Son el acto más puro de amor propio y autocuidado.", 
+                myth: "Mito: 'Poner límites es ser egoísta y alejará a la gente'. Realidad: Los límites mejoran las relaciones al evitar el resentimiento acumulado.",
+                tip: "Práctica: Aprende a decir un 'No' completo, sin dar sobre-explicaciones. Ej: 'Me encantaría ayudarte, pero no tengo capacidad ahora mismo'." 
+            },
+            { 
+                title: "Distorsiones Cognitivas", emoji: "🎭", color: "orange", 
+                shortDesc: "Los lentes sucios de tu mente.",
+                desc: "Son 'errores de procesamiento' que hace tu cerebro al interpretar la realidad, haciéndote ver las cosas más oscuras de lo que son (ej. Catastrofizar, pensar en Blanco/Negro, o personalizarlo todo).", 
+                myth: "Mito: 'Si lo pienso y lo siento tan real, debe ser verdad'. Realidad: Tu mente te miente a menudo cuando está bajo estrés o miedo.",
+                tip: "Práctica: Cuando pienses 'TODO me sale mal', busca inmediatamente 2 excepciones recientes donde las cosas sí te salieron bien." 
+            },
+            { 
+                title: "Autocompasión", emoji: "🫂", color: "yellow", 
+                shortDesc: "Ser tu propio refugio.",
+                desc: "Consiste en brindarte a ti mismo la misma calidez, cuidado y comprensión que le darías a un ser querido cuando fracasa o sufre. Implica reconocer que el dolor y el error son parte de la experiencia humana compartida.", 
+                myth: "Mito: 'La autocompasión es darme lástima o ser conformista'. Realidad: Es la fuerza que te permite perdonarte rápido para volver a intentarlo con más ganas.",
+                tip: "Práctica: Ponte la mano en el corazón, respira y dite a ti mismo: 'Este es un momento de sufrimiento. Que pueda ser amable conmigo ahora'." 
+            }
         ];
 
         const CHAT_CASES = [
-            { id: 1, title: "Ataque de pánico en clase", icon: "wind", messages: [
-                { sender: "user", text: "Me falta el aire, estoy en clase y siento que me voy a desmayar." },
-                { sender: "psico", text: "No te vas a desmayar, es una respuesta de tu cuerpo. Concéntrate en mi mensaje. ¿Puedes salir un momento?" },
-                { sender: "user", text: "Ya salí. Mi corazón va muy rápido." },
-                { sender: "psico", text: "Estás a salvo. Busca algo azul a tu alrededor. Luego, toma aire en 4 segundos." }
+            { id: 1, title: "Ataque de pánico en clase", emoji: "🌪️", messages: [
+                { sender: "user", text: "Me falta el aire, estoy en clase y siento que me voy a desmayar, mi corazón va a mil." },
+                { sender: "psico", text: "Hola. Estoy aquí contigo. Lo que sientes asusta mucho, pero no es peligroso y no te vas a desmayar. Es tu sistema de alerta encendido." },
+                { sender: "psico", text: "¿Puedes pedir permiso para salir del aula un momento e ir a un lugar más ventilado?" },
+                { sender: "user", text: "Ya salí al pasillo. Pero sigo temblando y no puedo respirar bien." },
+                { sender: "psico", text: "Bien hecho. Estás a salvo. Quiero que mires a tu alrededor y me escribas el nombre de 3 objetos de color azul que veas." },
+                { sender: "user", text: "Una papelera, el suéter de un chico que pasó, y un letrero en la pared." },
+                { sender: "psico", text: "Perfecto. Ahora vamos a engañar a tu cerebro para que baje la alerta. Toma aire contando hasta 4, sostenlo 4 segundos, y exhala muy despacio por la boca contando hasta 6. Hazlo dos veces y dime cómo se siente." },
+                { sender: "user", text: "El corazón ya no me late tan duro. Tengo frío ahora." },
+                { sender: "psico", text: "Es normal, la adrenalina está bajando. Quédate sentado(a) un momento más, toma un poco de agua. Pasaste lo más fuerte, lo hiciste muy bien." }
             ]},
-            { id: 2, title: "Ruptura amorosa y aislamiento", icon: "heart-crack", messages: [
-                { sender: "user", text: "Terminé con mi pareja hace un mes. No quiero salir de la cama." },
-                { sender: "psico", text: "La tristeza profunda duele físicamente. Es normal no tener energía. No intentes 'superarlo' hoy." },
-                { sender: "user", text: "Siento que nunca voy a superarlo." },
-                { sender: "psico", text: "Hagamos un trato: levántate solo 5 minutos para buscar agua. Ser amable contigo mismo es el primer paso." }
+            { id: 2, title: "Ruptura amorosa y aislamiento", emoji: "💔", messages: [
+                { sender: "user", text: "Terminé con mi pareja hace un mes. No quiero salir de la cama, llevo dos días sin ir a la U." },
+                { sender: "psico", text: "Hola. Lamento mucho que estés pasando por este dolor. El duelo duele físicamente y es normal que tu cuerpo te pida detenerte y aislarte." },
+                { sender: "user", text: "Siento que nunca voy a superarlo. Todo me recuerda a esa persona." },
+                { sender: "psico", text: "Un mes es muy poco tiempo para un proceso emocional profundo. No te exijas 'superarlo' hoy. Hoy solo necesitamos enfocarnos en el autocuidado básico." },
+                { sender: "psico", text: "Hagamos un trato pequeño: ¿Crees que podrías levantarte solo 10 minutos para tomar una ducha de agua caliente y ponerte ropa limpia?" },
+                { sender: "user", text: "No tengo energía, pero supongo que sí puedo hacer eso." },
+                { sender: "psico", text: "Ese es un gran paso. El agua caliente relaja los músculos y cambiarte de ropa le envía una señal de 'reinicio' al cerebro. Ve a tu ritmo, no tienes que resolver el mundo entero hoy." }
             ]},
-            { id: 3, title: "Estrés y bloqueo académico", icon: "book-x", messages: [
-                { sender: "user", text: "Tengo 3 entregas mañana, no he empezado y me quedé en blanco. Voy a perder el semestre." },
-                { sender: "psico", text: "Estás catastrofizando por el estrés. Pausa. Tu cerebro está bloqueado por el pánico. Respira hondo." },
-                { sender: "user", text: "No tengo tiempo de respirar, tengo que hacer esto." },
-                { sender: "psico", text: "Si no pausas 5 minutos, perderás horas en blanco. Toma un vaso de agua. Luego, elige SOLO una tarea." }
+            { id: 3, title: "Estrés y bloqueo académico", emoji: "📚", messages: [
+                { sender: "user", text: "Tengo 3 entregas mañana, no he empezado y me quedé en blanco frente a la pantalla. Voy a perder el semestre." },
+                { sender: "psico", text: "Te leo muy abrumado(a). Tu cerebro está bloqueado porque percibe la situación como una amenaza masiva (pánico). Vamos a ponerle freno a esa bola de nieve." },
+                { sender: "user", text: "No tengo tiempo de respirar, tengo que hacer esto ya o repruebo." },
+                { sender: "psico", text: "Entiendo la urgencia, pero si no pausas 5 minutos ahora, vas a perder 3 horas mirando la pantalla en blanco. Levántate de la silla." },
+                { sender: "psico", text: "Ve por un vaso de agua fría. Lávate la cara. Cuando vuelvas, no mires las 3 entregas. Elige SOLO UNA, la que sea más rápida de avanzar." },
+                { sender: "user", text: "Ok... me lavé la cara. Creo que el mapa conceptual es lo más rápido." },
+                { sender: "psico", text: "Excelente elección. Olvídate del resto por ahora. Pon un cronómetro de 25 minutos y dedícate solo al mapa. El perfeccionismo es tu enemigo hoy; hecho es mejor que perfecto. ¡Empieza ya!" }
             ]},
-            { id: 4, title: "Conflicto familiar", icon: "home", messages: [
-                { sender: "user", text: "Peleé muy feo con mis papás. Me gritaron y yo les grité peores cosas. Me siento terrible." },
-                { sender: "psico", text: "La ira nos hace actuar en piloto automático. Ahora estás sintiendo culpa. ¿Estás en un lugar seguro y tranquilo?" },
-                { sender: "user", text: "Me encerré en mi cuarto. Sigo temblando del coraje." },
-                { sender: "psico", text: "Deja que baje la adrenalina. No intentes arreglarlo ahora. Descarga la tensión escribiendo todo lo que sientes en un papel y luego rómpelo." }
+            { id: 4, title: "Conflicto familiar", emoji: "🏠", messages: [
+                { sender: "user", text: "Peleé muy feo con mi mamá. Me gritó y yo le grité peores cosas. Tiré la puerta y me siento una basura." },
+                { sender: "psico", text: "Hola. La ira extrema nos hace actuar en piloto automático y luego nos deja con una resaca de culpa terrible. Es normal sentirse así después de una explosión emocional." },
+                { sender: "user", text: "No sé cómo arreglarlo, no quiero salir de mi cuarto." },
+                { sender: "psico", text: "No intentes arreglarlo ahora mismo. Ambos están con el cortisol muy alto (la hormona del estrés). Si hablan ahora, volverán a chocar." },
+                { sender: "psico", text: "¿Puedes tomar una hoja y escribir todo el coraje que sientes, sin filtro? Escribe todo lo que le hubieras querido decir." },
+                { sender: "user", text: "Ya lo hice. Llené dos páginas. Estoy llorando." },
+                { sender: "psico", text: "Llorar ayuda a liberar esa tensión acumulada. Rompe esas hojas y tíralas. Deja que pasen un par de horas hasta que tu cuerpo esté en calma para poder acercarte a hablar desde la razón y no desde el enojo." }
             ]},
-            { id: 5, title: "Miedo a exponer en público", icon: "mic", messages: [
-                { sender: "user", text: "Me toca exponer en 10 minutos. Siento náuseas, se me va a olvidar todo, todos se van a reír." },
-                { sender: "psico", text: "Esa es tu ansiedad anticipatoria hablando. Siente tus pies tocando el suelo. Estás aquí." },
-                { sender: "user", text: "Me sudan las manos." },
-                { sender: "psico", text: "Mueve los dedos de los pies dentro de tus zapatos. Recuerda: es solo una presentación, no define tu valor como persona. Tú dominas el tema." }
+            { id: 5, title: "Miedo a exponer en público", emoji: "🎤", messages: [
+                { sender: "user", text: "Me toca exponer en 15 minutos. Siento náuseas, me sudan las manos, sé que se me va a olvidar todo y todos se van a reír." },
+                { sender: "psico", text: "Hola. Tu mente está sufriendo de 'ansiedad anticipatoria', creando escenarios catastróficos que no han ocurrido. Vamos a anclarte al presente." },
+                { sender: "user", text: "Tengo ganas de ir al baño a esconderme y faltar a la clase." },
+                { sender: "psico", text: "Huir fortalecerá el miedo para la próxima vez. Haz esto ahora: presiona los dedos de tus pies contra el piso con fuerza dentro de tus zapatos. Siente la firmeza." },
+                { sender: "psico", text: "Ahora, repite conmigo mentalmente: 'Es solo una presentación académica. No define mi valor como persona. Yo estudié este tema'." },
+                { sender: "user", text: "Sigo nervioso, pero la presión en el estómago bajó un poco." },
+                { sender: "psico", text: "El nerviosismo es energía. Úsala. Cuando pases al frente, busca una cara amable en el público (un amigo) y háblale a esa persona. Tienes permitido llevar notas de apoyo en tus manos. Tú puedes." }
             ]},
-            { id: 6, title: "Duelo por una pérdida", icon: "droplet", messages: [
-                { sender: "user", text: "Hoy hace un año falleció mi abuela. Pensé que ya estaba bien pero hoy no paro de llorar." },
-                { sender: "psico", text: "El duelo no es lineal. Las fechas de aniversario o 'fechas gatillo' pueden traer el dolor de vuelta como el primer día. Está bien." },
-                { sender: "user", text: "¿Qué hago para que pare de doler?" },
-                { sender: "psico", text: "Hoy no intentes que pare. Hoy permítete extrañarla. Haz algo en su honor: escucha una canción que le gustaba o come su plato favorito." }
+            { id: 6, title: "Duelo por una pérdida", emoji: "🕯️", messages: [
+                { sender: "user", text: "Hoy hace un año falleció mi abuela. Pensé que ya estaba bien pero hoy no paro de llorar y me duele el pecho." },
+                { sender: "psico", text: "Hola. Gracias por compartir esto conmigo. El duelo no es una línea recta; las 'fechas gatillo' como los aniversarios pueden traer el dolor de vuelta con la misma intensidad del primer día." },
+                { sender: "user", text: "¿Por qué retrocedí? Pensé que ya era fuerte." },
+                { sender: "psico", text: "No has retrocedido y esto no te hace débil. Es la forma en que tu cerebro procesa que el amor por ella sigue intacto. No intentes apagar las lágrimas hoy." },
+                { sender: "psico", text: "A veces, resistirnos al dolor genera más sufrimiento. ¿Te gustaría hacer algo simbólico hoy en su honor? Escuchar una canción que le gustaba, preparar su comida favorita, o encenderle una velita." },
+                { sender: "user", text: "Voy a prepararme el café como ella me lo hacía. Gracias, me sentía loco por llorar hoy." },
+                { sender: "psico", text: "Tiene todo el sentido del mundo. Abraza ese café, es una forma de mantener vivo el vínculo. Tómate el día con mucha suavidad." }
             ]},
-            { id: 7, title: "Síndrome del Impostor", icon: "mask", messages: [
-                { sender: "user", text: "Saqué buena nota, pero siento que fue suerte. Mis compañeros son más inteligentes, pronto se darán cuenta de que no sé nada." },
-                { sender: "psico", text: "Es el síndrome del impostor. Estás descartando tus méritos. ¿Estudiaste para el examen?" },
-                { sender: "user", text: "Sí, estudié toda la semana. Pero fue fácil." },
-                { sender: "psico", text: "Fue fácil PORQUE estudiaste. Tu cerebro está filtrando lo positivo. Reconoce tu esfuerzo: la suerte no estudia toda la semana." }
+            { id: 7, title: "Síndrome del Impostor", emoji: "🎭", messages: [
+                { sender: "user", text: "Saqué 4.8 en el trabajo final, pero siento que el profe calificó suave o fue suerte. Mis compañeros son más inteligentes, pronto se darán cuenta de que soy un fraude." },
+                { sender: "psico", text: "Hola. Eso que escuchas en tu cabeza tiene nombre: Síndrome del Impostor. Es una distorsión que te hace minimizar tus propios méritos." },
+                { sender: "user", text: "Es que en serio siento que yo no sé tanto, solo supe buscar bien en internet." },
+                { sender: "psico", text: "Saber buscar información, estructurarla y presentarla requiere inteligencia y habilidad. ¿Dedicaste tiempo y esfuerzo a hacer este trabajo?" },
+                { sender: "user", text: "Sí, me quedé tres noches seguidas organizándolo y resumiendo." },
+                { sender: "psico", text: "Ahí tienes la evidencia. La suerte no se desvela tres noches seguidas. Tu nota es el resultado directo de tu esfuerzo. El fraude es pensar que no lo mereces." },
+                { sender: "user", text: "Supongo que viéndolo así, sí me esforcé bastante." },
+                { sender: "psico", text: "Exacto. Cada vez que esa voz te diga 'fue suerte', respóndele con hechos concretos de tu esfuerzo. Disfruta tu 4.8, te lo ganaste." }
             ]},
-            { id: 8, title: "Problemas de grupo (Ira)", icon: "users", messages: [
-                { sender: "user", text: "Odio hacer trabajos en grupo. Nadie hace nada y me toca hacerlo todo a mí. Los voy a insultar en el grupo de WhatsApp." },
-                { sender: "psico", text: "Entiendo tu frustración, es muy injusto cargar con todo. Pero insultarlos no resolverá el trabajo y te traerá problemas." },
-                { sender: "user", text: "Entonces, ¿qué hago? ¿Les hago el trabajo gratis?" },
-                { sender: "psico", text: "No. Establece límites asertivos. Escribe el mensaje sin enviarlo. Luego, bórralo y escribe: 'Chicos, hasta aquí llega mi parte. Necesito que asuman el resto para hoy'." }
+            { id: 8, title: "Problemas de grupo (Ira)", emoji: "👥", messages: [
+                { sender: "user", text: "Odio hacer trabajos en grupo. Nadie hace nada, mañana es la entrega y me tocó hacerlo todo a mí. Los voy a insultar en el grupo de WhatsApp." },
+                { sender: "psico", text: "Hola. Entiendo perfectamente tu frustración y tu enojo. Es muy injusto cargar con el peso de la irresponsabilidad de otros." },
+                { sender: "user", text: "¡Es que son unos descarados! Y el profesor no deja hacerlo individual." },
+                { sender: "psico", text: "Estás en todo tu derecho de estar molesto(a). Sin embargo, insultarlos en WhatsApp no va a hacer que trabajen mágicamente, y te puede traer un problema disciplinario a ti. Vamos a canalizar esa ira inteligentemente." },
+                { sender: "psico", text: "Escribe el mensaje con todos los insultos... pero NO en WhatsApp. Escríbelo en tus notas del celular para desahogarte." },
+                { sender: "user", text: "Ok, ya lo hice. ¿Y ahora?" },
+                { sender: "psico", text: "Ahora manda al grupo un mensaje asertivo y límite: 'Compañeros, yo ya avancé hasta esta parte y hasta aquí llega mi responsabilidad. Dejo este documento en la nube para que ustedes completen las conclusiones y lo suban antes de medianoche.' Protege tu trabajo y ponles el límite." }
             ]},
-            { id: 9, title: "Desmotivación y apatía", icon: "battery-low", messages: [
-                { sender: "user", text: "No le encuentro sentido a mi carrera. Nada me emociona. Me da igual si paso o pierdo las materias." },
-                { sender: "psico", text: "La apatía prolongada es una señal de alerta de que tu batería emocional está agotada. ¿Hace cuánto te sientes así?" },
-                { sender: "user", text: "Como tres meses. Solo veo el techo de mi cuarto." },
-                { sender: "psico", text: "Gracias por contármelo. Cuando la desmotivación dura tanto, necesitamos revisar tu rutina, tu sueño y posiblemente iniciar un acompañamiento. No tienes que cargar esto solo." }
+            { id: 9, title: "Desmotivación y apatía", emoji: "🪫", messages: [
+                { sender: "user", text: "No le encuentro sentido a mi carrera. Nada me emociona. Entro a clases y no presto atención, me da igual si paso o pierdo las materias." },
+                { sender: "psico", text: "Hola. Gracias por atreverte a contármelo. Esa sensación de 'anestesia emocional' o apatía es una señal clara de que tu batería interna está completamente agotada." },
+                { sender: "user", text: "Llevo como tres meses así. Solo quiero dormir y no pensar en el futuro." },
+                { sender: "psico", text: "Tres meses es un tiempo considerable. Tu mente y tu cuerpo están pidiendo un receso a gritos. Cuando estamos en estado de supervivencia, es imposible sentir pasión o motivación por una carrera." },
+                { sender: "psico", text: "No intentes obligarte a estar feliz. Hoy quiero pedirte que te enfoques en algo muy pequeño fuera de la U: ¿has estado comiendo bien y tomando el sol por las mañanas?" },
+                { sender: "user", text: "Casi no salgo de la habitación, pido comida a domicilio." },
+                { sender: "psico", text: "La falta de luz solar afecta directamente la vitamina D y tu estado de ánimo. Te sugiero que mañana tomes el desayuno cerca de una ventana. Este nivel de apatía requiere acompañamiento, te animo mucho a que programemos una cita para revisar todo a fondo. No tienes que salir de esto solo(a)." }
             ]},
-            { id: 10, title: "Incertidumbre del futuro", icon: "compass", messages: [
-                { sender: "user", text: "Ya casi me gradúo y tengo mucho miedo. No sé qué hacer con mi vida, siento que no encontraré trabajo." },
-                { sender: "psico", text: "La transición a lo desconocido genera mucho miedo. Tu mente intenta predecir escenarios catastróficos para protegerte." },
-                { sender: "user", text: "Todos mis amigos ya tienen prácticas y yo no." },
-                { sender: "psico", text: "Compararte alimenta la ansiedad. Cada proceso es distinto. Volvamos al presente: ¿Qué pequeño paso puedes dar esta semana? ¿Actualizar tu CV?" }
+            { id: 10, title: "Incertidumbre del futuro", emoji: "🧭", messages: [
+                { sender: "user", text: "Ya casi me gradúo y tengo muchísimo miedo. Siento que no sé nada de la vida real, que no encontraré trabajo y seré un fracaso." },
+                { sender: "psico", text: "Hola. Ese vértigo de asomarse al 'mundo real' lo hemos sentido todos. Es el miedo a la transición. Tu cerebro busca certezas y, como no las tiene, inventa escenarios terribles." },
+                { sender: "user", text: "Es que veo a mis compañeros en LinkedIn con prácticas súper buenas y yo nada." },
+                { sender: "psico", text: "Compararte con el 'escaparate' de LinkedIn es el mejor combustible para la ansiedad. Estás comparando tus dudas internas con los éxitos externos editados de los demás." },
+                { sender: "psico", text: "Traigamos el futuro al presente. No puedes controlar si te van a contratar en 6 meses, pero ¿qué puedes controlar esta semana?" },
+                { sender: "user", text: "Podría arreglar mi hoja de vida... la tengo súper desactualizada." },
+                { sender: "psico", text: "¡Exacto! Ese es un paso concreto. La ansiedad disminuye cuando tomamos pequeñas acciones. Dedícale una hora a tu hoja de vida. Paso a paso, cruzaremos ese puente." }
             ]},
-            { id: 11, title: "Acoso en redes sociales", icon: "smartphone", messages: [
-                { sender: "user", text: "Subí una foto y alguien hizo un comentario horrible sobre mi cuerpo. Lo borré pero me siento asqueada e insegura." },
-                { sender: "psico", text: "Lamento mucho que hayas pasado por eso. Es violencia digital y es normal que sientas asco y vulnerabilidad." },
-                { sender: "user", text: "Quiero cerrar todas mis redes. Me siento fea." },
-                { sender: "psico", text: "La opinión de un agresor no define tu realidad. Protegerte cerrando redes un par de días es autocuidado válido, pero no dejes que te quiten tu espacio. Bloquea sin interactuar." }
+            { id: 11, title: "Acoso en redes sociales", emoji: "📱", messages: [
+                { sender: "user", text: "Subí una foto y alguien (creo que de mi facultad) hizo un comentario horrible sobre mi físico. Lo borré pero me siento asqueada, expuesta e insegura." },
+                { sender: "psico", text: "Hola. Lamento muchísimo que hayas tenido que leer eso. Recibir violencia digital genera una sensación de invasión muy fuerte. Tu sensación de asco y vulnerabilidad es totalmente válida." },
+                { sender: "user", text: "Quiero cerrar todas mis cuentas y esconder mi cara. Me da vergüenza ir a la U." },
+                { sender: "psico", text: "La intención del agresor era justamente esa: hacerte pequeña y robarte tu paz. Las palabras de una persona cobarde detrás de una pantalla no definen en absoluto tu realidad ni tu belleza." },
+                { sender: "psico", text: "Si necesitas cerrar tus redes por un par de días para hacer una 'desintoxicación' y protegerte, hazlo como acto de autocuidado, no desde la vergüenza. ¿Tienes a alguna amiga de confianza con quien puedas hablar hoy?" },
+                { sender: "user", text: "Sí, mi mejor amiga sabe, ella me defendió." },
+                { sender: "psico", text: "Esa es tu red de apoyo real. Aférrate a quienes te valoran. Bloquea la cuenta agresora sin responder. Tu energía y tu paz mental son demasiado valiosas para gastarlas ahí." }
             ]},
-            { id: 12, title: "Sobrecarga laboral / Burnout", icon: "flame", messages: [
-                { sender: "user", text: "Trabajo de día, estudio de noche. Estoy durmiendo 3 horas. Me duele el pecho de la tensión continua." },
-                { sender: "psico", text: "Tu cuerpo te está pidiendo ayuda a gritos. Estás en riesgo de burnout severo. El dolor de pecho es una somatización." },
-                { sender: "user", text: "No puedo renunciar ni dejar la U. Tengo que pagar cuentas." },
-                { sender: "psico", text: "Lo sé. Pero si tu cuerpo colapsa, no podrás hacer ninguna de las dos. Tenemos que buscar micro-descansos urgentes. ¿Puedes tomar una siesta de 20 minutos hoy?" }
+            { id: 12, title: "Sobrecarga / Burnout", emoji: "🔥", messages: [
+                { sender: "user", text: "Trabajo 8 horas de día, estudio de noche. Estoy durmiendo 3 horas. Me duele el pecho, se me cae el pelo y lloro de la nada." },
+                { sender: "psico", text: "Hola. Quiero que sepas que te estoy leyendo con mucha atención. Los síntomas físicos que describes (dolor de pecho, caída de cabello, llanto inmotivado) son tu cuerpo encendiendo alarmas rojas de Burnout severo." },
+                { sender: "user", text: "No puedo dejar ninguna de las dos. Si renuncio no pago el arriendo, si dejo la U decepciono a todos." },
+                { sender: "psico", text: "Entiendo la tremenda presión financiera y social. Sin embargo, si llegas al colapso físico o te hospitalizan, no podrás sostener ni el trabajo ni el estudio. Tu salud vital es la prioridad cero." },
+                { sender: "psico", text: "No te pediré que renuncies hoy, pero tenemos que implementar 'micro-descansos' de emergencia. ¿Hay alguna tarea en el trabajo o materia en la U que puedas delegar o aplazar temporalmente?" },
+                { sender: "user", text: "Podría pedirle permiso al jefe para salir media hora antes, y quizás cancelar una materia electiva que me quita mucho tiempo." },
+                { sender: "psico", text: "Eso suena como un plan de rescate muy necesario. Por favor, cancela esa materia hoy mismo. Esas horas extras utilízalas únicamente para dormir. Estás haciendo un esfuerzo sobrehumano, necesitas compasión hacia tu cuerpo." }
             ]}
         ];
 
@@ -639,33 +765,129 @@
             );
         }
 
+        function PsicoEduView() {
+            const [expandedConcept, setExpandedConcept] = useState(null);
+
+            const toggleConcept = (idx) => {
+                if (expandedConcept === idx) {
+                    setExpandedConcept(null);
+                } else {
+                    setExpandedConcept(idx);
+                }
+            };
+
+            return (
+                <div className="animate-fade-in space-y-10">
+                    <div className="text-center mb-10 card-3d p-8 md:p-12 shadow-sm border border-slate-200 rounded-3xl bg-white">
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
+                            <span className="text-5xl figure-3d">🧠</span> Psicoeducación
+                        </h2>
+                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                            Aprende los conceptos fundamentales de la psicología para entender cómo funcionas por dentro. Toca cualquier tarjeta para expandir tu conocimiento.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {PSICO_CONTENT.map((item, idx) => {
+                            const isExpanded = expandedConcept === idx;
+                            return (
+                                <div 
+                                    key={idx} 
+                                    onClick={() => toggleConcept(idx)}
+                                    className={`relative overflow-hidden group transition-all duration-500 cursor-pointer rounded-3xl border-2 shadow-sm hover:shadow-lg
+                                    ${isExpanded ? `bg-${item.color}-50 border-${item.color}-300 ring-4 ring-${item.color}-100 scale-[1.02] z-10` : `bg-white border-slate-200 hover:border-${item.color}-200`}`}
+                                >
+                                    <div className="p-8 relative z-10">
+                                        <div className="flex items-start justify-between mb-4">
+                                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-${item.color}-200 shadow-inner bg-${item.color}-100/50`}>
+                                                <span className="text-3xl figure-3d">{item.emoji}</span>
+                                            </div>
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-500 ${isExpanded ? 'rotate-180 bg-slate-800 text-white' : 'bg-slate-100 text-slate-500'}`}>
+                                                <Icon name={isExpanded ? "chevron-up" : "chevron-down"} className="w-5 h-5" />
+                                            </div>
+                                        </div>
+                                        
+                                        <h3 className={`text-2xl font-black mb-2 ${isExpanded ? `text-${item.color}-900` : 'text-slate-800'}`}>{item.title}</h3>
+                                        <p className="text-base text-slate-600 font-medium leading-relaxed">{item.shortDesc}</p>
+
+                                        {/* Expanded Content */}
+                                        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}`}>
+                                            <div className="space-y-6">
+                                                <p className="text-sm text-slate-700 leading-relaxed border-l-4 border-slate-300 pl-4">
+                                                    {item.desc}
+                                                </p>
+                                                
+                                                <div className="bg-white/60 p-4 rounded-xl border border-slate-200/60 shadow-sm backdrop-blur-sm">
+                                                    <h4 className="text-xs font-black text-slate-800 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                                        <Icon name="alert-triangle" className="w-4 h-4 text-amber-500"/> Rompiendo el Mito
+                                                    </h4>
+                                                    <p className="text-sm text-slate-700 italic">{item.myth}</p>
+                                                </div>
+
+                                                <div className={`bg-${item.color}-100/80 border border-${item.color}-200 p-5 rounded-2xl shadow-inner`}>
+                                                    <h4 className={`text-xs font-black text-${item.color}-800 uppercase tracking-widest mb-2 flex items-center gap-2`}>
+                                                        <Icon name="zap" className="w-4 h-4"/> Práctica de 1 minuto
+                                                    </h4>
+                                                    <p className={`text-sm text-${item.color}-900 font-bold leading-relaxed`}>{item.tip}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Abstract background decorative element */}
+                                    <div className={`absolute -right-10 -bottom-10 w-40 h-40 rounded-full blur-3xl transition-opacity duration-700 pointer-events-none
+                                        ${isExpanded ? `bg-${item.color}-400 opacity-20` : 'opacity-0'}`}></div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <SupportSection />
+                </div>
+            );
+        }
+
         function CasosView() {
             const [activeCase, setActiveCase] = useState(null);
 
             if (activeCase) {
                 return (
                     <div className="animate-fade-in space-y-10">
-                        <div className="bg-[#efeae2] rounded-[32px] border border-slate-300 overflow-hidden shadow-2xl max-w-2xl mx-auto flex flex-col h-[700px]">
-                            <div className="bg-[#075e54] text-white p-5 flex items-center gap-4 shadow-md z-10">
-                                <button onClick={() => setActiveCase(null)} className="hover:bg-white/20 p-2 rounded-full transition"><Icon name="arrow-left" className="w-6 h-6"/></button>
-                                <div className="bg-white/20 p-3 rounded-full"><Icon name={activeCase.icon} className="w-6 h-6" /></div>
-                                <div>
-                                    <h3 className="font-bold text-lg leading-tight">{activeCase.title}</h3>
-                                    <p className="text-xs opacity-90 font-medium">Psicólogo UCN en línea</p>
+                        <div className="bg-[#efeae2] rounded-3xl border border-slate-300 overflow-hidden shadow-2xl max-w-2xl mx-auto flex flex-col h-[750px]">
+                            {/* Header del Chat */}
+                            <div className="bg-[#075e54] text-white p-4 flex items-center gap-4 shadow-md z-10">
+                                <button onClick={() => setActiveCase(null)} className="hover:bg-white/20 p-2 rounded-full transition-colors">
+                                    <Icon name="arrow-left" className="w-6 h-6"/>
+                                </button>
+                                <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center border border-white/30 shadow-inner">
+                                    <span className="text-2xl figure-3d">{activeCase.emoji}</span>
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="font-bold text-lg leading-tight truncate">{activeCase.title}</h3>
+                                    <p className="text-xs text-white/80 font-medium flex items-center gap-1">
+                                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Psicólogo UCN en línea
+                                    </p>
                                 </div>
                             </div>
                             
-                            <div className="flex-1 p-6 overflow-y-auto space-y-6 scroll-smooth bg-[url('https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg')] bg-cover bg-center bg-fixed bg-opacity-50">
+                            {/* Área de Mensajes */}
+                            <div className="flex-1 p-4 md:p-6 overflow-y-auto space-y-6 scroll-smooth bg-[url('https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg')] bg-cover bg-center bg-fixed bg-opacity-50">
+                                <div className="text-center mb-6">
+                                    <span className="text-xs font-bold bg-[#e1e2e3] text-slate-600 px-4 py-2 rounded-lg shadow-sm shadow-black/5">Inicio de la simulación de contención</span>
+                                </div>
+                                
                                 {activeCase.messages.map((msg, idx) => (
-                                    <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-slide-up`} style={{animationDelay: `${idx * 0.1}s`}}>
-                                        <div className={`max-w-[85%] p-4 rounded-2xl text-[15px] shadow-sm relative font-medium ${msg.sender === 'user' ? 'bg-[#dcf8c6] text-slate-800 rounded-br-none' : 'bg-white text-slate-800 rounded-bl-none'}`}>
+                                    <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-slide-up`} style={{animationDelay: `${idx * 0.15}s`, animationFillMode: 'both'}}>
+                                        <div className={`max-w-[85%] md:max-w-[75%] p-4 rounded-2xl text-[15px] shadow-sm relative font-medium leading-relaxed
+                                            ${msg.sender === 'user' ? 'bg-[#dcf8c6] text-slate-800 rounded-tr-sm' : 'bg-white text-slate-800 rounded-tl-sm'}`}>
                                             {msg.sender === 'psico' && <span className="text-xs font-black text-[#075e54] block mb-1">Psicólogo UCN</span>}
                                             {msg.text}
+                                            <span className="text-[10px] text-slate-400 absolute right-3 bottom-1.5">{10 + idx}:{15 + (idx*2)} AM</span>
                                         </div>
                                     </div>
                                 ))}
-                                <div className="text-center mt-8 pb-4">
-                                    <span className="text-xs font-bold bg-[#e1e2e3] text-slate-600 px-4 py-2 rounded-full shadow-sm">Fin de la simulación guiada</span>
+                                
+                                <div className="text-center mt-10 pb-4">
+                                    <span className="text-xs font-bold bg-[#e1e2e3] text-slate-600 px-4 py-2 rounded-lg shadow-sm shadow-black/5">Fin de la sesión</span>
                                 </div>
                             </div>
                         </div>
@@ -675,21 +897,28 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-8">
-                    <div className="text-center mb-10 card-3d p-8">
-                        <h2 className="text-3xl font-black text-slate-800 flex items-center justify-center gap-3"><span className="text-4xl figure-3d">💬</span> Casos Reales (Simulados)</h2>
-                        <p className="text-slate-600 text-lg mt-4 max-w-2xl mx-auto font-medium">Explora cómo se manejan situaciones de crisis comunes. Lee las conversaciones para aprender técnicas de contención que puedes aplicar.</p>
+                <div className="animate-fade-in space-y-10">
+                    <div className="text-center mb-12 bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
+                            <span className="text-5xl figure-3d">💬</span> Casos Reales
+                        </h2>
+                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                            Explora cómo los profesionales manejan situaciones de crisis comunes. Lee estas simulaciones de chat para aprender técnicas de contención paso a paso.
+                        </p>
                     </div>
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {CHAT_CASES.map(c => (
                             <button key={c.id} onClick={() => setActiveCase(c)}
-                                className="bg-white p-6 rounded-[28px] border-2 border-slate-200 btn-3d-base shadow-[0_6px_0_#e2e8f0] hover:shadow-[0_4px_0_#a5b4fc] hover:border-indigo-300 transition-all text-left flex flex-col items-start gap-4 group">
-                                <div className="bg-indigo-50 p-4 rounded-2xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors shadow-inner">
-                                    <Icon name={c.icon} className="w-8 h-8" />
+                                className="bg-white p-6 rounded-3xl border-2 border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-indigo-300 transition-all duration-300 text-left flex flex-col items-start gap-4 group">
+                                <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center shadow-inner group-hover:bg-indigo-50 transition-colors border border-slate-200">
+                                    <span className="text-3xl figure-3d group-hover:scale-110 transition-transform">{c.emoji}</span>
                                 </div>
                                 <div>
                                     <h3 className="font-black text-slate-800 text-lg mb-2 leading-tight group-hover:text-indigo-700 transition-colors">{c.title}</h3>
-                                    <p className="text-sm text-slate-500 flex items-center gap-2 font-bold bg-slate-50 px-3 py-1 rounded-full w-max"><Icon name="eye" className="w-4 h-4"/> Leer chat</p>
+                                    <p className="text-xs text-indigo-600 font-bold flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-full w-max border border-indigo-100">
+                                        <Icon name="eye" className="w-3.5 h-3.5"/> Abrir Simulación
+                                    </p>
                                 </div>
                             </button>
                         ))}
@@ -699,32 +928,278 @@
             );
         }
 
-        function PsicoEduView() {
+        const EI_PILLARS = [
+            { id: 'conciencia', name: 'Autoconciencia', emoji: '🪞', color: 'blue', desc: 'La capacidad de observar tus propias emociones en tiempo real, sin juzgarlas, comprendiendo qué las detona.', power: 'Claridad mental', reto: 'Hoy, ponle nombre exacto a 3 emociones que sientas durante el día.' },
+            { id: 'regulacion', name: 'Autorregulación', emoji: '🎛️', color: 'emerald', desc: 'No puedes evitar sentir, pero sí puedes elegir cómo reaccionar. Es la pausa entre el estímulo y la respuesta.', power: 'Autodominio', reto: 'Antes de responder un mensaje que te molesta, respira profundamente 5 veces.' },
+            { id: 'motivacion', name: 'Motivación', emoji: '🚀', color: 'orange', desc: 'Usar la energía de tus emociones para dirigirte hacia tus metas, manteniendo el optimismo frente a la frustración.', power: 'Resiliencia', reto: 'Encuentra un "para qué" personal a una tarea aburrida que debas hacer hoy.' },
+            { id: 'empatia', name: 'Empatía', emoji: '🤝', color: 'purple', desc: 'Leer el "radar social". Entender las emociones de los demás y validar su experiencia poniéndote en sus zapatos.', power: 'Conexión profunda', reto: 'Escucha hoy a alguien durante 5 minutos sin interrumpir ni dar consejos.' },
+            { id: 'social', name: 'Habilidades Sociales', emoji: '🌉', color: 'rose', desc: 'Comunicarse asertivamente, resolver conflictos con gracia y construir puentes en lugar de muros defensivos.', power: 'Liderazgo positivo', reto: 'Expresa un límite usando "Yo siento..." en lugar de "Tú siempre...".' }
+        ];
+
+        // GIMNASIO EXPANDIDO CON TIPOS DE DISTORSIONES
+        const GYM_THOUGHTS = [
+            { id: 1, type: "Lectura de mente", negative: "Me ignoró al pasar, seguro le caigo pésimo.", positive: "Quizás no me vio, tuvo un mal día o estaba distraído. No todo tiene que ver conmigo.", emoji: "🌩️", emojiPos: "🌤️" },
+            { id: 2, type: "Todo o nada", negative: "¡Arruiné la exposición! Soy un completo fracaso.", positive: "Cometí un error, pero el resto lo manejé bien. De los errores se aprende.", emoji: "📉", emojiPos: "📈" },
+            { id: 3, type: "Catastrofización", negative: "Tengo terror a esta entrevista, me voy a quedar en blanco y arruinaré mi futuro.", positive: "Es normal sentir nervios porque me importa. Un tropiezo no define mi futuro.", emoji: "😰", emojiPos: "🛡️" },
+            { id: 4, type: "Impulsividad", negative: "Me hablaron mal, les voy a responder el doble de mal para que aprendan.", positive: "Están desbordados. Responderé asertivamente y con calma cuando baje la marea.", emoji: "🌋", emojiPos: "🧘" },
+            { id: 5, type: "Perfeccionismo", negative: "Si mi proyecto no saca 5.0, entonces todo mi esfuerzo fue basura.", positive: "'Hecho es mejor que perfecto'. Valoraré mi dedicación y el aprendizaje del proceso.", emoji: "⚖️", emojiPos: "🎨" },
+            { id: 6, type: "Personalización", negative: "Seguro se están riendo de mí porque llegué tarde.", positive: "La gente está más enfocada en sí misma que en mí. No soy el centro de todo.", emoji: "🤡", emojiPos: "🎭" },
+            { id: 7, type: "Adivinación", negative: "Siento que nunca voy a encontrar un buen trabajo, me quedaré estancado.", positive: "La incertidumbre asusta, pero estoy construyendo habilidades un paso a la vez.", emoji: "🌫️", emojiPos: "🌱" },
+            { id: 8, type: "Etiquetado", negative: "No logré terminar todo hoy. Soy un completo irresponsable.", positive: "Hice lo que pude hoy. Mañana priorizaré mejor. Mi valor no depende de mi productividad.", emoji: "🐢", emojiPos: "🦅" }
+        ];
+
+        // NUEVO: ESCENARIOS DE LA MENTE SABIA
+        const WISE_MIND_SCENARIOS = [
+            {
+                id: 1,
+                context: "Te cancelan un plan muy importante a última hora.",
+                emotional: { text: "¡Siempre me hacen lo mismo! Me ofendo muchísimo, los bloqueo y decido no volver a hablarles. Siento rechazo absoluto.", emoji: "🔥" },
+                rational: { text: "Estadísticamente ocurren imprevistos. No importa en absoluto. Procedo a reprogramar mi agenda de inmediato sin sentir nada.", emoji: "🤖" },
+                wise: { text: "Me siento decepcionado y es válido sentir frustración. Sin embargo, entiendo que hay contratiempos. Usaré este tiempo libre para descansar.", emoji: "🦉" }
+            },
+            {
+                id: 2,
+                context: "Recibes una crítica dura sobre un trabajo en el que te esforzaste.",
+                emotional: { text: "¡Soy un fraude! Siento mucha vergüenza. Me pongo a la defensiva y ataco el trabajo de la otra persona para compensar.", emoji: "🧨" },
+                rational: { text: "Analizo los puntos de mejora de la crítica. Desconecto cualquier sentimiento de apego hacia el proyecto y lo modifico.", emoji: "📊" },
+                wise: { text: "Me duele la crítica y acepto la incomodidad. Luego, separo mi valor personal del proyecto y tomo solo el feedback que me ayuda a crecer.", emoji: "💎" }
+            },
+            {
+                id: 3,
+                context: "Cometes un error visible frente a un grupo de personas.",
+                emotional: { text: "¡Trágame tierra! Todos piensan que soy un tonto. Me escondo y evito participar por el resto de la semana.", emoji: "🫣" },
+                rational: { text: "El error se debe a un fallo de cálculo del 12%. Procedo a documentar la falla para no repetirla. Fin del asunto.", emoji: "⚙️" },
+                wise: { text: "Me da un poco de pena, pero sonrío para aligerar la tensión. Reconozco el error abiertamente, lo corrijo con calma y sigo adelante.", emoji: "🌊" }
+            }
+        ];
+
+        function InteligenciaEmocionalView() {
+            const [activePillar, setActivePillar] = useState(null);
+            
+            // Estados para Estación 1
+            const [flippedThoughts, setFlippedThoughts] = useState({});
+            
+            // Estados para Estación 2 (Mente Sabia)
+            const [activeScenario, setActiveScenario] = useState(1);
+            const [revealedNodes, setRevealedNodes] = useState({ emotional: false, rational: false, wise: false });
+
+            const toggleFlip = (id) => {
+                setFlippedThoughts(prev => ({ ...prev, [id]: !prev[id] }));
+            };
+
+            const changeScenario = (id) => {
+                setActiveScenario(id);
+                // Reseteamos las mentes reveladas al cambiar de escenario
+                setRevealedNodes({ emotional: false, rational: false, wise: false });
+            };
+
+            const toggleNode = (node) => {
+                setRevealedNodes(prev => ({ ...prev, [node]: true }));
+            };
+
+            const currentScenario = WISE_MIND_SCENARIOS.find(s => s.id === activeScenario);
+
             return (
-                <div className="animate-fade-in space-y-10">
-                    <div className="text-center mb-10 card-3d p-8">
-                        <h2 className="text-3xl font-black text-slate-800 flex items-center justify-center gap-3"><span className="text-4xl figure-3d">🧠</span> Psicoeducación</h2>
-                        <p className="text-slate-600 text-lg mt-4 max-w-2xl mx-auto font-medium">Conceptos fundamentales de la psicología para entender cómo funcionas por dentro y desarrollar tu inteligencia emocional.</p>
+                <div className="animate-fade-in space-y-12">
+                    <div className="text-center mb-10 card-3d p-8 md:p-12">
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
+                            <span className="text-5xl figure-3d">💡</span> Inteligencia Emocional
+                        </h2>
+                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                            No se trata de suprimir lo que sientes, sino de usar tus emociones a tu favor. Explora los 5 pilares fundamentales y entrena tu gimnasio mental para transformar tu forma de reaccionar.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {PSICO_CONTENT.map((item, idx) => (
-                            <div key={idx} className="card-3d p-8 relative overflow-hidden group hover:border-indigo-300 transition-all">
-                                <div className={`absolute -right-8 -top-8 bg-${item.color}-100 w-40 h-40 rounded-full opacity-40 group-hover:scale-150 transition-transform duration-700`}></div>
-                                <div className="relative z-10">
-                                    <div className={`text-${item.color}-600 bg-${item.color}-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border-2 border-${item.color}-200 shadow-sm`}>
-                                        <Icon name={item.icon} className="w-8 h-8" />
+                    {/* Los 5 Pilares Expandibles */}
+                    <div className="rounded-[32px] p-8 md:p-12 shadow-2xl relative overflow-hidden bg-slate-900 bg-[url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center bg-blend-overlay">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-30 -mr-20 -mt-20 pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500 rounded-full blur-3xl opacity-20 -ml-20 -mb-20 pointer-events-none"></div>
+                        
+                        <div className="text-center mb-10 relative z-10">
+                            <h3 className="text-2xl md:text-3xl font-black text-white flex items-center justify-center gap-3 drop-shadow-md">
+                                <span className="text-4xl figure-3d">🏛️</span> Los 5 Pilares de Goleman
+                            </h3>
+                            <p className="text-slate-300 mt-2 font-medium">Toca cada pilar para descubrir su poder oculto</p>
+                        </div>
+                        
+                        <div className="flex flex-wrap justify-center gap-6 relative z-10">
+                            {EI_PILLARS.map((p) => {
+                                const isActive = activePillar === p.id;
+                                return (
+                                    <button 
+                                        key={p.id} 
+                                        onClick={() => setActivePillar(isActive ? null : p.id)}
+                                        className={`text-left p-6 rounded-[28px] border-2 transition-all duration-300 ease-out btn-3d-base w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col
+                                        ${isActive ? 'bg-white border-white scale-[1.05] shadow-[0_15px_30px_-5px_rgba(0,0,0,0.5)] z-20' : 'bg-slate-800/60 border-slate-500/50 hover:bg-slate-700/80 hover:border-slate-400 backdrop-blur-md shadow-lg'}`}
+                                    >
+                                        <div className="flex items-center gap-4 mb-2">
+                                            <div className={`flex flex-shrink-0 items-center justify-center w-14 h-14 rounded-2xl text-3xl figure-3d transition-colors ${isActive ? `bg-${p.color}-100` : 'bg-slate-900/80'}`}>
+                                                {p.emoji}
+                                            </div>
+                                            <h4 className={`text-lg font-black leading-tight ${isActive ? 'text-slate-800' : 'text-slate-100'}`}>{p.name}</h4>
+                                        </div>
+
+                                        <div className={`overflow-hidden transition-all duration-300 ${isActive ? 'max-h-64 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}`}>
+                                            <p className="text-sm text-slate-600 mb-4 font-medium leading-relaxed">{p.desc}</p>
+                                            <div className={`bg-${p.color}-50 p-4 rounded-xl border border-${p.color}-100 shadow-inner`}>
+                                                <div className={`text-xs font-black text-${p.color}-800 uppercase tracking-widest mb-2 flex items-center gap-2`}>
+                                                    <Icon name="star" className="w-4 h-4"/> Súperpoder: {p.power}
+                                                </div>
+                                                <p className={`text-sm text-${p.color}-900 font-bold leading-snug flex gap-2`}>
+                                                    <span>🎯</span> {p.reto}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        {!isActive && (
+                                            <div className="text-center mt-auto pt-4">
+                                                <span className="text-[10px] uppercase font-black tracking-widest text-slate-300 bg-slate-900/50 px-3 py-1.5 rounded-full border border-slate-500/50">Toca para abrir</span>
+                                            </div>
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* ESTACIÓN 1: Levantamiento de Pensamientos */}
+                    <div className="card-3d p-8 md:p-12">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                            <div>
+                                <h3 className="text-2xl font-black text-slate-800 flex items-center gap-3 mb-2">
+                                    <span className="text-3xl figure-3d">🏋️‍♀️</span> Estación 1: Pensamientos
+                                </h3>
+                                <p className="text-slate-600 font-medium">Toca las tarjetas para hackear la trampa mental y fortalecer tu inteligencia.</p>
+                            </div>
+                            <span className="text-xs font-black uppercase tracking-widest bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full border border-emerald-200 shadow-sm whitespace-nowrap">
+                                8 Ejercicios
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {GYM_THOUGHTS.map((t) => {
+                                const isFlipped = flippedThoughts[t.id];
+                                return (
+                                    <div 
+                                        key={t.id} 
+                                        onClick={() => toggleFlip(t.id)} 
+                                        className={`cursor-pointer min-h-[240px] p-6 rounded-[28px] border-2 transition-all duration-500 ease-in-out btn-3d-base shadow-lg flex flex-col items-center justify-center text-center relative overflow-hidden
+                                        ${isFlipped ? 'bg-emerald-50 border-emerald-300 shadow-emerald-200/50' : 'bg-rose-50 border-rose-200 shadow-rose-200/50'}`}
+                                    >
+                                        {!isFlipped ? (
+                                            <div className="animate-fade-in w-full">
+                                                <span className="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest bg-rose-100 text-rose-600 px-2 py-1 rounded-md shadow-sm border border-rose-200">
+                                                    {t.type}
+                                                </span>
+                                                <span className="text-5xl mb-4 block figure-3d opacity-90 mt-4">{t.emoji}</span>
+                                                <h4 className="font-black text-rose-800 text-xs uppercase tracking-widest mb-2">Automático</h4>
+                                                <p className="text-sm md:text-base font-bold text-rose-900 leading-snug px-2">"{t.negative}"</p>
+                                                <div className="mt-4">
+                                                    <span className="text-[10px] uppercase font-black text-rose-500 bg-white/60 px-3 py-1 rounded-full shadow-sm">Toca para transformar</span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="animate-fade-in w-full">
+                                                <span className="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md shadow-sm border border-emerald-200">
+                                                    Hackeado
+                                                </span>
+                                                <span className="text-5xl mb-4 block figure-3d animate-bounce mt-4">{t.emojiPos}</span>
+                                                <h4 className="font-black text-emerald-800 text-xs uppercase tracking-widest mb-2">Respuesta Inteligente</h4>
+                                                <p className="text-sm font-bold text-emerald-900 leading-snug px-2">"{t.positive}"</p>
+                                            </div>
+                                        )}
                                     </div>
-                                    <h3 className="text-2xl font-black text-slate-800 mb-3">{item.title}</h3>
-                                    <p className="text-base text-slate-600 mb-6 leading-relaxed font-medium h-24">{item.desc}</p>
-                                    <div className={`bg-${item.color}-50 border border-${item.color}-200 p-5 rounded-2xl shadow-inner`}>
-                                        <h4 className={`text-xs font-black text-${item.color}-800 uppercase tracking-widest mb-2 flex items-center gap-2`}><Icon name="zap" className="w-4 h-4"/> Práctica</h4>
-                                        <p className={`text-sm text-${item.color}-900 font-bold leading-relaxed`}>{item.tip}</p>
-                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+
+                    {/* ESTACIÓN 2: La Mente Sabia */}
+                    <div className="card-3d p-8 md:p-12 bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-100">
+                        <div className="mb-10">
+                            <h3 className="text-2xl font-black text-indigo-900 flex items-center gap-3 mb-3">
+                                <span className="text-3xl figure-3d">⚖️</span> Estación 2: La Mente Sabia
+                            </h3>
+                            <p className="text-indigo-800/80 font-medium text-lg">
+                                La <strong>Mente Emocional</strong> siente sin filtro. La <strong>Mente Racional</strong> analiza fríamente. 
+                                La <strong>Mente Sabia</strong> es la integración perfecta de ambas. Selecciona un escenario y descubre las 3 perspectivas.
+                            </p>
+                        </div>
+
+                        {/* Tabs de Escenarios */}
+                        <div className="flex flex-wrap gap-3 mb-8 justify-center">
+                            {WISE_MIND_SCENARIOS.map(s => (
+                                <button 
+                                    key={s.id} 
+                                    onClick={() => changeScenario(s.id)}
+                                    className={`px-6 py-3 rounded-full font-black text-sm border-2 transition-all shadow-sm ${activeScenario === s.id ? 'bg-indigo-600 text-white border-indigo-600 scale-105 shadow-md' : 'bg-white text-indigo-600 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50'}`}>
+                                    Escenario {s.id}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Panel Interactivo */}
+                        <div className="bg-white rounded-[32px] p-6 md:p-10 border-2 border-indigo-100 shadow-xl relative">
+                            <div className="text-center mb-10 bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                                <span className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2 block">Situación</span>
+                                <h4 className="font-black text-indigo-950 text-xl md:text-2xl">"{currentScenario.context}"</h4>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                {/* Mente Emocional */}
+                                <div onClick={() => toggleNode('emotional')} className={`cursor-pointer min-h-[180px] p-6 rounded-[28px] border-2 transition-all duration-500 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.emotional ? 'bg-rose-50 border-rose-300 shadow-md' : 'bg-slate-50 border-slate-200 hover:border-rose-300'}`}>
+                                    {!revealedNodes.emotional ? (
+                                        <div className="animate-fade-in">
+                                            <span className="text-5xl mb-4 block figure-3d">🔥</span>
+                                            <span className="font-black text-slate-500 uppercase text-xs tracking-widest bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Toca para ver Emoción</span>
+                                        </div>
+                                    ) : (
+                                        <div className="animate-fade-in">
+                                            <span className="text-4xl mb-3 block">{currentScenario.emotional.emoji}</span>
+                                            <h5 className="font-black text-rose-800 text-xs uppercase mb-3 tracking-widest">Mente Emocional</h5>
+                                            <p className="text-sm font-bold text-rose-900 leading-relaxed">"{currentScenario.emotional.text}"</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Mente Racional */}
+                                <div onClick={() => toggleNode('rational')} className={`cursor-pointer min-h-[180px] p-6 rounded-[28px] border-2 transition-all duration-500 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.rational ? 'bg-blue-50 border-blue-300 shadow-md' : 'bg-slate-50 border-slate-200 hover:border-blue-300'}`}>
+                                    {!revealedNodes.rational ? (
+                                         <div className="animate-fade-in">
+                                            <span className="text-5xl mb-4 block figure-3d">🤖</span>
+                                            <span className="font-black text-slate-500 uppercase text-xs tracking-widest bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Toca para ver Razón</span>
+                                        </div>
+                                    ) : (
+                                        <div className="animate-fade-in">
+                                            <span className="text-4xl mb-3 block">{currentScenario.rational.emoji}</span>
+                                            <h5 className="font-black text-blue-800 text-xs uppercase mb-3 tracking-widest">Mente Racional</h5>
+                                            <p className="text-sm font-bold text-blue-900 leading-relaxed">"{currentScenario.rational.text}"</p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        ))}
+
+                            {/* Mente Sabia (Aparece completa si ambas están reveladas) */}
+                            <div className="flex justify-center mt-4">
+                                <div onClick={() => toggleNode('wise')} className={`w-full md:w-3/4 cursor-pointer min-h-[200px] p-8 rounded-[32px] border-4 transition-all duration-700 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.wise ? 'bg-purple-100 border-purple-400 shadow-[0_15px_40px_-10px_rgba(168,85,247,0.4)] scale-105 z-10' : 'bg-slate-50 border-slate-200 hover:border-purple-300'}`}>
+                                    {!revealedNodes.wise ? (
+                                        <div className="animate-fade-in">
+                                            <span className="text-6xl mb-4 block figure-3d opacity-70">🦉</span>
+                                            <span className="font-black text-slate-500 uppercase text-xs tracking-widest bg-white px-5 py-2 rounded-full border border-slate-200 shadow-sm">Toca para integrar la Mente Sabia</span>
+                                            {(!revealedNodes.emotional || !revealedNodes.rational) && <p className="text-[10px] text-slate-400 mt-4 font-bold uppercase">(Sugerencia: Descubre primero las otras dos)</p>}
+                                        </div>
+                                    ) : (
+                                        <div className="animate-fade-in">
+                                            <span className="text-6xl mb-4 block figure-3d animate-pulse">{currentScenario.wise.emoji}</span>
+                                            <h5 className="font-black text-purple-800 text-lg uppercase mb-4 tracking-widest">🧠 Mente Sabia</h5>
+                                            <p className="text-lg font-black text-purple-950 leading-relaxed">"{currentScenario.wise.text}"</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <SupportSection />
                 </div>
             );
@@ -753,6 +1228,7 @@
                             <div className="flex justify-start md:justify-center min-w-max p-2 gap-2">
                                 {[
                                     { id: 'chequeador', name: 'Chequeador', icon: 'check-square', emoji: '🎛️' },
+                                    { id: 'inteligencia', name: 'Inteligencia Emocional', icon: 'zap', emoji: '💡' },
                                     { id: 'simulador', name: 'Simulador', icon: 'microscope', emoji: '🔬' },
                                     { id: 'casos', name: 'Casos Reales', icon: 'message-square', emoji: '💬' },
                                     { id: 'educacion', name: 'Psicoeducación', icon: 'book-open', emoji: '🧠' }
@@ -789,6 +1265,7 @@
                             {activeTab === 'simulador' && <SimuladorView />}
                             {activeTab === 'casos' && <CasosView />}
                             {activeTab === 'educacion' && <PsicoEduView />}
+                            {activeTab === 'inteligencia' && <InteligenciaEmocionalView />}
                         </div>
                     </div>
                 </div>
