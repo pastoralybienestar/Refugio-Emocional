@@ -991,6 +991,16 @@
             }
         ];
 
+        // NUEVO: ITEMS DEL CÍRCULO DE CONTROL
+        const CONTROL_ITEMS = [
+            { text: "La reacción de otra persona cuando le digo que 'No'.", isControl: false, explanation: "Solo controlas cómo pones el límite de forma respetuosa, no cómo lo recibe o interpreta el otro." },
+            { text: "A qué hora decido irme a dormir y apagar el celular.", isControl: true, explanation: "Tus hábitos, decisiones y rutinas personales son 100% tu responsabilidad." },
+            { text: "El clima el día de mi sustentación final o evento importante.", isControl: false, explanation: "El clima es incontrolable. Solo puedes controlar tu preparación, llevar sombrilla o salir más temprano." },
+            { text: "Mis palabras y mi tono de voz durante una discusión.", isControl: true, explanation: "Aunque sientas mucho enojo, la forma en que decides expresarlo está en tus manos." },
+            { text: "Las opiniones o juicios que otros tienen sobre mí.", isControl: false, explanation: "La mente de los demás es su propio territorio. No puedes dictar lo que piensan ni convencer a todos." },
+            { text: "A quién decido seguir, bloquear o leer en redes sociales.", isControl: true, explanation: "Tú eres el guardián de tu paz mental. Tú eliges qué información consumes y a quién le das acceso a tu espacio digital." }
+        ];
+
         function InteligenciaEmocionalView() {
             const [activePillar, setActivePillar] = useState(null);
             
@@ -1000,6 +1010,11 @@
             // Estados para Estación 2 (Mente Sabia)
             const [activeScenario, setActiveScenario] = useState(1);
             const [revealedNodes, setRevealedNodes] = useState({ emotional: false, rational: false, wise: false });
+
+            // Estados para Estación 3 (Círculo de Control)
+            const [controlStep, setControlStep] = useState(0);
+            const [controlFeedback, setControlFeedback] = useState(null);
+            const [controlFinished, setControlFinished] = useState(false);
 
             const toggleFlip = (id) => {
                 setFlippedThoughts(prev => ({ ...prev, [id]: !prev[id] }));
@@ -1013,6 +1028,30 @@
 
             const toggleNode = (node) => {
                 setRevealedNodes(prev => ({ ...prev, [node]: true }));
+            };
+
+            const handleControlAnswer = (userSaysInControl) => {
+                const currentItem = CONTROL_ITEMS[controlStep];
+                if (currentItem.isControl === userSaysInControl) {
+                    setControlFeedback({ type: 'success', text: `¡Exacto! ${currentItem.explanation}` });
+                } else {
+                    setControlFeedback({ type: 'error', text: `Piénsalo de nuevo... ${currentItem.explanation}` });
+                }
+                
+                setTimeout(() => {
+                    setControlFeedback(null);
+                    if (controlStep < CONTROL_ITEMS.length - 1) {
+                        setControlStep(controlStep + 1);
+                    } else {
+                        setControlFinished(true);
+                    }
+                }, 4000); // 4 segundos para leer la retroalimentación
+            };
+
+            const resetControl = () => {
+                setControlStep(0);
+                setControlFinished(false);
+                setControlFeedback(null);
             };
 
             const currentScenario = WISE_MIND_SCENARIOS.find(s => s.id === activeScenario);
@@ -1215,6 +1254,64 @@
                                     )}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* ESTACIÓN 3: Círculo de Control */}
+                    <div className="card-3d p-8 md:p-12 mt-12 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100 relative overflow-hidden">
+                        <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
+                        <div className="mb-10 relative z-10">
+                            <h3 className="text-2xl font-black text-emerald-900 flex items-center gap-3 mb-3">
+                                <span className="text-3xl figure-3d">⭕</span> Estación 3: El Círculo de Control
+                            </h3>
+                            <p className="text-emerald-800/80 font-medium text-lg">
+                                Gran parte de nuestra ansiedad se dispara cuando intentamos controlar lo incontrolable. 
+                                Evalúa la siguiente situación y decide: <strong>¿Está en tus manos?</strong>
+                            </p>
+                        </div>
+
+                        <div className="bg-white rounded-[32px] p-6 md:p-10 border-2 border-emerald-100 shadow-xl relative z-10 min-h-[350px] flex flex-col justify-center">
+                            {!controlFinished ? (
+                                <>
+                                    <div className="text-center mb-8">
+                                        <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                                            Situación {controlStep + 1} de {CONTROL_ITEMS.length}
+                                        </span>
+                                    </div>
+
+                                    {controlFeedback ? (
+                                        <div className={`animate-fade-in p-8 rounded-3xl text-center border-2 shadow-sm ${controlFeedback.type === 'success' ? 'bg-emerald-100 border-emerald-400 text-emerald-900' : 'bg-rose-100 border-rose-400 text-rose-900'}`}>
+                                            <span className="text-5xl block mb-4 figure-3d">{controlFeedback.type === 'success' ? '✅' : '🤔'}</span>
+                                            <p className="text-xl font-black leading-relaxed">{controlFeedback.text}</p>
+                                        </div>
+                                    ) : (
+                                        <div className="animate-fade-in flex flex-col items-center">
+                                            <h4 className="font-black text-slate-800 text-2xl md:text-3xl text-center mb-10 leading-tight">
+                                                "{CONTROL_ITEMS[controlStep].text}"
+                                            </h4>
+                                            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                                                <button onClick={() => handleControlAnswer(true)} className="flex-1 max-w-xs py-4 px-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl font-black text-emerald-800 hover:bg-emerald-100 hover:border-emerald-400 hover:-translate-y-1 transition-all shadow-[0_4px_0_#a7f3d0] active:translate-y-1 active:shadow-none">
+                                                    🎯 En mi control
+                                                </button>
+                                                <button onClick={() => handleControlAnswer(false)} className="flex-1 max-w-xs py-4 px-6 bg-slate-50 border-2 border-slate-200 rounded-2xl font-black text-slate-700 hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-1 transition-all shadow-[0_4px_0_#e2e8f0] active:translate-y-1 active:shadow-none">
+                                                    🌬️ Fuera de mi control
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="animate-fade-in text-center">
+                                    <span className="text-6xl mb-4 block figure-3d">🏆</span>
+                                    <h4 className="text-3xl font-black text-emerald-900 mb-4">¡Entrenamiento Completado!</h4>
+                                    <p className="text-lg text-emerald-800 font-medium mb-8 max-w-xl mx-auto">
+                                        Recuerda: Tu paz mental crece exponencialmente cuando sueltas lo que no puedes controlar y te enfocas 100% en lo que sí depende de ti.
+                                    </p>
+                                    <button onClick={resetControl} className="py-4 px-8 bg-emerald-600 text-white font-black rounded-2xl transition-all shadow-[0_6px_0_#059669] hover:shadow-[0_4px_0_#059669] hover:translate-y-1 active:shadow-none active:translate-y-2">
+                                        Volver a entrenar
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
 
