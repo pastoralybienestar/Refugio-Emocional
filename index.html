@@ -59,21 +59,27 @@
 
         /* --- Custom Creative Scrollbar --- */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 14px;
+            height: 14px;
         }
         
         ::-webkit-scrollbar-track {
-            background-color: #f1f5f9;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background-color: #bb4055;
+            background-color: #f1f5f9; /* Color de fondo de la app (slate-100) */
             border-radius: 10px;
         }
         
+        ::-webkit-scrollbar-thumb {
+            /* Degradado sutil con el color solicitado */
+            background: linear-gradient(180deg, #d14b62, #bb4055);
+            border-radius: 10px;
+            /* Borde del mismo color que el track para crear el efecto de "píldora flotante" */
+            border: 3px solid #f1f5f9; 
+            background-clip: padding-box;
+        }
+        
         ::-webkit-scrollbar-thumb:hover {
-            background-color: #903041;
+            background: linear-gradient(180deg, #bb4055, #903041);
+            border: 2px solid #f1f5f9; /* Se expande un poco al pasar el mouse */
         }
 
         /* Soporte para Firefox */
@@ -497,14 +503,14 @@
 
         function SupportSection() {
             return (
-                <section className="mt-8 md:mt-12 bg-white rounded-[24px] md:rounded-[32px] p-6 md:p-12 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] border-b-8 border-indigo-200 text-center relative overflow-hidden animate-fade-in">
+                <section className="mt-12 bg-white rounded-[32px] p-8 md:p-12 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] border-b-8 border-indigo-200 text-center relative overflow-hidden animate-fade-in">
                     <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
                     <div className="max-w-2xl mx-auto">
-                        <div className="flex justify-center mb-4 md:mb-6">
-                            <span className="text-5xl md:text-6xl figure-3d animate-pulse">💖</span>
+                        <div className="flex justify-center mb-6">
+                            <span className="text-6xl figure-3d animate-pulse">💖</span>
                         </div>
-                        <h3 className="text-xl md:text-3xl font-black text-slate-800 mb-3 md:mb-4 tracking-tight">Reconocer tus emociones es un acto valiente.</h3>
-                        <p className="text-slate-600 mb-6 md:mb-8 leading-relaxed text-sm md:text-lg">
+                        <h3 className="text-2xl md:text-3xl font-black text-slate-800 mb-4 tracking-tight">Reconocer tus emociones es un acto valiente.</h3>
+                        <p className="text-slate-600 mb-8 leading-relaxed text-base md:text-lg">
                             Si alguna emoción te desborda o simplemente necesitas procesar lo que estás viviendo, 
                             aquí puedes pedir tu espacio de escucha profesional. No tienes que transitar esto a solas.
                         </p>
@@ -512,11 +518,11 @@
                             href="https://ucn.edu.co/consultame/" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 md:gap-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-3 px-6 md:py-4 md:px-10 rounded-[16px] md:rounded-2xl btn-3d-base shadow-[0_6px_0_#4338ca] hover:shadow-[0_4px_0_#4338ca] text-base md:text-lg"
+                            className="inline-flex items-center gap-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-10 rounded-2xl btn-3d-base shadow-[0_6px_0_#4338ca] hover:shadow-[0_4px_0_#4338ca] text-lg"
                         >
-                            <Icon name="message-circle" className="w-5 h-5 md:w-6 md:h-6" />
+                            <Icon name="message-circle" className="w-6 h-6" />
                             Quiero hablar
-                            <Icon name="external-link" className="w-4 h-4 md:w-5 md:h-5 opacity-70" />
+                            <Icon name="external-link" className="w-5 h-5 opacity-70" />
                         </a>
                     </div>
                 </section>
@@ -525,12 +531,12 @@
 
         function PAESection() {
             return (
-                <section className="card-3d bg-rose-50 border-rose-100 p-6 md:p-10 animate-fade-in mb-8 mt-8 md:mt-12">
-                    <h2 className="text-xl md:text-2xl font-black text-rose-800 mb-4 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3">
-                        <span className="text-4xl md:text-3xl figure-3d">🩹</span> Primeros Auxilios Emocionales (para otros)
+                <section className="card-3d bg-rose-50 border-rose-100 p-8 md:p-10 animate-fade-in mb-8 mt-12">
+                    <h2 className="text-2xl font-black text-rose-800 mb-4 flex items-center gap-3">
+                        <span className="text-3xl figure-3d">🩹</span> Primeros Auxilios Emocionales (para otros)
                     </h2>
-                    <p className="text-rose-700 mb-6 md:mb-8 font-medium text-center sm:text-left text-sm md:text-base">Cómo apoyar a alguien que no se siente bien emocionalmente:</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <p className="text-rose-700 mb-8 font-medium">Cómo apoyar a alguien que no se siente bien emocionalmente:</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             { title: 'Validar', desc: 'Dile: "Es comprensible que te sientas así". No juzgues su emoción.', icon: 'check-circle' },
                             { title: 'Acompañar', desc: 'Hazle saber que estás ahí, incluso en silencio o a la distancia.', icon: 'users' },
@@ -550,15 +556,15 @@
 
         function PAPSection() {
             return (
-                <section className="card-3d bg-indigo-900 border-indigo-800 text-white p-6 md:p-10 animate-fade-in mb-8 md:mb-10 overflow-hidden relative">
-                    <div className="absolute -top-10 -right-10 p-4 opacity-10 hidden sm:block">
+                <section className="card-3d bg-indigo-900 border-indigo-800 text-white p-8 md:p-10 animate-fade-in mb-10 overflow-hidden relative">
+                    <div className="absolute -top-10 -right-10 p-4 opacity-10">
                         <Icon name="life-buoy" className="w-64 h-64" />
                     </div>
                     <div className="relative z-10">
-                        <h2 className="text-xl md:text-2xl font-black mb-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-3">
-                            <span className="text-4xl md:text-3xl figure-3d">🤝</span> Primeros Auxilios Psicológicos (PAP)
+                        <h2 className="text-2xl font-black mb-4 flex items-center gap-3">
+                            <span className="text-3xl figure-3d">🤝</span> Primeros Auxilios Psicológicos (PAP)
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                             <div className="bg-indigo-800/60 p-6 rounded-[24px] border border-indigo-600/50 backdrop-blur-sm">
                                 <h4 className="font-bold text-indigo-300 mb-3 flex items-center gap-3">
                                     <span className="flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full text-white text-sm font-black shadow-inner">1</span> Observar
@@ -639,28 +645,28 @@
 
             if (selectedEmotion) {
                 return (
-                    <div className="animate-fade-in space-y-6 md:space-y-8">
-                        <button onClick={() => setSelectedEmotion(null)} className="mb-2 md:mb-4 text-slate-500 hover:text-indigo-600 flex items-center gap-2 font-bold transition-all px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 text-sm md:text-base">
-                            <Icon name="arrow-left" className="w-4 h-4 md:w-5 md:h-5" /> Volver al selector
+                    <div className="animate-fade-in space-y-8">
+                        <button onClick={() => setSelectedEmotion(null)} className="mb-4 text-slate-500 hover:text-indigo-600 flex items-center gap-2 font-bold transition-all px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200">
+                            <Icon name="arrow-left" className="w-5 h-5" /> Volver al selector
                         </button>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             <div className="lg:col-span-1 space-y-6">
-                                <div className={`p-6 md:p-10 rounded-[28px] md:rounded-[32px] border-2 ${selectedEmotion.color} flex flex-col items-center text-center shadow-lg relative overflow-hidden`}>
-                                    <span className="text-7xl md:text-8xl figure-3d mb-4 md:mb-6">{selectedEmotion.emoji}</span>
-                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight z-10">{selectedEmotion.name}</h2>
-                                    <p className="mt-3 md:mt-4 text-sm md:text-base opacity-95 font-medium leading-relaxed z-10">{selectedEmotion.description}</p>
+                                <div className={`p-10 rounded-[32px] border-2 ${selectedEmotion.color} flex flex-col items-center text-center shadow-lg relative overflow-hidden`}>
+                                    <span className="text-8xl figure-3d mb-6">{selectedEmotion.emoji}</span>
+                                    <h2 className="text-3xl font-black uppercase tracking-tight z-10">{selectedEmotion.name}</h2>
+                                    <p className="mt-4 text-base opacity-95 font-medium leading-relaxed z-10">{selectedEmotion.description}</p>
                                 </div>
-                                <div className="card-3d p-6 md:p-8">
-                                    <h3 className="font-black flex items-center gap-2 text-slate-800 mb-3 md:mb-4 text-base md:text-lg">
+                                <div className="card-3d p-8">
+                                    <h3 className="font-black flex items-center gap-2 text-slate-800 mb-4 text-lg">
                                         <Icon name="eye" className="w-5 h-5 text-indigo-500" /> Ejemplo real
                                     </h3>
                                     <p className="text-sm text-slate-600 italic border-l-4 border-indigo-300 pl-4 py-1 leading-relaxed bg-slate-50/50 rounded-r-xl">
                                         "{selectedEmotion.example}"
                                     </p>
                                 </div>
-                                <div className="card-3d p-6 md:p-8">
-                                    <h3 className="text-base md:text-lg font-black mb-3 md:mb-4 flex items-center gap-2 text-indigo-700">
+                                <div className="card-3d p-8">
+                                    <h3 className="text-lg font-black mb-4 flex items-center gap-2 text-indigo-700">
                                         <Icon name="book-open" className="w-5 h-5" /> Mi reflexión
                                     </h3>
                                     <textarea
@@ -693,14 +699,14 @@
                             </div>
 
                             <div className="lg:col-span-2">
-                                <div className="card-3d p-6 md:p-8 lg:p-12 h-full">
-                                    <h3 className="text-xl md:text-2xl font-black mb-6 md:mb-8 flex items-center gap-3 text-slate-800">
-                                        <Icon name="clock" className="w-6 h-6 md:w-7 md:h-7 text-indigo-500" /> Sugerencias Prácticas
+                                <div className="card-3d p-8 md:p-12 h-full">
+                                    <h3 className="text-2xl font-black mb-8 flex items-center gap-3 text-slate-800">
+                                        <Icon name="clock" className="w-7 h-7 text-indigo-500" /> Sugerencias Prácticas
                                     </h3>
-                                    <div className="space-y-4 md:space-y-5">
+                                    <div className="space-y-5">
                                         {selectedEmotion.activities.map((act, idx) => (
                                             <div key={idx} onClick={() => toggleActivity(idx)} 
-                                                className={`p-4 md:p-6 rounded-[20px] md:rounded-[24px] border-2 cursor-pointer transition-all flex items-start gap-4 md:gap-5 
+                                                className={`p-6 rounded-[24px] border-2 cursor-pointer transition-all flex items-start gap-5 
                                                 ${completedActivities[idx] ? 'bg-emerald-50 border-emerald-300 opacity-70 scale-[0.98]' : 'bg-white border-slate-200 hover:border-indigo-300 btn-3d-base shadow-[0_4px_0_#e2e8f0] hover:shadow-[0_4px_0_#a5b4fc]'}`}>
                                                 <div className={`mt-1 flex-shrink-0 w-8 h-8 rounded-full border-[3px] flex items-center justify-center transition-colors
                                                     ${completedActivities[idx] ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300'}`}>
@@ -727,22 +733,22 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-10 md:space-y-12">
-                    <section className="card-3d p-6 md:p-12">
-                        <h2 className="text-xl md:text-2xl font-black mb-8 md:mb-10 text-center text-slate-800 tracking-wide uppercase">Explora lo que sientes</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                <div className="animate-fade-in space-y-12">
+                    <section className="card-3d p-8 md:p-12">
+                        <h2 className="text-2xl font-black mb-10 text-center text-slate-800 tracking-wide uppercase">Explora lo que sientes</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                             {EMOTIONS.map(emotion => (
                                 <button key={emotion.id} onClick={() => handleSelect(emotion)}
-                                    className={`flex flex-col items-center justify-center p-5 md:p-8 rounded-[24px] md:rounded-[32px] border-2 btn-3d-base ${emotion.color} ${emotion.btn3d}`}>
-                                    <span className="text-5xl md:text-6xl mb-3 md:mb-4 figure-3d">{emotion.emoji}</span>
-                                    <span className="text-[11px] sm:text-xs md:text-base font-black uppercase tracking-widest">{emotion.name}</span>
+                                    className={`flex flex-col items-center justify-center p-8 rounded-[32px] border-2 btn-3d-base ${emotion.color} ${emotion.btn3d}`}>
+                                    <span className="text-6xl mb-4 figure-3d">{emotion.emoji}</span>
+                                    <span className="text-base font-black uppercase tracking-widest">{emotion.name}</span>
                                 </button>
                             ))}
                         </div>
                     </section>
                     
-                    <section className="text-center p-6 md:p-8 bg-indigo-50 rounded-[24px] md:rounded-[32px] border-2 border-indigo-100 shadow-inner">
-                        <h3 className="text-indigo-900 text-base md:text-xl font-medium italic">"Todas las emociones son mensajeras, ninguna es mala por sí misma."</h3>
+                    <section className="text-center p-8 bg-indigo-50 rounded-[32px] border-2 border-indigo-100 shadow-inner">
+                        <h3 className="text-indigo-900 text-xl font-medium italic">"Todas las emociones son mensajeras, ninguna es mala por sí misma."</h3>
                     </section>
 
                     <PAESection />
@@ -784,39 +790,39 @@
 
             if (result) {
                 return (
-                    <div className="animate-fade-in space-y-6 md:space-y-8">
-                        <div className="card-3d p-6 md:p-14 text-center">
-                            <span className="text-5xl md:text-6xl figure-3d mb-4 md:mb-6 block">🔬</span>
-                            <h2 className="text-2xl md:text-3xl font-black text-slate-800 mb-3 md:mb-4">Resultado de tu Escáner</h2>
-                            <p className="text-slate-600 mb-8 md:mb-10 text-base md:text-lg font-medium">Según tus respuestas, es muy probable que estés experimentando:</p>
+                    <div className="animate-fade-in space-y-8">
+                        <div className="card-3d p-8 md:p-14 text-center">
+                            <span className="text-6xl figure-3d mb-6 block">🔬</span>
+                            <h2 className="text-3xl font-black text-slate-800 mb-4">Resultado de tu Escáner</h2>
+                            <p className="text-slate-600 mb-10 text-lg font-medium">Según tus respuestas, es muy probable que estés experimentando:</p>
                             
-                            <div className={`p-8 md:p-12 rounded-[32px] md:rounded-[40px] border-b-8 border-2 ${result.color} inline-block mb-8 md:mb-10 shadow-xl relative overflow-hidden w-full sm:w-auto`}>
-                                <span className="text-7xl md:text-8xl figure-3d block mb-4 md:mb-6">{result.emoji}</span>
-                                <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight z-10 relative">{result.name}</h3>
+                            <div className={`p-12 rounded-[40px] border-b-8 border-2 ${result.color} inline-block mb-10 shadow-xl relative overflow-hidden`}>
+                                <span className="text-8xl figure-3d block mb-6">{result.emoji}</span>
+                                <h3 className="text-4xl font-black uppercase tracking-tight z-10 relative">{result.name}</h3>
                             </div>
 
-                            <div className="space-y-6 md:space-y-8 max-w-3xl mx-auto text-left">
-                                <div className="bg-slate-50 p-6 md:p-8 rounded-[24px] md:rounded-3xl border-2 border-slate-100 shadow-inner">
-                                    <h4 className="font-black text-slate-800 mb-3 flex items-center gap-2 text-lg md:text-xl"><Icon name="info" className="text-indigo-500 w-5 h-5 md:w-6 md:h-6"/> ¿Qué significa esto?</h4>
-                                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">{result.description}</p>
+                            <div className="space-y-8 max-w-3xl mx-auto text-left">
+                                <div className="bg-slate-50 p-8 rounded-3xl border-2 border-slate-100 shadow-inner">
+                                    <h4 className="font-black text-slate-800 mb-3 flex items-center gap-2 text-xl"><Icon name="info" className="text-indigo-500 w-6 h-6"/> ¿Qué significa esto?</h4>
+                                    <p className="text-slate-600 leading-relaxed text-lg">{result.description}</p>
                                 </div>
                                 
-                                <div className="mt-8 md:mt-10">
-                                    <h4 className="font-black text-slate-800 mb-4 md:mb-6 flex items-center gap-2 text-xl md:text-2xl"><Icon name="tool" className="text-emerald-500 w-6 h-6 md:w-8 md:h-8"/> Recomendaciones Prácticas para ti</h4>
-                                    <div className="grid gap-3 md:gap-4">
+                                <div className="mt-10">
+                                    <h4 className="font-black text-slate-800 mb-6 flex items-center gap-2 text-2xl"><Icon name="tool" className="text-emerald-500 w-8 h-8"/> Recomendaciones Prácticas para ti</h4>
+                                    <div className="grid gap-4">
                                         {result.activities.map((act, i) => (
-                                            <div key={i} className="bg-white p-5 md:p-6 rounded-[20px] md:rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 md:gap-4">
-                                                <div className="bg-indigo-100 p-2 rounded-xl text-indigo-600 flex-shrink-0"><Icon name="check-circle" className="w-5 h-5 md:w-6 md:h-6"/></div>
+                                            <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+                                                <div className="bg-indigo-100 p-2 rounded-xl text-indigo-600"><Icon name="check-circle" className="w-6 h-6"/></div>
                                                 <div>
-                                                    <h5 className="font-bold text-base md:text-lg text-slate-800">{act.title}</h5>
-                                                    <p className="text-slate-600 text-sm md:text-base mt-1">{act.desc}</p>
+                                                    <h5 className="font-bold text-lg text-slate-800">{act.title}</h5>
+                                                    <p className="text-slate-600 mt-1">{act.desc}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
-                                <button onClick={reset} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-slate-800 text-white font-black rounded-2xl md:rounded-3xl btn-3d-base shadow-[0_6px_0_#0f172a] hover:shadow-[0_4px_0_#0f172a] text-base md:text-lg">
+                                <button onClick={reset} className="w-full mt-10 py-5 bg-slate-800 text-white font-black rounded-2xl btn-3d-base shadow-[0_6px_0_#0f172a] hover:shadow-[0_4px_0_#0f172a] text-lg">
                                     Realizar otro escáner
                                 </button>
                             </div>
@@ -827,25 +833,25 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-8 md:space-y-10">
-                    <div className="card-3d p-6 md:p-14 max-w-3xl mx-auto">
-                        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 md:mb-10 gap-4">
-                            <h2 className="text-xl md:text-2xl font-black flex items-center gap-2 md:gap-3 text-slate-800"><span className="text-3xl figure-3d">🔬</span> Simulador Emocional</h2>
-                            <span className="text-xs md:text-sm font-black text-indigo-600 bg-indigo-50 px-4 md:px-5 py-2 rounded-full border border-indigo-200 shadow-inner w-full sm:w-auto text-center">
+                <div className="animate-fade-in space-y-10">
+                    <div className="card-3d p-8 md:p-14 max-w-3xl mx-auto">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                            <h2 className="text-2xl font-black flex items-center gap-3 text-slate-800"><span className="text-3xl figure-3d">🔬</span> Simulador Emocional</h2>
+                            <span className="text-sm font-black text-indigo-600 bg-indigo-50 px-5 py-2 rounded-full border border-indigo-200 shadow-inner">
                                 Pregunta {step + 1} de {SIMULATOR_QUESTIONS.length}
                             </span>
                         </div>
                         
-                        <div className="w-full bg-slate-100 h-3 md:h-4 rounded-full mb-8 md:mb-12 overflow-hidden shadow-inner border border-slate-200">
+                        <div className="w-full bg-slate-100 h-4 rounded-full mb-12 overflow-hidden shadow-inner border border-slate-200">
                             <div className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-500 ease-out" style={{width: `${((step)/SIMULATOR_QUESTIONS.length)*100}%`}}></div>
                         </div>
 
-                        <h3 className="text-lg md:text-3xl text-slate-800 font-black mb-6 md:mb-10 leading-relaxed">{SIMULATOR_QUESTIONS[step].q}</h3>
+                        <h3 className="text-2xl md:text-3xl text-slate-800 font-black mb-10 leading-relaxed">{SIMULATOR_QUESTIONS[step].q}</h3>
                         
-                        <div className="space-y-3 md:space-y-4">
+                        <div className="space-y-4">
                             {SIMULATOR_QUESTIONS[step].options.map((opt, i) => (
                                 <button key={i} onClick={() => handleAnswer(opt.effect)}
-                                    className="w-full text-left p-4 md:p-6 rounded-[20px] md:rounded-2xl border-2 border-slate-200 bg-white hover:bg-indigo-50 hover:border-indigo-300 transition-all text-sm md:text-lg text-slate-700 font-medium btn-3d-base shadow-[0_4px_0_#e2e8f0] hover:shadow-[0_4px_0_#a5b4fc]">
+                                    className="w-full text-left p-6 rounded-2xl border-2 border-slate-200 bg-white hover:bg-indigo-50 hover:border-indigo-300 transition-all text-lg text-slate-700 font-medium btn-3d-base shadow-[0_4px_0_#e2e8f0] hover:shadow-[0_4px_0_#a5b4fc]">
                                     {opt.text}
                                 </button>
                             ))}
@@ -868,27 +874,27 @@
             };
 
             return (
-                <div className="animate-fade-in space-y-8 md:space-y-10">
-                    <div className="text-center mb-8 md:mb-10 card-3d p-6 md:p-12 shadow-sm border border-slate-200 rounded-[24px] md:rounded-3xl bg-white">
-                        <h2 className="text-2xl md:text-4xl font-black text-slate-800 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                <div className="animate-fade-in space-y-10">
+                    <div className="text-center mb-10 card-3d p-8 md:p-12 shadow-sm border border-slate-200 rounded-3xl bg-white">
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
                             <span className="text-5xl figure-3d">🧠</span> Psicoeducación
                         </h2>
-                        <p className="text-slate-600 text-sm md:text-lg mt-4 md:mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
                             Aprende los conceptos fundamentales de la psicología para entender cómo funcionas por dentro. Toca cualquier tarjeta para expandir tu conocimiento.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {PSICO_CONTENT.map((item, idx) => {
                             const isExpanded = expandedConcept === idx;
                             return (
                                 <div 
                                     key={idx} 
                                     onClick={() => toggleConcept(idx)}
-                                    className={`relative overflow-hidden group transition-all duration-500 cursor-pointer rounded-[24px] md:rounded-3xl border-2 shadow-sm hover:shadow-lg
+                                    className={`relative overflow-hidden group transition-all duration-500 cursor-pointer rounded-3xl border-2 shadow-sm hover:shadow-lg
                                     ${isExpanded ? `bg-${item.color}-50 border-${item.color}-300 ring-4 ring-${item.color}-100 scale-[1.02] z-10` : `bg-white border-slate-200 hover:border-${item.color}-200`}`}
                                 >
-                                    <div className="p-6 md:p-8 relative z-10">
+                                    <div className="p-8 relative z-10">
                                         <div className="flex items-start justify-between mb-4">
                                             <div className={`w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-${item.color}-200 shadow-inner bg-${item.color}-100/50`}>
                                                 <span className="text-3xl figure-3d">{item.emoji}</span>
@@ -942,10 +948,10 @@
 
             if (activeCase) {
                 return (
-                    <div className="animate-fade-in space-y-8 md:space-y-10">
-                        <div className="bg-[#efeae2] rounded-[24px] md:rounded-3xl border border-slate-300 overflow-hidden shadow-2xl max-w-2xl mx-auto flex flex-col h-[80vh] md:h-[750px] min-h-[500px]">
+                    <div className="animate-fade-in space-y-10">
+                        <div className="bg-[#efeae2] rounded-3xl border border-slate-300 overflow-hidden shadow-2xl max-w-2xl mx-auto flex flex-col h-[750px]">
                             {/* Header del Chat */}
-                            <div className="bg-[#075e54] text-white p-3 md:p-4 flex items-center gap-3 md:gap-4 shadow-md z-10">
+                            <div className="bg-[#075e54] text-white p-4 flex items-center gap-4 shadow-md z-10">
                                 <button onClick={() => setActiveCase(null)} className="hover:bg-white/20 p-2 rounded-full transition-colors">
                                     <Icon name="arrow-left" className="w-6 h-6"/>
                                 </button>
@@ -961,8 +967,8 @@
                             </div>
                             
                             {/* Área de Mensajes */}
-                            <div className="flex-1 p-3 md:p-6 overflow-y-auto space-y-4 md:space-y-6 scroll-smooth bg-[url('https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg')] bg-cover bg-center bg-fixed bg-opacity-50">
-                                <div className="text-center mb-4 md:mb-6">
+                            <div className="flex-1 p-4 md:p-6 overflow-y-auto space-y-6 scroll-smooth bg-[url('https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg')] bg-cover bg-center bg-fixed bg-opacity-50">
+                                <div className="text-center mb-6">
                                     <span className="text-xs font-bold bg-[#e1e2e3] text-slate-600 px-4 py-2 rounded-lg shadow-sm shadow-black/5">Inicio de la simulación de contención</span>
                                 </div>
                                 
@@ -988,12 +994,12 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-8 md:space-y-10">
-                    <div className="text-center mb-8 md:mb-12 bg-white rounded-[24px] md:rounded-3xl shadow-sm border border-slate-200 p-6 md:p-12">
-                        <h2 className="text-2xl md:text-4xl font-black text-slate-800 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                <div className="animate-fade-in space-y-10">
+                    <div className="text-center mb-12 bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
                             <span className="text-5xl figure-3d">💬</span> Casos Reales
                         </h2>
-                        <p className="text-slate-600 text-sm md:text-lg mt-4 md:mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
                             Explora cómo los profesionales manejan situaciones de crisis comunes. Lee estas simulaciones de chat para aprender técnicas de contención paso a paso.
                         </p>
                     </div>
@@ -1130,26 +1136,26 @@
             const currentScenario = WISE_MIND_SCENARIOS.find(s => s.id === activeScenario);
 
             return (
-                <div className="animate-fade-in space-y-8 md:space-y-12">
-                    <div className="text-center mb-8 md:mb-10 card-3d p-6 md:p-12">
-                        <h2 className="text-2xl md:text-4xl font-black text-slate-800 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+                <div className="animate-fade-in space-y-12">
+                    <div className="text-center mb-10 card-3d p-8 md:p-12">
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
                             <span className="text-5xl figure-3d">💡</span> Inteligencia Emocional
                         </h2>
-                        <p className="text-slate-600 text-sm md:text-lg mt-4 md:mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
                             No se trata de suprimir lo que sientes, sino de usar tus emociones a tu favor. Explora los 5 pilares fundamentales y entrena tu gimnasio mental para transformar tu forma de reaccionar.
                         </p>
                     </div>
 
                     {/* Los 5 Pilares Expandibles */}
-                    <div className="rounded-[24px] md:rounded-[32px] p-6 md:p-12 shadow-2xl relative overflow-hidden bg-slate-900 bg-[url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center bg-blend-overlay">
+                    <div className="rounded-[32px] p-8 md:p-12 shadow-2xl relative overflow-hidden bg-slate-900 bg-[url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center bg-blend-overlay">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-30 -mr-20 -mt-20 pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500 rounded-full blur-3xl opacity-20 -ml-20 -mb-20 pointer-events-none"></div>
                         
-                        <div className="text-center mb-8 md:mb-10 relative z-10">
-                            <h3 className="text-xl md:text-3xl font-black text-white flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-3 drop-shadow-md">
+                        <div className="text-center mb-10 relative z-10">
+                            <h3 className="text-2xl md:text-3xl font-black text-white flex items-center justify-center gap-3 drop-shadow-md">
                                 <span className="text-4xl figure-3d">🏛️</span> Los 5 Pilares de Goleman
                             </h3>
-                            <p className="text-slate-300 mt-2 font-medium text-sm md:text-base">Toca cada pilar para descubrir su poder oculto</p>
+                            <p className="text-slate-300 mt-2 font-medium">Toca cada pilar para descubrir su poder oculto</p>
                         </div>
                         
                         <div className="flex flex-wrap justify-center gap-6 relative z-10">
@@ -1193,13 +1199,13 @@
                     </div>
 
                     {/* ESTACIÓN 1: Levantamiento de Pensamientos */}
-                    <div className="card-3d p-6 md:p-12">
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-10 gap-4">
+                    <div className="card-3d p-8 md:p-12">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
                             <div>
-                                <h3 className="text-xl md:text-2xl font-black text-slate-800 flex items-center gap-2 md:gap-3 mb-2">
+                                <h3 className="text-2xl font-black text-slate-800 flex items-center gap-3 mb-2">
                                     <span className="text-3xl figure-3d">🏋️‍♀️</span> Estación 1: Pensamientos
                                 </h3>
-                                <p className="text-slate-600 font-medium text-sm md:text-base">Toca las tarjetas para hackear la trampa mental y fortalecer tu inteligencia.</p>
+                                <p className="text-slate-600 font-medium">Toca las tarjetas para hackear la trampa mental y fortalecer tu inteligencia.</p>
                             </div>
                             <span className="text-xs font-black uppercase tracking-widest bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full border border-emerald-200 shadow-sm whitespace-nowrap">
                                 8 Ejercicios
@@ -1245,34 +1251,34 @@
                     </div>
 
                     {/* ESTACIÓN 2: La Mente Sabia */}
-                    <div className="card-3d p-6 md:p-12 bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-100">
-                        <div className="mb-8 md:mb-10">
-                            <h3 className="text-xl md:text-2xl font-black text-indigo-900 flex items-center gap-2 md:gap-3 mb-3">
+                    <div className="card-3d p-8 md:p-12 bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-100">
+                        <div className="mb-10">
+                            <h3 className="text-2xl font-black text-indigo-900 flex items-center gap-3 mb-3">
                                 <span className="text-3xl figure-3d">⚖️</span> Estación 2: La Mente Sabia
                             </h3>
-                            <p className="text-indigo-800/80 font-medium text-sm md:text-lg">
+                            <p className="text-indigo-800/80 font-medium text-lg">
                                 La <strong>Mente Emocional</strong> siente sin filtro. La <strong>Mente Racional</strong> analiza fríamente. 
                                 La <strong>Mente Sabia</strong> es la integración perfecta de ambas. Selecciona un escenario y descubre las 3 perspectivas.
                             </p>
                         </div>
 
                         {/* Tabs de Escenarios */}
-                        <div className="flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-8 justify-center">
+                        <div className="flex flex-wrap gap-3 mb-8 justify-center">
                             {WISE_MIND_SCENARIOS.map(s => (
                                 <button 
                                     key={s.id} 
                                     onClick={() => changeScenario(s.id)}
-                                    className={`px-4 md:px-6 py-2 md:py-3 rounded-full font-black text-xs md:text-sm border-2 transition-all shadow-sm ${activeScenario === s.id ? 'bg-indigo-600 text-white border-indigo-600 scale-105 shadow-md' : 'bg-white text-indigo-600 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50'}`}>
+                                    className={`px-6 py-3 rounded-full font-black text-sm border-2 transition-all shadow-sm ${activeScenario === s.id ? 'bg-indigo-600 text-white border-indigo-600 scale-105 shadow-md' : 'bg-white text-indigo-600 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50'}`}>
                                     Escenario {s.id}
                                 </button>
                             ))}
                         </div>
 
                         {/* Panel Interactivo */}
-                        <div className="bg-white rounded-[24px] md:rounded-[32px] p-5 md:p-10 border-2 border-indigo-100 shadow-xl relative">
-                            <div className="text-center mb-8 md:mb-10 bg-indigo-50 p-4 md:p-6 rounded-2xl border border-indigo-100">
-                                <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-indigo-500 mb-2 block">Situación</span>
-                                <h4 className="font-black text-indigo-950 text-lg md:text-2xl leading-snug">"{currentScenario.context}"</h4>
+                        <div className="bg-white rounded-[32px] p-6 md:p-10 border-2 border-indigo-100 shadow-xl relative">
+                            <div className="text-center mb-10 bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                                <span className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2 block">Situación</span>
+                                <h4 className="font-black text-indigo-950 text-xl md:text-2xl">"{currentScenario.context}"</h4>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -1331,42 +1337,42 @@
                     </div>
 
                     {/* ESTACIÓN 3: Círculo de Control */}
-                    <div className="card-3d p-6 md:p-12 mt-8 md:mt-12 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100 relative overflow-hidden">
-                        <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-20 pointer-events-none hidden sm:block"></div>
-                        <div className="mb-8 md:mb-10 relative z-10">
-                            <h3 className="text-xl md:text-2xl font-black text-emerald-900 flex items-center gap-2 md:gap-3 mb-3">
+                    <div className="card-3d p-8 md:p-12 mt-12 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100 relative overflow-hidden">
+                        <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
+                        <div className="mb-10 relative z-10">
+                            <h3 className="text-2xl font-black text-emerald-900 flex items-center gap-3 mb-3">
                                 <span className="text-3xl figure-3d">⭕</span> Estación 3: El Círculo de Control
                             </h3>
-                            <p className="text-emerald-800/80 font-medium text-sm md:text-lg">
+                            <p className="text-emerald-800/80 font-medium text-lg">
                                 Gran parte de nuestra ansiedad se dispara cuando intentamos controlar lo incontrolable. 
                                 Evalúa la siguiente situación y decide: <strong>¿Está en tus manos?</strong>
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-[24px] md:rounded-[32px] p-5 md:p-10 border-2 border-emerald-100 shadow-xl relative z-10 min-h-[350px] flex flex-col justify-center">
+                        <div className="bg-white rounded-[32px] p-6 md:p-10 border-2 border-emerald-100 shadow-xl relative z-10 min-h-[350px] flex flex-col justify-center">
                             {!controlFinished ? (
                                 <>
-                                    <div className="text-center mb-6 md:mb-8">
-                                        <span className="text-xs md:text-sm font-black text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                                    <div className="text-center mb-8">
+                                        <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
                                             Situación {controlStep + 1} de {CONTROL_ITEMS.length}
                                         </span>
                                     </div>
 
                                     {controlFeedback ? (
-                                        <div className={`animate-fade-in p-6 md:p-8 rounded-[20px] md:rounded-3xl text-center border-2 shadow-sm ${controlFeedback.type === 'success' ? 'bg-emerald-100 border-emerald-400 text-emerald-900' : 'bg-rose-100 border-rose-400 text-rose-900'}`}>
-                                            <span className="text-4xl md:text-5xl block mb-3 md:mb-4 figure-3d">{controlFeedback.type === 'success' ? '✅' : '🤔'}</span>
-                                            <p className="text-lg md:text-xl font-black leading-relaxed">{controlFeedback.text}</p>
+                                        <div className={`animate-fade-in p-8 rounded-3xl text-center border-2 shadow-sm ${controlFeedback.type === 'success' ? 'bg-emerald-100 border-emerald-400 text-emerald-900' : 'bg-rose-100 border-rose-400 text-rose-900'}`}>
+                                            <span className="text-5xl block mb-4 figure-3d">{controlFeedback.type === 'success' ? '✅' : '🤔'}</span>
+                                            <p className="text-xl font-black leading-relaxed">{controlFeedback.text}</p>
                                         </div>
                                     ) : (
                                         <div className="animate-fade-in flex flex-col items-center">
-                                            <h4 className="font-black text-slate-800 text-xl sm:text-2xl md:text-3xl text-center mb-8 md:mb-10 leading-tight">
+                                            <h4 className="font-black text-slate-800 text-2xl md:text-3xl text-center mb-10 leading-tight">
                                                 "{CONTROL_ITEMS[controlStep].text}"
                                             </h4>
-                                            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full justify-center">
-                                                <button onClick={() => handleControlAnswer(true)} className="flex-1 max-w-full sm:max-w-xs py-3 md:py-4 px-4 md:px-6 bg-emerald-50 border-2 border-emerald-200 rounded-[16px] md:rounded-2xl font-black text-emerald-800 hover:bg-emerald-100 hover:border-emerald-400 hover:-translate-y-1 transition-all shadow-[0_4px_0_#a7f3d0] active:translate-y-1 active:shadow-none text-sm md:text-base">
+                                            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                                                <button onClick={() => handleControlAnswer(true)} className="flex-1 max-w-xs py-4 px-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl font-black text-emerald-800 hover:bg-emerald-100 hover:border-emerald-400 hover:-translate-y-1 transition-all shadow-[0_4px_0_#a7f3d0] active:translate-y-1 active:shadow-none">
                                                     🎯 En mi control
                                                 </button>
-                                                <button onClick={() => handleControlAnswer(false)} className="flex-1 max-w-full sm:max-w-xs py-3 md:py-4 px-4 md:px-6 bg-slate-50 border-2 border-slate-200 rounded-[16px] md:rounded-2xl font-black text-slate-700 hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-1 transition-all shadow-[0_4px_0_#e2e8f0] active:translate-y-1 active:shadow-none text-sm md:text-base">
+                                                <button onClick={() => handleControlAnswer(false)} className="flex-1 max-w-xs py-4 px-6 bg-slate-50 border-2 border-slate-200 rounded-2xl font-black text-slate-700 hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-1 transition-all shadow-[0_4px_0_#e2e8f0] active:translate-y-1 active:shadow-none">
                                                     🌬️ Fuera de mi control
                                                 </button>
                                             </div>
@@ -1403,16 +1409,16 @@
                         <div className="flex justify-between items-center px-4 py-3 max-w-6xl mx-auto">
                             <div className="flex items-center gap-2">
                                 <span className="text-xl figure-3d">✨</span>
-                                <span className="font-black text-slate-800 tracking-tight text-sm md:text-lg">Refugio Emocional</span>
+                                <span className="font-black text-slate-800 hidden sm:block tracking-tight text-lg">Refugio Emocional</span>
                             </div>
                             <div className="flex justify-center md:justify-end">
-                                <span className="text-[9px] md:text-xs font-black text-indigo-700 uppercase tracking-widest bg-indigo-50 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-indigo-200 shadow-inner">
-                                    Pastoral UCN
+                                <span className="text-[10px] md:text-xs font-black text-indigo-700 uppercase tracking-widest bg-indigo-50 px-4 py-2 rounded-full border border-indigo-200 shadow-inner">
+                                    Pastoral y bienestar UCN
                                 </span>
                             </div>
                         </div>
                         {/* Tabs Navbar */}
-                        <div className="max-w-6xl mx-auto px-2 md:px-4 overflow-x-auto no-scrollbar border-t border-slate-100 bg-slate-50/50 backdrop-blur-md">
+                        <div className="max-w-6xl mx-auto px-4 overflow-x-auto no-scrollbar border-t border-slate-100 bg-slate-50/50 backdrop-blur-md">
                             <div className="flex justify-start md:justify-center min-w-max p-2 gap-2">
                                 {[
                                     { id: 'chequeador', name: 'Chequeador', icon: 'check-square', emoji: '🎛️' },
@@ -1422,9 +1428,9 @@
                                     { id: 'educacion', name: 'Psicoeducación', icon: 'book-open', emoji: '🧠' }
                                 ].map(tab => (
                                     <button key={tab.id} onClick={() => {setActiveTab(tab.id); window.scrollTo(0,0);}}
-                                        className={`flex items-center gap-1.5 md:gap-2 px-4 md:px-5 py-2 md:py-3 rounded-full text-xs md:text-sm font-black transition-all whitespace-nowrap btn-3d-base
+                                        className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-black transition-all whitespace-nowrap btn-3d-base
                                         ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-[0_4px_0_#4338ca]' : 'bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-100 shadow-[0_4px_0_#e2e8f0]'}`}>
-                                        <span className="text-base md:text-lg">{tab.emoji}</span> {tab.name}
+                                        <span>{tab.emoji}</span> {tab.name}
                                     </button>
                                 ))}
                             </div>
@@ -1432,17 +1438,17 @@
                     </div>
 
                     {/* Main Content Area */}
-                    <div className="flex-1 p-3 md:p-8 pt-6 md:pt-8">
+                    <div className="flex-1 p-4 md:p-8 pt-8">
                         <div className="max-w-5xl mx-auto">
                             {/* Dynamic View Rendering */}
                             {activeTab === 'chequeador' && (
                                 <div>
-                                    <header className="mb-8 md:mb-12 text-center animate-fade-in pt-2 md:pt-4">
-                                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-4 md:mb-6 tracking-tight drop-shadow-sm px-2">
+                                    <header className="mb-12 text-center animate-fade-in pt-4">
+                                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight drop-shadow-sm">
                                             Refugio Emocional
                                         </h1>
-                                        <div className="max-w-2xl mx-auto px-4">
-                                            <p className="text-slate-600 text-sm sm:text-base md:text-xl font-medium leading-relaxed">
+                                        <div className="max-w-2xl mx-auto">
+                                            <p className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
                                                 Tu espacio seguro para identificar, comprender y transformar tus emociones con <span className="text-indigo-600 font-bold border-b-2 border-indigo-200">consciencia y cuidado integral.</span>
                                             </p>
                                         </div>
