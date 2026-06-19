@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecosistema Psicoemocional UCN</title>
-    <!-- Tailwind CSS -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            safelist: [
+                { pattern: /bg-(indigo|teal|rose|amber|blue|emerald|purple|red|orange|yellow)-(50|100|200|300|400|500|600|700|800|900)/ },
+                { pattern: /border-(indigo|teal|rose|amber|blue|emerald|purple|red|orange|yellow)-(50|100|200|300|400|500|600|700|800|900)/ },
+                { pattern: /text-(indigo|teal|rose|amber|blue|emerald|purple|red|orange|yellow)-(50|100|200|300|400|500|600|700|800|900)/ },
+                { pattern: /ring-(indigo|teal|rose|amber|blue|emerald|purple|red|orange|yellow)-(50|100|200|300|400|500|600|700|800|900)/ }
+            ]
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.3/babel.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; margin: 0; padding: 0; }
         
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
         .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
@@ -48,83 +57,79 @@
             border-radius: 28px;
         }
 
-        .btn-3d-base {
-            transition: all 0.1s;
-        }
+        .btn-3d-base { transition: all 0.1s; }
         .btn-3d-base:active {
             transform: translateY(4px);
             border-bottom-width: 0px;
             margin-top: 4px;
         }
 
-        /* --- Custom Creative Scrollbar --- */
-        ::-webkit-scrollbar {
-            width: 14px;
-            height: 14px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background-color: #f1f5f9; /* Color de fondo de la app (slate-100) */
-            border-radius: 10px;
-        }
-        
+        /* Custom Creative Scrollbar */
+        ::-webkit-scrollbar { width: 14px; height: 14px; }
+        ::-webkit-scrollbar-track { background-color: #f1f5f9; border-radius: 10px; }
         ::-webkit-scrollbar-thumb {
-            /* Degradado sutil con el color solicitado */
             background: linear-gradient(180deg, #d14b62, #bb4055);
             border-radius: 10px;
-            /* Borde del mismo color que el track para crear el efecto de "píldora flotante" */
             border: 3px solid #f1f5f9; 
             background-clip: padding-box;
         }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #bb4055, #903041);
-            border: 2px solid #f1f5f9; /* Se expande un poco al pasar el mouse */
-        }
-
-        /* Soporte para Firefox */
-        html {
-            scrollbar-width: thin;
-            scrollbar-color: #bb4055 #f1f5f9;
-        }
-
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #bb4055, #903041); border: 2px solid #f1f5f9; }
+        html { scrollbar-width: thin; scrollbar-color: #bb4055 #f1f5f9; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-slate-800">
-    <div id="root"></div>
+    <div id="root">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; font-family: 'Inter', sans-serif; color: #475569; background-color: #f1f5f9;">
+            <div style="width: 60px; height: 60px; border: 6px solid #e2e8f0; border-top: 6px solid #4f46e5; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 24px auto;"></div>
+            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; color: #1e293b;">Cargando Refugio Emocional...</h2>
+            <p style="font-size: 1rem; font-weight: 500; opacity: 0.8;">Construyendo un espacio seguro para ti.</p>
+            <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+        </div>
+    </div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-       const Icon = ({ name, className = "w-6 h-6" }) => {
-    const iconRef = useRef(null);
+        // Componente Icono Blindado contra Errores
+        const Icon = ({ name, className = "w-6 h-6" }) => {
+            const iconRef = useRef(null);
 
-    useEffect(() => {
-        if (iconRef.current && window.lucide) {
-            // 1. Limpiamos el contenedor para evitar duplicados al re-renderizar
-            iconRef.current.innerHTML = '';
-            
-            // 2. Creamos el elemento temporal que Lucide va a reemplazar
-            const i = document.createElement('i');
-            i.setAttribute('data-lucide', name);
-            i.className = className;
-            iconRef.current.appendChild(i);
-            
-            // 3. Inicializamos los iconos SOLO dentro de este contenedor específico
-            window.lucide.createIcons({ root: iconRef.current });
-        }
-    }, [name, className]);
+            useEffect(() => {
+                if (iconRef.current && window.lucide) {
+                    try {
+                        iconRef.current.innerHTML = '';
+                        const tempIcon = document.createElement('i');
+                        
+                        // Diccionario de compatibilidad para evitar bloqueos
+                        const map = {
+                            'check-circle': 'circle-check',
+                            'help-circle': 'circle-help',
+                            'alert-triangle': 'triangle-alert',
+                            'check-square': 'square-check',
+                            'life-buoy': 'lifebuoy',
+                            'tool': 'wrench',
+                            'heart-off': 'heart-crack'
+                        };
+                        const finalName = map[name] || name;
+                        
+                        tempIcon.setAttribute('data-lucide', finalName);
+                        iconRef.current.appendChild(tempIcon);
+                        
+                        window.lucide.createIcons({ root: iconRef.current });
+                    } catch (error) {
+                        console.warn(`Aviso: No se pudo renderizar el icono "${name}". La app continuará funcionando de forma segura.`);
+                    }
+                }
+            }, [name, className]);
 
-    // React solo rastreará este span, evitando el conflicto del DOM
-    return <span ref={iconRef} className={`inline-flex items-center justify-center ${className}`}></span>;
-};
+            return <span ref={iconRef} className={`inline-flex items-center justify-center ${className}`}></span>;
+        };
+
         const EMOTIONS = [
             {
-                id: 'sadness',
-                name: 'Tristeza',
-                emoji: '🌧️',
+                id: 'sadness', name: 'Tristeza', emoji: '🌧️',
                 color: 'bg-blue-50 text-blue-600 border-blue-200',
                 btn3d: 'hover:border-blue-400 hover:shadow-[0_4px_0_#93c5fd] shadow-[0_4px_0_#bfdbfe]',
                 description: 'Es natural sentirse así. La tristeza nos ayuda a procesar pérdidas, soltar el pasado y pedir apoyo.',
@@ -138,9 +143,7 @@
                 ]
             },
             {
-                id: 'anger',
-                name: 'Enojo',
-                emoji: '🌋',
+                id: 'anger', name: 'Enojo', emoji: '🌋',
                 color: 'bg-red-50 text-red-600 border-red-200',
                 btn3d: 'hover:border-red-400 hover:shadow-[0_4px_0_#f87171] shadow-[0_4px_0_#fecaca]',
                 description: 'El enojo es una alarma. Te avisa que un límite ha sido cruzado o que algo te parece profundamente injusto.',
@@ -154,9 +157,7 @@
                 ]
             },
             {
-                id: 'anxiety',
-                name: 'Ansiedad',
-                emoji: '🌪️',
+                id: 'anxiety', name: 'Ansiedad', emoji: '🌪️',
                 color: 'bg-orange-50 text-orange-600 border-orange-200',
                 btn3d: 'hover:border-orange-400 hover:shadow-[0_4px_0_#fb923c] shadow-[0_4px_0_#fed7aa]',
                 description: 'Tu cuerpo está en alerta máxima por algo que "podría" pasar. Vamos a traer a tu cerebro de vuelta al presente.',
@@ -170,9 +171,7 @@
                 ]
             },
             {
-                id: 'fear',
-                name: 'Miedo',
-                emoji: '🛡️',
+                id: 'fear', name: 'Miedo', emoji: '🛡️',
                 color: 'bg-purple-50 text-purple-600 border-purple-200',
                 btn3d: 'hover:border-purple-400 hover:shadow-[0_4px_0_#c084fc] shadow-[0_4px_0_#e9d5ff]',
                 description: 'El miedo es tu guardián, intenta protegerte del peligro, pero a veces su alarma es demasiado fuerte y te paraliza.',
@@ -186,9 +185,7 @@
                 ]
             },
             {
-                id: 'stress',
-                name: 'Estrés',
-                emoji: '🔥',
+                id: 'stress', name: 'Estrés', emoji: '🔥',
                 color: 'bg-amber-50 text-amber-700 border-amber-200',
                 btn3d: 'hover:border-amber-400 hover:shadow-[0_4px_0_#fbbf24] shadow-[0_4px_0_#fde68a]',
                 description: 'La balanza se rompió: sientes que tienes demasiadas demandas y muy pocos recursos para enfrentarlas.',
@@ -202,9 +199,7 @@
                 ]
             },
             {
-                id: 'disgust',
-                name: 'Desagrado',
-                emoji: '🛑',
+                id: 'disgust', name: 'Desagrado', emoji: '🛑',
                 color: 'bg-lime-50 text-lime-700 border-lime-200',
                 btn3d: 'hover:border-lime-400 hover:shadow-[0_4px_0_#a3e635] shadow-[0_4px_0_#d9f99d]',
                 description: 'Una respuesta de protección instintiva. Te avisa sobre lo que es tóxico, abusivo o va en contra de tus valores fundamentales.',
@@ -218,9 +213,7 @@
                 ]
             },
             {
-                id: 'love',
-                name: 'Amor',
-                emoji: '💖',
+                id: 'love', name: 'Amor', emoji: '💖',
                 color: 'bg-rose-50 text-rose-600 border-rose-200',
                 btn3d: 'hover:border-rose-400 hover:shadow-[0_4px_0_#fb7185] shadow-[0_4px_0_#fecdd3]',
                 description: 'La emoción de la conexión profunda. No solo hacia otros, sino hacia ti mismo. Expande tu energía y fortalece vínculos.',
@@ -234,9 +227,7 @@
                 ]
             },
             {
-                id: 'joy',
-                name: 'Alegría',
-                emoji: '✨',
+                id: 'joy', name: 'Alegría', emoji: '✨',
                 color: 'bg-yellow-50 text-yellow-600 border-yellow-200',
                 btn3d: 'hover:border-yellow-400 hover:shadow-[0_4px_0_#facc15] shadow-[0_4px_0_#fef08a]',
                 description: 'La señal de que tus necesidades están cubiertas. Disfrutarla fortalece tu "batería de resiliencia" para momentos difíciles.',
@@ -250,9 +241,7 @@
                 ]
             },
             {
-                id: 'calm',
-                name: 'Calma',
-                emoji: '🍃',
+                id: 'calm', name: 'Calma', emoji: '🍃',
                 color: 'bg-emerald-50 text-emerald-600 border-emerald-200',
                 btn3d: 'hover:border-emerald-400 hover:shadow-[0_4px_0_#34d399] shadow-[0_4px_0_#a7f3d0]',
                 description: 'El estado base del bienestar. Un equilibrio donde el cuerpo no gasta energía extra y la mente tiene claridad.',
@@ -1044,11 +1033,10 @@
             { id: 'conciencia', name: 'Autoconciencia', emoji: '🪞', color: 'blue', desc: 'La capacidad de observar tus propias emociones en tiempo real, sin juzgarlas, comprendiendo qué las detona.', power: 'Claridad mental', reto: 'Hoy, ponle nombre exacto a 3 emociones que sientas durante el día.' },
             { id: 'regulacion', name: 'Autorregulación', emoji: '🎛️', color: 'emerald', desc: 'No puedes evitar sentir, pero sí puedes elegir cómo reaccionar. Es la pausa entre el estímulo y la respuesta.', power: 'Autodominio', reto: 'Antes de responder un mensaje que te molesta, respira profundamente 5 veces.' },
             { id: 'motivacion', name: 'Motivación', emoji: '🚀', color: 'orange', desc: 'Usar la energía de tus emociones para dirigirte hacia tus metas, manteniendo el optimismo frente a la frustración.', power: 'Resiliencia', reto: 'Encuentra un "para qué" personal a una tarea aburrida que debas hacer hoy.' },
-            { id: 'empatia', name: 'Empatía', emoji: '🤝', color: 'purple', desc: 'Leer el "radar social". Entender las emociones de los demás y validar su experiencia poniéndote en sus zapatos.', power: 'Conexión profunda', reto: 'Escucha hoy a alguien durante 5 minutos sin interrumpir ni dar consejos.' },
+            { id: 'empatia', name: 'Empatía', emoji: '🤝', color: 'purple', desc: 'Leer el "radar social". Entender las emociones de los demás y validar su experiencia poniéndote en zapatos ajenos.', power: 'Conexión profunda', reto: 'Escucha hoy a alguien durante 5 minutos sin interrumpir ni dar consejos.' },
             { id: 'social', name: 'Habilidades Sociales', emoji: '🌉', color: 'rose', desc: 'Comunicarse asertivamente, resolver conflictos con gracia y construir puentes en lugar de muros defensivos.', power: 'Liderazgo positivo', reto: 'Expresa un límite usando "Yo siento..." en lugar de "Tú siempre...".' }
         ];
 
-        // GIMNASIO EXPANDIDO CON TIPOS DE DISTORSIONES
         const GYM_THOUGHTS = [
             { id: 1, type: "Lectura de mente", negative: "Me ignoró al pasar, seguro le caigo pésimo.", positive: "Quizás no me vio, tuvo un mal día o estaba distraído. No todo tiene que ver conmigo.", emoji: "🌩️", emojiPos: "🌤️" },
             { id: 2, type: "Todo o nada", negative: "¡Arruiné la exposición! Soy un completo fracaso.", positive: "Cometí un error, pero el resto lo manejé bien. De los errores se aprende.", emoji: "📉", emojiPos: "📈" },
@@ -1060,7 +1048,6 @@
             { id: 8, type: "Etiquetado", negative: "No logré terminar todo hoy. Soy un completo irresponsable.", positive: "Hice lo que pude hoy. Mañana priorizaré mejor. Mi valor no depende de mi productividad.", emoji: "🐢", emojiPos: "🦅" }
         ];
 
-        // NUEVO: ESCENARIOS DE LA MENTE SABIA
         const WISE_MIND_SCENARIOS = [
             {
                 id: 1,
@@ -1085,7 +1072,6 @@
             }
         ];
 
-        // NUEVO: ITEMS DEL CÍRCULO DE CONTROL
         const CONTROL_ITEMS = [
             { text: "La reacción de otra persona cuando le digo que 'No'.", isControl: false, explanation: "Solo controlas cómo pones el límite de forma respetuosa, no cómo lo recibe o interpreta el otro." },
             { text: "A qué hora decido irme a dormir y apagar el celular.", isControl: true, explanation: "Tus hábitos, decisiones y rutinas personales son 100% tu responsabilidad." },
@@ -1097,32 +1083,21 @@
 
         function InteligenciaEmocionalView() {
             const [activePillar, setActivePillar] = useState(null);
-            
-            // Estados para Estación 1
             const [flippedThoughts, setFlippedThoughts] = useState({});
-            
-            // Estados para Estación 2 (Mente Sabia)
             const [activeScenario, setActiveScenario] = useState(1);
             const [revealedNodes, setRevealedNodes] = useState({ emotional: false, rational: false, wise: false });
-
-            // Estados para Estación 3 (Círculo de Control)
             const [controlStep, setControlStep] = useState(0);
             const [controlFeedback, setControlFeedback] = useState(null);
             const [controlFinished, setControlFinished] = useState(false);
 
-            const toggleFlip = (id) => {
-                setFlippedThoughts(prev => ({ ...prev, [id]: !prev[id] }));
-            };
+            const toggleFlip = (id) => { setFlippedThoughts(prev => ({ ...prev, [id]: !prev[id] })); };
 
             const changeScenario = (id) => {
                 setActiveScenario(id);
-                // Reseteamos las mentes reveladas al cambiar de escenario
                 setRevealedNodes({ emotional: false, rational: false, wise: false });
             };
 
-            const toggleNode = (node) => {
-                setRevealedNodes(prev => ({ ...prev, [node]: true }));
-            };
+            const toggleNode = (node) => { setRevealedNodes(prev => ({ ...prev, [node]: true })); };
 
             const handleControlAnswer = (userSaysInControl) => {
                 const currentItem = CONTROL_ITEMS[controlStep];
@@ -1139,7 +1114,7 @@
                     } else {
                         setControlFinished(true);
                     }
-                }, 4000); // 4 segundos para leer la retroalimentación
+                }, 4000);
             };
 
             const resetControl = () => {
@@ -1330,7 +1305,7 @@
                                 </div>
                             </div>
 
-                            {/* Mente Sabia (Aparece completa si ambas están reveladas) */}
+                            {/* Mente Sabia */}
                             <div className="flex justify-center mt-4">
                                 <div onClick={() => toggleNode('wise')} className={`w-full md:w-3/4 cursor-pointer min-h-[200px] p-8 rounded-[32px] border-4 transition-all duration-700 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.wise ? 'bg-purple-100 border-purple-400 shadow-[0_15px_40px_-10px_rgba(168,85,247,0.4)] scale-105 z-10' : 'bg-slate-50 border-slate-200 hover:border-purple-300'}`}>
                                     {!revealedNodes.wise ? (
@@ -1416,6 +1391,14 @@
 
         function App() {
             const [activeTab, setActiveTab] = useState('chequeador');
+
+            // Quita el loader inicial en cuanto React logra montar la App
+            useEffect(() => {
+                const loader = document.getElementById('root');
+                if(loader && loader.firstChild && loader.firstChild.tagName === 'DIV' && loader.children.length === 1) {
+                   // El div de carga se reemplaza automáticamente por React, no necesitamos hacer nada extra.
+                }
+            }, []);
 
             return (
                 <div className="min-h-screen relative flex flex-col bg-[#f1f5f9] font-sans pb-20">
