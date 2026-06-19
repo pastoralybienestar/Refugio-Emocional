@@ -98,23 +98,27 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        const Icon = ({ className = "w-6 h-6" }) => {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className={className}
-        >
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 4v16m8-8H4"
-            />
-        </svg>
-    );
+       const Icon = ({ name, className = "w-6 h-6" }) => {
+    const iconRef = useRef(null);
+
+    useEffect(() => {
+        if (iconRef.current && window.lucide) {
+            // 1. Limpiamos el contenedor para evitar duplicados al re-renderizar
+            iconRef.current.innerHTML = '';
+            
+            // 2. Creamos el elemento temporal que Lucide va a reemplazar
+            const i = document.createElement('i');
+            i.setAttribute('data-lucide', name);
+            i.className = className;
+            iconRef.current.appendChild(i);
+            
+            // 3. Inicializamos los iconos SOLO dentro de este contenedor específico
+            window.lucide.createIcons({ root: iconRef.current });
+        }
+    }, [name, className]);
+
+    // React solo rastreará este span, evitando el conflicto del DOM
+    return <span ref={iconRef} className={`inline-flex items-center justify-center ${className}`}></span>;
 };
         const EMOTIONS = [
             {
