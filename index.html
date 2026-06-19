@@ -519,14 +519,34 @@
                                 <p className="text-sm text-indigo-100 leading-relaxed">Ayuda a la persona a contactar con su red de apoyo o servicios profesionales.</p>
                             </div>
                         </div>
-                        <div className="bg-indigo-950/60 p-6 rounded-[24px] border border-indigo-500/30 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
-                            <h4 className="font-bold text-indigo-200 text-base text-center md:text-left flex items-center gap-2">
-                                <Icon name="wind" className="w-5 h-5"/> Guía de estabilidad (Respiración 4-7-8)
-                            </h4>
-                            <div className="flex flex-wrap justify-center gap-3">
-                                <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Inhala (4s)</span>
-                                <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Mantén (7s)</span>
-                                <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Exhala (8s)</span>
+                        
+                        <div className="space-y-4">
+                            <div className="bg-indigo-950/60 p-6 rounded-[24px] border border-indigo-500/30 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
+                                <h4 className="font-bold text-indigo-200 text-base text-center md:text-left flex items-center gap-2">
+                                    <Icon name="wind" className="w-5 h-5"/> Guía de estabilidad (Respiración 4-7-8)
+                                </h4>
+                                <div className="flex flex-wrap justify-center gap-3">
+                                    <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Inhala (4s)</span>
+                                    <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Mantén (7s)</span>
+                                    <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Exhala (8s)</span>
+                                </div>
+                            </div>
+
+                            <div className="bg-indigo-600/20 p-6 rounded-[24px] border border-indigo-400/30 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
+                                <div className="text-center md:text-left">
+                                    <h4 className="font-bold text-white text-lg mb-1 flex items-center justify-center md:justify-start gap-2">
+                                        <Icon name="phone-call" className="w-5 h-5 text-indigo-300" /> Directorio Nacional
+                                    </h4>
+                                    <p className="text-sm text-indigo-200">Líneas de ayuda en salud mental en Colombia (PDF oficial).</p>
+                                </div>
+                                <a 
+                                    href="https://www.colpsic.org.co/wp-content/uploads/2021/08/Directorio-salud-mental-Colombia.pdf" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 bg-white text-indigo-900 hover:bg-indigo-50 font-black py-4 px-8 rounded-2xl btn-3d-base shadow-[0_4px_0_#c7d2fe] hover:shadow-[0_2px_0_#c7d2fe] transition-all text-center"
+                                >
+                                    Ver Directorio <Icon name="external-link" className="w-4 h-4" />
+                                </a>
                             </div>
                         </div>
                     </div>
