@@ -98,20 +98,24 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        const Icon = ({ name, className }) => {
-  const ref = React.useRef(null);
-
-  React.useEffect(() => {
-    if (ref.current) {
-      ref.current.innerHTML = lucide.icons[name].toSvg({
-        class: className
-      });
-    }
-  }, [name, className]);
-
-  return <span ref={ref}></span>;
+        const Icon = ({ className = "w-6 h-6" }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className={className}
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 4v16m8-8H4"
+            />
+        </svg>
+    );
 };
-
         const EMOTIONS = [
             {
                 id: 'sadness',
