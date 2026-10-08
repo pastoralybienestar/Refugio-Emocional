@@ -4,86 +4,398 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecosistema Psicoemocional UCN</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & Babel -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Fijamos la versión de Babel a la 7.23.8 para evitar la inyección automática de imports -->
     <script src="https://unpkg.com/@babel/standalone@7.23.8/babel.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
-        
-        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        :root {
+            /* Core Colors */
+            --bg-main: #f1f5f9;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --white: #ffffff;
+            
+            /* Slate Palette */
+            --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-300: #cbd5e1;
+            --slate-400: #94a3b8; --slate-500: #64748b; --slate-600: #475569; --slate-700: #334155;
+            --slate-800: #1e293b; --slate-900: #0f172a;
+            
+            /* Indigo Palette */
+            --indigo-50: #eef2ff; --indigo-100: #e0e7ff; --indigo-200: #c7d2fe; --indigo-300: #a5b4fc;
+            --indigo-400: #818cf8; --indigo-500: #6366f1; --indigo-600: #4f46e5; --indigo-700: #4338ca;
+            --indigo-800: #3730a3; --indigo-900: #312e81; --indigo-950: #1e1b4b;
+
+            /* Emerald Palette */
+            --emerald-50: #ecfdf5; --emerald-100: #d1fae5; --emerald-200: #a7f3d0; --emerald-300: #6ee7b7;
+            --emerald-400: #34d399; --emerald-500: #10b981; --emerald-600: #059669; --emerald-700: #047857;
+            --emerald-800: #065f46; --emerald-900: #064e3b;
+
+            /* Rose Palette */
+            --rose-50: #fff1f2; --rose-100: #ffe4e6; --rose-200: #fecdd3; --rose-300: #fda4af;
+            --rose-400: #fb7185; --rose-500: #f43f5e; --rose-600: #e11d48; --rose-700: #be123c;
+            --rose-800: #9f1239; --rose-900: #881337;
+
+            /* Spacing & Radii */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-3xl: 2rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
         }
 
-        /* 3D Styles Framework */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+        }
+        
+        button:disabled { cursor: not-allowed; }
+        a { text-decoration: none; color: inherit; }
+        textarea { font-family: inherit; resize: none; }
+
+        /* Typography Utilities */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .font-bold { font-weight: 700; }
+        .font-black { font-weight: 900; }
+        .font-medium { font-weight: 500; }
+        .uppercase { text-transform: uppercase; }
+        .italic { font-style: italic; }
+        
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-5xl { font-size: 3rem; line-height: 1; }
+        .text-6xl { font-size: 3.75rem; line-height: 1; }
+        .text-8xl { font-size: 6rem; line-height: 1; }
+
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-bounce { animation: bounce 1s infinite; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+            50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
+        }
+
         .figure-3d {
+            display: inline-block;
             filter: drop-shadow(0px 12px 10px rgba(0,0,0,0.15)) drop-shadow(0px 4px 5px rgba(0,0,0,0.1));
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        button:hover .figure-3d {
+        button:hover .figure-3d, .group:hover .figure-3d {
             transform: scale(1.15) translateY(-5px);
         }
 
         .card-3d {
-            background: #ffffff;
+            background: var(--white);
             box-shadow: 0px 15px 25px -5px rgba(0, 0, 0, 0.05), 
                         0px 8px 10px -6px rgba(0, 0, 0, 0.01),
                         inset 0px 2px 2px rgba(255, 255, 255, 1);
-            border: 1px solid #e2e8f0;
-            border-radius: 28px;
+            border: 1px solid var(--slate-200);
+            border-radius: var(--radius-3xl);
         }
 
-        .btn-3d-base {
-            transition: all 0.1s;
-        }
+        .btn-3d-base { transition: all 0.15s ease-out; }
         .btn-3d-base:active {
-            transform: translateY(4px);
-            border-bottom-width: 0px;
-            margin-top: 4px;
+            transform: translateY(4px) !important;
+            box-shadow: none !important;
+            margin-bottom: -4px;
         }
 
-        /* --- Custom Thin Scrollbar --- */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background-color: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #bb4055;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #903041;
-        }
-
-        html {
-            scrollbar-width: thin;
-            scrollbar-color: #bb4055 #f1f5f9;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background-color: var(--slate-100); }
+        ::-webkit-scrollbar-thumb { background: var(--rose-700); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--rose-900); }
+        html { scrollbar-width: thin; scrollbar-color: var(--rose-700) var(--slate-100); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Dynamic Theme System */
+        .theme-blue { --t-bg: #eff6ff; --t-text: #2563eb; --t-border: #bfdbfe; --t-hover: #60a5fa; --t-shadow: #93c5fd; }
+        .theme-red { --t-bg: #fef2f2; --t-text: #dc2626; --t-border: #fecaca; --t-hover: #f87171; --t-shadow: #fca5a5; }
+        .theme-orange { --t-bg: #fff7ed; --t-text: #ea580c; --t-border: #fed7aa; --t-hover: #fb923c; --t-shadow: #fdba74; }
+        .theme-purple { --t-bg: #faf5ff; --t-text: #9333ea; --t-border: #e9d5ff; --t-hover: #c084fc; --t-shadow: #d8b4fe; }
+        .theme-amber { --t-bg: #fffbeb; --t-text: #b45309; --t-border: #fde68a; --t-hover: #fbbf24; --t-shadow: #fcd34d; }
+        .theme-lime { --t-bg: #f7fee7; --t-text: #4d7c0f; --t-border: #d9f99d; --t-hover: #a3e635; --t-shadow: #bef264; }
+        .theme-rose { --t-bg: #fff1f2; --t-text: #e11d48; --t-border: #fecdd3; --t-hover: #fb7185; --t-shadow: #fda4af; }
+        .theme-yellow { --t-bg: #fefce8; --t-text: #ca8a04; --t-border: #fef08a; --t-hover: #facc15; --t-shadow: #fde047; }
+        .theme-emerald { --t-bg: #ecfdf5; --t-text: #059669; --t-border: #a7f3d0; --t-hover: #34d399; --t-shadow: #6ee7b7; }
+        .theme-indigo { --t-bg: #eef2ff; --t-text: #4f46e5; --t-border: #c7d2fe; --t-hover: #818cf8; --t-shadow: #a5b4fc; }
+        .theme-teal { --t-bg: #f0fdfa; --t-text: #0d9488; --t-border: #99f6e4; --t-hover: #2dd4bf; --t-shadow: #5eead4; }
+        .theme-slate { --t-bg: #f8fafc; --t-text: #475569; --t-border: #e2e8f0; --t-hover: #cbd5e1; --t-shadow: #cbd5e1; }
+
+        .theme-card { background-color: var(--t-bg); color: var(--t-text); border-color: var(--t-border); }
+        .theme-card-interactive { box-shadow: 0 4px 0 var(--t-border); }
+        .theme-card-interactive:hover { border-color: var(--t-hover); box-shadow: 0 4px 0 var(--t-shadow); }
+
+        /* Layout Structure */
+        .app-container { min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 5rem; }
+        .header { background: var(--white); border-bottom: 1px solid var(--slate-200); position: sticky; top: 0; z-index: 50; box-shadow: var(--shadow-sm); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; max-width: 72rem; margin: 0 auto; }
+        .header-badge { display: flex; align-items: center; gap: 0.75rem; }
+        .header-icon-bg { padding: 0.5rem; background-color: var(--indigo-600); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); color: var(--white); }
+        .header-tag { font-size: 0.75rem; font-weight: 700; color: var(--indigo-600); text-transform: uppercase; letter-spacing: 0.1em; background: var(--indigo-50); padding: 0.375rem 1rem; border-radius: var(--radius-full); border: 1px solid var(--indigo-100); }
+        
+        .nav-scroll { max-width: 72rem; margin: 0 auto; padding: 0 1rem; overflow-x: auto; border-top: 1px solid var(--slate-100); background: rgba(248, 250, 252, 0.5); backdrop-filter: blur(8px); }
+        .nav-container { display: flex; padding: 0.5rem; gap: 0.5rem; width: max-content; margin: 0 auto; }
+        .nav-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 900; white-space: nowrap; border: 2px solid transparent; transition: all 0.2s; }
+        .nav-btn.active { background-color: var(--indigo-600); color: var(--white); box-shadow: 0 4px 0 var(--indigo-800); }
+        .nav-btn.inactive { background-color: var(--white); border-color: var(--slate-200); color: var(--slate-600); box-shadow: 0 4px 0 var(--slate-200); }
+        .nav-btn.inactive:hover { background-color: var(--slate-100); }
+
+        .main-content { flex: 1; padding: 2rem 1rem; }
+        .content-wrapper { max-width: 64rem; margin: 0 auto; }
+
+        /* Common Components */
+        .hero-header { text-align: center; margin-bottom: 3rem; padding-top: 1rem; }
+        .hero-title { font-size: 2.25rem; font-weight: 900; color: var(--slate-900); margin-bottom: 1.5rem; letter-spacing: -0.025em; }
+        .hero-desc { color: var(--slate-600); font-size: 1.125rem; font-weight: 500; line-height: 1.625; max-width: 42rem; margin: 0 auto; }
+        .hero-highlight { color: var(--indigo-600); font-weight: 700; border-bottom: 2px solid var(--indigo-200); }
+
+        .icon { width: 1.5rem; height: 1.5rem; display: inline-block; }
+        .icon-sm { width: 1.25rem; height: 1.25rem; }
+        .icon-lg { width: 1.75rem; height: 1.75rem; }
+
+        /* Support Section */
+        .support-box { margin-top: 3rem; background: var(--white); border-radius: var(--radius-3xl); padding: 2rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 15px 40px -10px rgba(0,0,0,0.1); border-bottom: 8px solid var(--indigo-200); }
+        .support-gradient { position: absolute; top: 0; left: 0; width: 100%; height: 0.5rem; background: linear-gradient(to right, #6366f1, #a855f7, #ec4899); }
+        .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; background: var(--indigo-600); color: var(--white); font-weight: 900; padding: 1rem 2.5rem; border-radius: var(--radius-2xl); box-shadow: 0 6px 0 var(--indigo-800); font-size: 1.125rem; }
+        .btn-primary:hover { background: var(--indigo-700); box-shadow: 0 4px 0 var(--indigo-800); }
+
+        /* Chequeador View */
+        .emotion-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .emotion-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; border-radius: var(--radius-3xl); border-width: 2px; border-style: solid; }
+        .emotion-item-emoji { font-size: 3rem; margin-bottom: 1rem; }
+        .emotion-item-title { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        .detail-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        .detail-hero { padding: 2.5rem; border-radius: var(--radius-3xl); border: 2px solid; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+        .detail-emoji { font-size: 6rem; margin-bottom: 1.5rem; z-index: 10; }
+        .detail-title { font-size: 1.875rem; font-weight: 900; text-transform: uppercase; z-index: 10; margin-bottom: 1rem; }
+        .detail-desc { font-size: 1rem; font-weight: 500; opacity: 0.95; z-index: 10; }
+        
+        .box-title { font-size: 1.125rem; font-weight: 900; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .example-text { font-size: 0.875rem; color: var(--slate-600); font-style: italic; border-left: 4px solid var(--indigo-300); padding-left: 1rem; padding-top: 0.25rem; padding-bottom: 0.25rem; background: rgba(248, 250, 252, 0.5); border-radius: 0 var(--radius-xl) var(--radius-xl) 0; }
+        
+        .reflection-input { width: 100%; height: 8rem; padding: 1rem; font-size: 0.875rem; border: 2px solid var(--slate-200); border-radius: var(--radius-2xl); outline: none; background: var(--slate-50); box-shadow: var(--shadow-inner); transition: all 0.3s; }
+        .reflection-input:focus { border-color: var(--indigo-400); box-shadow: 0 0 0 4px var(--indigo-100); }
+        .btn-submit { width: 100%; padding: 0.875rem; border-radius: var(--radius-xl); font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: 2px solid; }
+        .btn-submit.active { background: var(--indigo-100); color: var(--indigo-700); border-color: var(--indigo-200); }
+        .btn-submit.active:hover { background: var(--indigo-200); }
+        .btn-submit.disabled { background: var(--slate-100); color: var(--slate-400); border-color: var(--slate-200); cursor: not-allowed; }
+        .success-msg { width: 100%; padding: 1rem; background: var(--emerald-50); color: var(--emerald-800); border-radius: var(--radius-xl); border: 2px solid var(--emerald-200); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; box-shadow: var(--shadow-inner); }
+
+        .activity-list { display: flex; flex-direction: column; gap: 1.25rem; }
+        .activity-card { padding: 1.5rem; border-radius: var(--radius-2xl); border: 2px solid var(--slate-200); display: flex; align-items: flex-start; gap: 1.25rem; cursor: pointer; transition: all 0.2s; background: var(--white); box-shadow: 0 4px 0 var(--slate-200); }
+        .activity-card:hover { border-color: var(--indigo-300); box-shadow: 0 4px 0 var(--indigo-300); }
+        .activity-card.completed { background: var(--emerald-50); border-color: var(--emerald-300); opacity: 0.7; transform: scale(0.98); box-shadow: none; }
+        .act-check { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: var(--radius-full); border: 3px solid var(--slate-300); display: flex; align-items: center; justify-content: center; margin-top: 0.25rem; transition: background 0.2s; }
+        .activity-card.completed .act-check { background: var(--emerald-500); border-color: var(--emerald-500); color: var(--white); }
+        .act-title { font-weight: 900; font-size: 1.125rem; color: var(--slate-800); }
+        .activity-card.completed .act-title { text-decoration: line-through; color: var(--slate-500); }
+        .act-desc { color: var(--slate-600); margin-top: 0.5rem; font-size: 1rem; }
+
+        /* PAE & PAP Sections */
+        .pae-section { background: var(--rose-50); border-color: var(--rose-100); padding: 2rem; margin-top: 3rem; margin-bottom: 2rem; }
+        .pae-title { font-size: 1.5rem; font-weight: 900; color: var(--rose-800); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .pae-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; }
+        .pae-card { background: var(--white); padding: 1.5rem; border-radius: var(--radius-2xl); border: 1px solid var(--rose-100); box-shadow: var(--shadow-sm); transition: box-shadow 0.2s; }
+        .pae-card:hover { box-shadow: var(--shadow-md); }
+        
+        .pap-section { background: var(--indigo-900); border-color: var(--indigo-800); color: var(--white); padding: 2rem; position: relative; overflow: hidden; margin-bottom: 2.5rem; }
+        .pap-bg-icon { position: absolute; top: -2.5rem; right: -2.5rem; padding: 1rem; opacity: 0.1; color: var(--white); width: 16rem; height: 16rem; }
+        .pap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; position: relative; z-index: 10; }
+        .pap-card { background: rgba(55, 48, 163, 0.6); padding: 1.5rem; border-radius: var(--radius-2xl); border: 1px solid rgba(79, 70, 229, 0.5); backdrop-filter: blur(4px); }
+        .pap-num { width: 2rem; height: 2rem; background: var(--indigo-500); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: 0.875rem; font-weight: 900; box-shadow: var(--shadow-inner); flex-shrink: 0;}
+        
+        .guide-box { background: rgba(30, 27, 75, 0.6); padding: 1.5rem; border-radius: var(--radius-2xl); border: 1px solid rgba(99, 102, 241, 0.3); display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1rem; }
+        .guide-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+        .guide-pill { padding: 0.5rem 1.25rem; background: rgba(99, 102, 241, 0.2); border-radius: var(--radius-xl); border: 1px solid rgba(99, 102, 241, 0.5); font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .dir-box { background: rgba(79, 70, 229, 0.2); padding: 1.5rem; border-radius: var(--radius-2xl); border: 1px solid rgba(129, 140, 248, 0.3); display: flex; flex-direction: column; gap: 1.5rem; text-align: center; }
+        .btn-white { background: var(--white); color: var(--indigo-900); font-weight: 900; padding: 1rem 2rem; border-radius: var(--radius-2xl); box-shadow: 0 4px 0 var(--indigo-200); display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+
+        /* Simulator View */
+        .sim-header { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+        .sim-badge { font-size: 0.875rem; font-weight: 900; color: var(--indigo-600); background: var(--indigo-50); padding: 0.5rem 1.25rem; border-radius: var(--radius-full); border: 1px solid var(--indigo-200); align-self: flex-start; }
+        .progress-track { width: 100%; background: var(--slate-100); height: 1rem; border-radius: var(--radius-full); border: 1px solid var(--slate-200); overflow: hidden; margin-bottom: 3rem; }
+        .progress-fill { height: 100%; background: linear-gradient(to right, var(--indigo-500), #a855f7); transition: width 0.5s ease-out; }
+        
+        .question-text { font-size: 1.5rem; color: var(--slate-800); font-weight: 900; margin-bottom: 2.5rem; line-height: 1.4; }
+        .option-btn { width: 100%; text-align: left; padding: 1.5rem; border-radius: var(--radius-2xl); border: 2px solid var(--slate-200); background: var(--white); font-size: 1.125rem; color: var(--slate-700); font-weight: 500; margin-bottom: 1rem; box-shadow: 0 4px 0 var(--slate-200); }
+        .option-btn:hover { background: var(--indigo-50); border-color: var(--indigo-300); box-shadow: 0 4px 0 var(--indigo-300); }
+
+        .result-wrapper { padding: 3rem; border-radius: var(--radius-3xl); border-bottom-width: 8px; border-style: solid; display: inline-block; margin-bottom: 2.5rem; box-shadow: var(--shadow-xl); position: relative; }
+        .info-panel { background: var(--slate-50); padding: 2rem; border-radius: var(--radius-3xl); border: 2px solid var(--slate-100); box-shadow: var(--shadow-inner); margin-bottom: 2.5rem; text-align: left; }
+        .rec-item { background: var(--white); padding: 1.5rem; border-radius: var(--radius-2xl); border: 1px solid var(--slate-200); box-shadow: var(--shadow-sm); display: flex; gap: 1rem; margin-bottom: 1rem; text-align: left; }
+        .btn-dark { width: 100%; padding: 1.25rem; background: var(--slate-800); color: var(--white); font-weight: 900; border-radius: var(--radius-2xl); box-shadow: 0 6px 0 var(--slate-900); font-size: 1.125rem; }
+
+        /* PsicoEdu View */
+        .edu-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        .concept-card { border-radius: var(--radius-3xl); border: 2px solid var(--slate-200); background: var(--white); cursor: pointer; transition: all 0.5s; position: relative; overflow: hidden; }
+        .concept-card:hover { border-color: var(--indigo-200); box-shadow: var(--shadow-sm); }
+        .concept-card.expanded { transform: scale(1.02); z-index: 10; box-shadow: var(--shadow-lg); }
+        .concept-inner { padding: 2rem; position: relative; z-index: 10; }
+        .concept-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+        .concept-icon-box { width: 4rem; height: 4rem; border-radius: var(--radius-2xl); display: flex; align-items: center; justify-content: center; border: 2px solid; box-shadow: var(--shadow-inner); }
+        .concept-chevron { width: 2rem; height: 2rem; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; transition: all 0.5s; background: var(--slate-100); color: var(--slate-500); }
+        .expanded .concept-chevron { transform: rotate(180deg); background: var(--slate-800); color: var(--white); }
+        .concept-body { max-height: 0; opacity: 0; overflow: hidden; transition: all 0.5s ease-in-out; }
+        .expanded .concept-body { max-height: 1000px; opacity: 1; margin-top: 1.5rem; }
+        .myth-box { background: rgba(255,255,255,0.6); padding: 1rem; border-radius: var(--radius-xl); border: 1px solid rgba(226,232,240,0.6); backdrop-filter: blur(4px); margin-top: 1.5rem; margin-bottom: 1.5rem; }
+        .practice-box { padding: 1.25rem; border-radius: var(--radius-2xl); border: 1px solid; box-shadow: var(--shadow-inner); }
+        .bg-blob { position: absolute; right: -2.5rem; bottom: -2.5rem; width: 10rem; height: 10rem; border-radius: var(--radius-full); filter: blur(24px); opacity: 0; transition: opacity 0.7s; pointer-events: none; }
+        .expanded .bg-blob { opacity: 0.2; }
+
+        /* Casos Reales */
+        .cases-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .case-btn { background: var(--white); padding: 1.5rem; border-radius: var(--radius-3xl); border: 2px solid var(--slate-200); display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; text-align: left; box-shadow: var(--shadow-sm); transition: all 0.3s; }
+        .case-btn:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: var(--indigo-300); }
+        .case-icon-wrapper { width: 4rem; height: 4rem; background: var(--slate-100); border-radius: var(--radius-2xl); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-inner); border: 1px solid var(--slate-200); transition: background 0.3s; }
+        .case-btn:hover .case-icon-wrapper { background: var(--indigo-50); transform: scale(1.1); }
+        .case-tag { font-size: 0.75rem; color: var(--indigo-600); font-weight: 700; background: var(--indigo-50); padding: 0.375rem 0.75rem; border-radius: var(--radius-full); border: 1px solid var(--indigo-100); display: inline-flex; align-items: center; gap: 0.25rem; }
+        
+        .chat-container { background: #efeae2; border-radius: var(--radius-3xl); border: 1px solid var(--slate-300); overflow: hidden; box-shadow: var(--shadow-xl); max-width: 42rem; margin: 0 auto; display: flex; flex-direction: column; height: 750px; }
+        .chat-header { background: #075e54; color: var(--white); padding: 1rem; display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow-md); z-index: 10; }
+        .chat-back { padding: 0.5rem; border-radius: var(--radius-full); transition: background 0.2s; }
+        .chat-back:hover { background: rgba(255,255,255,0.2); }
+        .chat-avatar { background: rgba(255,255,255,0.2); width: 3rem; height: 3rem; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-inner); font-size: 1.5rem; }
+        .chat-status { width: 0.5rem; height: 0.5rem; border-radius: var(--radius-full); background: #4ade80; display: inline-block; }
+        
+        .chat-body { flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; background-image: url('https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+        .chat-sys-msg { text-align: center; margin: 1.5rem 0; }
+        .chat-sys-pill { font-size: 0.75rem; font-weight: 700; background: #e1e2e3; color: var(--slate-600); padding: 0.5rem 1rem; border-radius: var(--radius-md); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        
+        .msg-row { display: flex; }
+        .msg-row.user { justify-content: flex-end; }
+        .msg-row.psico { justify-content: flex-start; }
+        .msg-bubble { max-width: 85%; padding: 1rem; border-radius: var(--radius-2xl); font-size: 0.9375rem; position: relative; font-weight: 500; box-shadow: var(--shadow-sm); line-height: 1.4; }
+        .msg-row.user .msg-bubble { background: #dcf8c6; color: var(--slate-800); border-top-right-radius: 2px; }
+        .msg-row.psico .msg-bubble { background: var(--white); color: var(--slate-800); border-top-left-radius: 2px; }
+        .msg-sender { font-size: 0.75rem; font-weight: 900; color: #075e54; display: block; margin-bottom: 0.25rem; }
+        .msg-time { font-size: 0.625rem; color: var(--slate-400); position: absolute; right: 0.75rem; bottom: 0.375rem; }
+
+        /* Inteligencia Emocional */
+        .ei-hero { background: var(--slate-900) url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover; padding: 2rem; border-radius: var(--radius-3xl); position: relative; overflow: hidden; box-shadow: var(--shadow-xl); margin-bottom: 3rem; }
+        .ei-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.7); }
+        .ei-blob-1 { position: absolute; top: -5rem; right: -5rem; width: 16rem; height: 16rem; background: var(--indigo-500); border-radius: var(--radius-full); filter: blur(48px); opacity: 0.3; }
+        .ei-blob-2 { position: absolute; bottom: -5rem; left: -5rem; width: 16rem; height: 16rem; background: var(--rose-500); border-radius: var(--radius-full); filter: blur(48px); opacity: 0.2; }
+        
+        .pillars-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; position: relative; z-index: 10; padding-top: 1rem; }
+        .pillar-card { background: rgba(30, 41, 59, 0.6); border: 2px solid rgba(100, 116, 139, 0.5); border-radius: 1.75rem; padding: 1.5rem; text-align: left; backdrop-filter: blur(12px); width: 100%; transition: all 0.3s; display: flex; flex-direction: column; }
+        .pillar-card.active { background: var(--white); border-color: var(--white); transform: scale(1.05); z-index: 20; box-shadow: 0 15px 30px -5px rgba(0,0,0,0.5); }
+        .pillar-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+        .pillar-icon { width: 3.5rem; height: 3.5rem; border-radius: var(--radius-2xl); display: flex; align-items: center; justify-content: center; font-size: 1.875rem; background: rgba(15, 23, 42, 0.8); }
+        .pillar-card.active .pillar-icon { background: var(--t-bg); }
+        .pillar-title { font-size: 1.125rem; font-weight: 900; color: var(--slate-100); }
+        .pillar-card.active .pillar-title { color: var(--slate-800); }
+        .pillar-content { max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s; }
+        .pillar-card.active .pillar-content { max-height: 300px; opacity: 1; margin-top: 1rem; }
+        .pillar-tip-box { padding: 1rem; border-radius: var(--radius-xl); border: 1px solid var(--t-border); background: var(--t-bg); box-shadow: var(--shadow-inner); }
+        .pillar-footer { margin-top: auto; padding-top: 1rem; text-align: center; }
+        .pillar-hint { font-size: 0.625rem; text-transform: uppercase; font-weight: 900; letter-spacing: 0.1em; color: var(--slate-300); background: rgba(15, 23, 42, 0.5); padding: 0.375rem 0.75rem; border-radius: var(--radius-full); border: 1px solid rgba(100, 116, 139, 0.5); }
+
+        .gym-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .thought-card { min-height: 15rem; padding: 1.5rem; border-radius: 1.75rem; border: 2px solid; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); transition: all 0.5s; cursor: pointer; }
+        .thought-badge { position: absolute; top: 1rem; right: 1rem; font-size: 0.5625rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.5rem; border-radius: var(--radius-md); border: 1px solid; box-shadow: var(--shadow-sm); }
+        .thought-emoji { font-size: 3rem; margin-bottom: 1rem; margin-top: 1rem; }
+        
+        .wise-layout { background: var(--white); border-radius: var(--radius-3xl); padding: 1.5rem; border: 2px solid var(--indigo-100); box-shadow: var(--shadow-xl); }
+        .scenario-box { text-align: center; background: var(--indigo-50); padding: 1.5rem; border-radius: var(--radius-2xl); border: 1px solid var(--indigo-100); margin-bottom: 2.5rem; }
+        .mind-nodes { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .mind-node { min-height: 11.25rem; padding: 1.5rem; border-radius: 1.75rem; border: 2px solid; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.5s; }
+        .mind-node-hint { font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--slate-500); background: var(--white); padding: 0.5rem 1rem; border-radius: var(--radius-full); border: 1px solid var(--slate-200); box-shadow: var(--shadow-sm); }
+        .wise-node { border-width: 4px; min-height: 12.5rem; padding: 2rem; border-radius: var(--radius-3xl); margin: 0 auto; width: 100%; }
+
+        .control-layout { background: var(--white); border-radius: var(--radius-3xl); padding: 1.5rem; border: 2px solid var(--emerald-100); box-shadow: var(--shadow-xl); min-height: 22rem; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10; }
+        .control-btns { display: flex; flex-direction: column; gap: 1rem; width: 100%; align-items: center; }
+        .control-btn { padding: 1rem 1.5rem; border-radius: var(--radius-2xl); font-weight: 900; border: 2px solid; width: 100%; }
+
+        @media (min-width: 640px) {
+            .emotion-grid { grid-template-columns: repeat(3, 1fr); }
+            .pillar-card { width: calc(50% - 0.75rem); }
+            .control-btns { flex-direction: row; justify-content: center; }
+            .control-btn { flex: 1; max-width: 20rem; }
+        }
+        @media (min-width: 768px) {
+            .header-top, .nav-scroll { padding-left: 2rem; padding-right: 2rem; }
+            .main-content { padding: 2rem; }
+            .nav-container { justify-content: center; }
+            .hero-title { font-size: 3.75rem; }
+            .hero-desc { font-size: 1.25rem; }
+            .support-box { padding: 3rem; }
+            .detail-grid { grid-template-columns: 1fr 2fr; }
+            .pae-grid { grid-template-columns: repeat(2, 1fr); }
+            .pap-grid { grid-template-columns: repeat(3, 1fr); }
+            .guide-box, .dir-box { flex-direction: row; align-items: center; justify-content: space-between; }
+            .sim-header { flex-direction: row; justify-content: space-between; align-items: center; }
+            .edu-grid { grid-template-columns: repeat(2, 1fr); }
+            .cases-grid { grid-template-columns: repeat(2, 1fr); }
+            .chat-body { padding: 1.5rem; }
+            .ei-hero { padding: 3rem; }
+            .gym-grid { grid-template-columns: repeat(2, 1fr); }
+            .wise-layout { padding: 2.5rem; }
+            .mind-nodes { grid-template-columns: repeat(2, 1fr); }
+            .wise-node { width: 75%; }
+            .control-layout { padding: 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            .pae-grid { grid-template-columns: repeat(4, 1fr); }
+            .cases-grid { grid-template-columns: repeat(3, 1fr); }
+            .pillar-card { width: calc(33.333% - 1rem); }
+            .gym-grid { grid-template-columns: repeat(4, 1fr); }
+        }
     </style>
 </head>
-<body class="text-slate-800">
+<body>
 <div id="root"></div>
 
 <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+        const { useState, useEffect } = React;
 
-        const Icon = ({ name, className = "w-6 h-6" }) => {
+        const Icon = ({ name, className = "icon" }) => {
             useEffect(() => {
                 if (window.lucide) {
                     window.lucide.createIcons();
@@ -93,163 +405,28 @@
         };
 
         const EMOTIONS = [
-            {
-                id: 'sadness',
-                name: 'Tristeza',
-                emoji: '🌧️',
-                color: 'bg-blue-50 text-blue-600 border-blue-200',
-                btn3d: 'hover:border-blue-400 hover:shadow-[0_4px_0_#93c5fd] shadow-[0_4px_0_#bfdbfe]',
-                description: 'Es natural sentirse así. La tristeza nos ayuda a procesar pérdidas, soltar el pasado y pedir apoyo.',
-                example: 'Como cuando terminas una etapa importante o pierdes a alguien. Sientes pesadez, ganas de llorar o aislamiento.',
-                releaseMessage: 'Has entregado tu tristeza. Permite que este espacio contenga tu vulnerabilidad y te ayude a sanar.',
-                activities: [
-                    { title: 'Permítete sentir', desc: 'No reprimas las lágrimas si surgen. Es una liberación necesaria.' },
-                    { title: 'Escribe sin filtro', desc: 'Saca todo de tu cabeza al papel. No tiene que tener sentido, solo sácalo.' },
-                    { title: 'Busca confort', desc: 'Una manta cálida, una bebida caliente o un abrazo pueden ayudar.' },
-                    { title: 'Ritual de agua', desc: 'Lávate la cara con agua fría imaginando que el agua limpia y arrastra la pesadez mental.' }
-                ]
-            },
-            {
-                id: 'anger',
-                name: 'Enojo',
-                emoji: '🌋',
-                color: 'bg-red-50 text-red-600 border-red-200',
-                btn3d: 'hover:border-red-400 hover:shadow-[0_4px_0_#f87171] shadow-[0_4px_0_#fecaca]',
-                description: 'El enojo es una alarma. Te avisa que un límite ha sido cruzado o que algo te parece profundamente injusto.',
-                example: 'Como cuando alguien minimiza tu esfuerzo o te falta al respeto. Sientes calor, tensión y ganas de reaccionar rápido.',
-                releaseMessage: 'Has entregado tu enojo. Que esa energía se transforme en claridad para proteger tus límites con sabiduría.',
-                activities: [
-                    { title: 'Descarga física', desc: 'Camina rápido, haz flexiones, o aprieta y suelta los puños con fuerza.' },
-                    { title: 'Técnica del 10 al 0', desc: 'Cuenta hacia atrás lentamente, respirando profundo en cada número.' },
-                    { title: 'Expresa sin destruir', desc: 'Escribe tu enojo en un papel y luego rómpelo o arrúgalo con fuerza.' },
-                    { title: 'Cambio de temperatura', desc: 'Sostén un cubo de hielo en la mano. El frío extremo desvía la atención del cerebro y baja la ira.' }
-                ]
-            },
-            {
-                id: 'anxiety',
-                name: 'Ansiedad',
-                emoji: '🌪️',
-                color: 'bg-orange-50 text-orange-600 border-orange-200',
-                btn3d: 'hover:border-orange-400 hover:shadow-[0_4px_0_#fb923c] shadow-[0_4px_0_#fed7aa]',
-                description: 'Tu cuerpo está en alerta máxima por algo que "podría" pasar. Vamos a traer a tu cerebro de vuelta al presente.',
-                example: 'Como la noche antes de una entrega final. Tienes taquicardia, respiración corta y no puedes dejar de pensar en lo peor.',
-                releaseMessage: 'Has entregado tu ansiedad. Suelta la ilusión de control y regresa suavemente al momento presente.',
-                activities: [
-                    { title: 'Técnica 5-4-3-2-1', desc: 'Identifica 5 cosas que ves, 4 que tocas, 3 que oyes, 2 que hueles y 1 que saboreas.' },
-                    { title: 'Choque térmico', desc: 'Mójate la cara o las muñecas con agua muy fría para resetear el sistema nervioso.' },
-                    { title: 'Enraizamiento', desc: 'Presiona los pies firmes contra el suelo y siente el soporte de la tierra.' },
-                    { title: 'Trazos repetitivos', desc: 'Dibuja espirales o colorea mandalas para canalizar el exceso de energía ansiosa.' }
-                ]
-            },
-            {
-                id: 'fear',
-                name: 'Miedo',
-                emoji: '🛡️',
-                color: 'bg-purple-50 text-purple-600 border-purple-200',
-                btn3d: 'hover:border-purple-400 hover:shadow-[0_4px_0_#c084fc] shadow-[0_4px_0_#e9d5ff]',
-                description: 'El miedo es tu guardián, intenta protegerte del peligro, pero a veces su alarma es demasiado fuerte y te paraliza.',
-                example: 'Como cuando tienes que exponer frente a un público hostil. Sientes vacío en el estómago y ganas de huir.',
-                releaseMessage: 'Has entregado tu miedo. Reconocemos su intención de protegerte, pero ahora eliges caminar con confianza.',
-                activities: [
-                    { title: 'Tu Refugio Mental', desc: 'Cierra los ojos y visualiza con detalle un sitio donde nada pueda dañarte.' },
-                    { title: 'Abrazo de mariposa', desc: 'Cruza tus manos sobre el pecho y da golpecitos rítmicos alternando los hombros.' },
-                    { title: 'Cuestiona la amenaza', desc: 'Pregúntate: ¿Este peligro es 100% real ahora mismo o es una posibilidad?' },
-                    { title: 'Postura de poder', desc: 'Párate como superhéroe (manos en la cintura) por 2 minutos para reducir el cortisol y aumentar la confianza.' }
-                ]
-            },
-            {
-                id: 'stress',
-                name: 'Estrés',
-                emoji: '🔥',
-                color: 'bg-amber-50 text-amber-700 border-amber-200',
-                btn3d: 'hover:border-amber-400 hover:shadow-[0_4px_0_#fbbf24] shadow-[0_4px_0_#fde68a]',
-                description: 'La balanza se rompió: sientes que tienes demasiadas demandas y muy pocos recursos para enfrentarlas.',
-                example: 'Como cuando trabajas y estudias al mismo tiempo y tienes entregas cruzadas. Sientes rigidez en el cuello y prisa constante.',
-                releaseMessage: 'Has entregado tu estrés. Suelta la autoexigencia por un momento; está bien pausar y descansar.',
-                activities: [
-                    { title: 'La Regla de 3', desc: 'Elige solo las 3 tareas más críticas de hoy. Lo demás se reprograma.' },
-                    { title: 'Pausa de 5 minutos', desc: 'Aléjate de la pantalla. Estira el cuello y toma un vaso de agua completo.' },
-                    { title: 'Respiración de Caja', desc: 'Inhala en 4s, sostén 4s, exhala 4s, sostén sin aire 4s.' },
-                    { title: 'Relajación muscular', desc: 'Tensa muy fuerte los hombros por 5 segundos y luego suéltalos de golpe. Repite 3 veces.' }
-                ]
-            },
-            {
-                id: 'disgust',
-                name: 'Desagrado',
-                emoji: '🛑',
-                color: 'bg-lime-50 text-lime-700 border-lime-200',
-                btn3d: 'hover:border-lime-400 hover:shadow-[0_4px_0_#a3e635] shadow-[0_4px_0_#d9f99d]',
-                description: 'Una respuesta de protección instintiva. Te avisa sobre lo que es tóxico, abusivo o va en contra de tus valores fundamentales.',
-                example: 'Como cuando alguien hace un comentario ofensivo disfrazado de broma. Sientes rechazo inmediato y distancia física.',
-                releaseMessage: 'Has entregado tu incomodidad. Reafirmas tu derecho a elegir lo que es nutritivo y saludable para ti.',
-                activities: [
-                    { title: 'Reafirma tus límites', desc: 'Identifica exactamente qué te causó rechazo para no permitirlo de nuevo.' },
-                    { title: 'Limpieza física', desc: 'Lávate las manos o la cara; ayuda psicológicamente a "soltar" el evento.' },
-                    { title: 'Distancia estratégica', desc: 'Aléjate físicamente del entorno o de la persona por unos minutos.' },
-                    { title: 'Cambio de foco', desc: 'Huele algo cítrico o come una menta fuerte para "resetear" el sentido del asco.' }
-                ]
-            },
-            {
-                id: 'love',
-                name: 'Amor',
-                emoji: '💖',
-                color: 'bg-rose-50 text-rose-600 border-rose-200',
-                btn3d: 'hover:border-rose-400 hover:shadow-[0_4px_0_#fb7185] shadow-[0_4px_0_#fecdd3]',
-                description: 'La emoción de la conexión profunda. No solo hacia otros, sino hacia ti mismo. Expande tu energía y fortalece vínculos.',
-                example: 'Como cuando te sientes incondicionalmente aceptado por un amigo, o logras perdonarte un error.',
-                releaseMessage: 'Has entregado tu amor y gratitud. Que esta energía expansiva siga nutriendo tu corazón y tus vínculos.',
-                activities: [
-                    { title: 'Autocompasión', desc: 'Háblate en voz alta como le hablarías a tu mejor amigo si estuviera sufriendo.' },
-                    { title: 'Acto de servicio', desc: 'Haz algo pequeño y desinteresado por otra persona hoy.' },
-                    { title: 'Apreciación', desc: 'Envía un mensaje a alguien diciéndole exactamente por qué lo valoras.' },
-                    { title: 'Carta de luz', desc: 'Escríbete 3 cosas que te hacen sentir orgulloso de la persona en la que te has convertido.' }
-                ]
-            },
-            {
-                id: 'joy',
-                name: 'Alegría',
-                emoji: '✨',
-                color: 'bg-yellow-50 text-yellow-600 border-yellow-200',
-                btn3d: 'hover:border-yellow-400 hover:shadow-[0_4px_0_#facc15] shadow-[0_4px_0_#fef08a]',
-                description: 'La señal de que tus necesidades están cubiertas. Disfrutarla fortalece tu "batería de resiliencia" para momentos difíciles.',
-                example: 'Como cuando apruebas esa materia difícil o comes tu comida favorita. Sientes ligereza y energía.',
-                releaseMessage: 'Has entregado tu alegría. Al reconocerla y celebrarla, multiplicas su luz en tu vida y en tu entorno.',
-                activities: [
-                    { title: 'Comparte la chispa', desc: 'Llama o escribe a alguien para contarle la buena noticia.' },
-                    { title: 'Ancla el momento', desc: 'Toma una foto mental (o real) y nombra 3 cosas que hicieron este momento especial.' },
-                    { title: 'Celébralo', desc: 'Pon tu canción favorita, date un gusto o simplemente baila.' },
-                    { title: 'Cápsula del tiempo', desc: 'Escribe cómo te sientes de bien ahora y guárdalo para leerlo en un día donde te sientas triste.' }
-                ]
-            },
-            {
-                id: 'calm',
-                name: 'Calma',
-                emoji: '🍃',
-                color: 'bg-emerald-50 text-emerald-600 border-emerald-200',
-                btn3d: 'hover:border-emerald-400 hover:shadow-[0_4px_0_#34d399] shadow-[0_4px_0_#a7f3d0]',
-                description: 'El estado base del bienestar. Un equilibrio donde el cuerpo no gasta energía extra y la mente tiene claridad.',
-                example: 'Como sentarte a tomar un café en silencio en la mañana, sin revisar el celular ni pensar en urgencias.',
-                releaseMessage: 'Has anclado tu calma. Guarda este estado de paz en tu interior para volver a él cuando lo necesites.',
-                activities: [
-                    { title: 'Observación consciente', desc: 'Siéntate y simplemente observa tu entorno, sin juzgar, solo notando formas y colores.' },
-                    { title: 'Respiración natural', desc: 'Sigue el ritmo de tu respiración sin intentar cambiarla ni forzarla.' },
-                    { title: 'Lectura o creación', desc: 'Aprovecha la claridad mental para leer, escribir o organizar tus ideas.' },
-                    { title: 'Escaneo corporal', desc: 'Recorre mentalmente tu cuerpo desde los pies hasta la cabeza, relajando cada parte al pensar en ella.' }
-                ]
-            }
+            { id: 'sadness', name: 'Tristeza', emoji: '🌧️', theme: 'theme-blue', description: 'Es natural sentirse así. La tristeza nos ayuda a procesar pérdidas, soltar el pasado y pedir apoyo.', example: 'Como cuando terminas una etapa importante o pierdes a alguien. Sientes pesadez, ganas de llorar o aislamiento.', releaseMessage: 'Has entregado tu tristeza. Permite que este espacio contenga tu vulnerabilidad y te ayude a sanar.', activities: [ { title: 'Permítete sentir', desc: 'No reprimas las lágrimas si surgen. Es una liberación necesaria.' }, { title: 'Escribe sin filtro', desc: 'Saca todo de tu cabeza al papel. No tiene que tener sentido, solo sácalo.' }, { title: 'Busca confort', desc: 'Una manta cálida, una bebida caliente o un abrazo pueden ayudar.' }, { title: 'Ritual de agua', desc: 'Lávate la cara con agua fría imaginando que el agua limpia y arrastra la pesadez mental.' } ] },
+            { id: 'anger', name: 'Enojo', emoji: '🌋', theme: 'theme-red', description: 'El enojo es una alarma. Te avisa que un límite ha sido cruzado o que algo te parece profundamente injusto.', example: 'Como cuando alguien minimiza tu esfuerzo o te falta al respeto. Sientes calor, tensión y ganas de reaccionar rápido.', releaseMessage: 'Has entregado tu enojo. Que esa energía se transforme en claridad para proteger tus límites con sabiduría.', activities: [ { title: 'Descarga física', desc: 'Camina rápido, haz flexiones, o aprieta y suelta los puños con fuerza.' }, { title: 'Técnica del 10 al 0', desc: 'Cuenta hacia atrás lentamente, respirando profundo en cada número.' }, { title: 'Expresa sin destruir', desc: 'Escribe tu enojo en un papel y luego rómpelo o arrúgalo con fuerza.' }, { title: 'Cambio de temperatura', desc: 'Sostén un cubo de hielo en la mano. El frío extremo desvía la atención del cerebro y baja la ira.' } ] },
+            { id: 'anxiety', name: 'Ansiedad', emoji: '🌪️', theme: 'theme-orange', description: 'Tu cuerpo está en alerta máxima por algo que "podría" pasar. Vamos a traer a tu cerebro de vuelta al presente.', example: 'Como la noche antes de una entrega final. Tienes taquicardia, respiración corta y no puedes dejar de pensar en lo peor.', releaseMessage: 'Has entregado tu ansiedad. Suelta la ilusión de control y regresa suavemente al momento presente.', activities: [ { title: 'Técnica 5-4-3-2-1', desc: 'Identifica 5 cosas que ves, 4 que tocas, 3 que oyes, 2 que hueles y 1 que saboreas.' }, { title: 'Choque térmico', desc: 'Mójate la cara o las muñecas con agua muy fría para resetear el sistema nervioso.' }, { title: 'Enraizamiento', desc: 'Presiona los pies firmes contra el suelo y siente el soporte de la tierra.' }, { title: 'Trazos repetitivos', desc: 'Dibuja espirales o colorea mandalas para canalizar el exceso de energía ansiosa.' } ] },
+            { id: 'fear', name: 'Miedo', emoji: '🛡️', theme: 'theme-purple', description: 'El miedo es tu guardián, intenta protegerte del peligro, pero a veces su alarma es demasiado fuerte y te paraliza.', example: 'Como cuando tienes que exponer frente a un público hostil. Sientes vacío en el estómago y ganas de huir.', releaseMessage: 'Has entregado tu miedo. Reconocemos su intención de protegerte, pero ahora eliges caminar con confianza.', activities: [ { title: 'Tu Refugio Mental', desc: 'Cierra los ojos y visualiza con detalle un sitio donde nada pueda dañarte.' }, { title: 'Abrazo de mariposa', desc: 'Cruza tus manos sobre el pecho y da golpecitos rítmicos alternando los hombros.' }, { title: 'Cuestiona la amenaza', desc: 'Pregúntate: ¿Este peligro es 100% real ahora mismo o es una posibilidad?' }, { title: 'Postura de poder', desc: 'Párate como superhéroe (manos en la cintura) por 2 minutos para reducir el cortisol y aumentar la confianza.' } ] },
+            { id: 'stress', name: 'Estrés', emoji: '🔥', theme: 'theme-amber', description: 'La balanza se rompió: sientes que tienes demasiadas demandas y muy pocos recursos para enfrentarlas.', example: 'Como cuando trabajas y estudias al mismo tiempo y tienes entregas cruzadas. Sientes rigidez en el cuello y prisa constante.', releaseMessage: 'Has entregado tu estrés. Suelta la autoexigencia por un momento; está bien pausar y descansar.', activities: [ { title: 'La Regla de 3', desc: 'Elige solo las 3 tareas más críticas de hoy. Lo demás se reprograma.' }, { title: 'Pausa de 5 minutos', desc: 'Aléjate de la pantalla. Estira el cuello y toma un vaso de agua completo.' }, { title: 'Respiración de Caja', desc: 'Inhala en 4s, sostén 4s, exhala 4s, sostén sin aire 4s.' }, { title: 'Relajación muscular', desc: 'Tensa muy fuerte los hombros por 5 segundos y luego suéltalos de golpe. Repite 3 veces.' } ] },
+            { id: 'disgust', name: 'Desagrado', emoji: '🛑', theme: 'theme-lime', description: 'Una respuesta de protección instintiva. Te avisa sobre lo que es tóxico, abusivo o va en contra de tus valores fundamentales.', example: 'Como cuando alguien hace un comentario ofensivo disfrazado de broma. Sientes rechazo inmediato y distancia física.', releaseMessage: 'Has entregado tu incomodidad. Reafirmas tu derecho a elegir lo que es nutritivo y saludable para ti.', activities: [ { title: 'Reafirma tus límites', desc: 'Identifica exactamente qué te causó rechazo para no permitirlo de nuevo.' }, { title: 'Limpieza física', desc: 'Lávate las manos o la cara; ayuda psicológicamente a "soltar" el evento.' }, { title: 'Distancia estratégica', desc: 'Aléjate físicamente del entorno o de la persona por unos minutos.' }, { title: 'Cambio de foco', desc: 'Huele algo cítrico o come una menta fuerte para "resetear" el sentido del asco.' } ] },
+            { id: 'love', name: 'Amor', emoji: '💖', theme: 'theme-rose', description: 'La emoción de la conexión profunda. No solo hacia otros, sino hacia ti mismo. Expande tu energía y fortalece vínculos.', example: 'Como cuando te sientes incondicionalmente aceptado por un amigo, o logras perdonarte un error.', releaseMessage: 'Has entregado tu amor y gratitud. Que esta energía expansiva siga nutriendo tu corazón y tus vínculos.', activities: [ { title: 'Autocompasión', desc: 'Háblate en voz alta como le hablarías a tu mejor amigo si estuviera sufriendo.' }, { title: 'Acto de servicio', desc: 'Haz algo pequeño y desinteresado por otra persona hoy.' }, { title: 'Apreciación', desc: 'Envía un mensaje a alguien diciéndole exactamente por qué lo valoras.' }, { title: 'Carta de luz', desc: 'Escríbete 3 cosas que te hacen sentir orgulloso de la persona en la que te has convertido.' } ] },
+            { id: 'joy', name: 'Alegría', emoji: '✨', theme: 'theme-yellow', description: 'La señal de que tus necesidades están cubiertas. Disfrutarla fortalece tu "batería de resiliencia" para momentos difíciles.', example: 'Como cuando apruebas esa materia difícil o comes tu comida favorita. Sientes ligereza y energía.', releaseMessage: 'Has entregado tu alegría. Al reconocerla y celebrarla, multiplicas su luz en tu vida y en tu entorno.', activities: [ { title: 'Comparte la chispa', desc: 'Llama o escribe a alguien para contarle la buena noticia.' }, { title: 'Ancla el momento', desc: 'Toma una foto mental (o real) y nombra 3 cosas que hicieron este momento especial.' }, { title: 'Celébralo', desc: 'Pon tu canción favorita, date un gusto o simplemente baila.' }, { title: 'Cápsula del tiempo', desc: 'Escribe cómo te sientes de bien ahora y guárdalo para leerlo en un día donde te sientas triste.' } ] },
+            { id: 'calm', name: 'Calma', emoji: '🍃', theme: 'theme-emerald', description: 'El estado base del bienestar. Un equilibrio donde el cuerpo no gasta energía extra y la mente tiene claridad.', example: 'Como sentarte a tomar un café en silencio en la mañana, sin revisar el celular ni pensar en urgencias.', releaseMessage: 'Has anclado tu calma. Guarda este estado de paz en tu interior para volver a él cuando lo necesites.', activities: [ { title: 'Observación consciente', desc: 'Siéntate y simplemente observa tu entorno, sin juzgar, solo notando formas y colores.' }, { title: 'Respiración natural', desc: 'Sigue el ritmo de tu respiración sin intentar cambiarla ni forzarla.' }, { title: 'Lectura o creación', desc: 'Aprovecha la claridad mental para leer, escribir o organizar tus ideas.' }, { title: 'Escaneo corporal', desc: 'Recorre mentalmente tu cuerpo desde los pies hasta la cabeza, relajando cada parte al pensar en ella.' } ] }
         ];
 
         const PSICO_CONTENT = [
-            { title: "Autoconocimiento", emoji: "🪞", color: "indigo", shortDesc: "El mapa de tu mundo interior.", desc: "Es la capacidad de observar y entender tus propias emociones, pensamientos y fortalezas. No puedes gestionar lo que no conoces.", myth: "Mito: 'Ya me conozco, soy así y punto'. Realidad: Cambiamos constantemente.", tip: "Práctica: Cada noche, pregúntate: '¿Cuál fue la emoción más fuerte que sentí hoy y qué la detonó?'" },
-            { title: "Autoconcepto", emoji: "👤", color: "teal", shortDesc: "La historia que te cuentas sobre ti.", desc: "Es el conjunto de creencias, imágenes y etiquetas que tienes sobre ti mismo (ej. 'soy inteligente', 'soy torpe').", myth: "Mito: 'Mi autoconcepto es la verdad absoluta'. Realidad: Es solo una creencia y puedes reescribirla.", tip: "Práctica: Haz una lista de 3 etiquetas negativas que te pones y busca evidencias reales que demuestren lo contrario." },
-            { title: "Autoestima", emoji: "💖", color: "rose", shortDesc: "Cuánto valoras tu propia historia.", desc: "Es el sentido de valor propio, el merecimiento y el respeto incondicional hacia ti mismo, incluso cuando te equivocas.", myth: "Mito: 'La autoestima alta es creerse superior'. Realidad: Es sentirte valioso sin compararte.", tip: "Práctica: Trátate como tratarías a tu mejor amigo. Si fallas, dite: 'Hiciste lo mejor que pudiste'." },
-            { title: "Autopercepción", emoji: "👁️", color: "amber", shortDesc: "Tus acciones revelan tus emociones.", desc: "Muchas veces descubrimos nuestras propias actitudes al observar cómo nos comportamos (ej. 'Si tiemblo, debo estar ansioso').", myth: "Mito: 'Siempre sé por qué hago las cosas'. Realidad: A veces actuamos en piloto automático.", tip: "Práctica: Observa tu postura corporal ahora mismo. ¿Estás tenso? Tu cuerpo te dice cómo está tu mente." },
-            { title: "Regulación Emocional", emoji: "🎛️", color: "blue", shortDesc: "El termostato de tu mente.", desc: "No es reprimir, sino tener la capacidad de influir en cómo experimentas tus emociones. Es el espacio de pausa entre estímulo y respuesta.", myth: "Mito: 'Controlar significa no llorar ni enojarse'. Realidad: Significa sentir sin que la emoción decida por ti.", tip: "Práctica: Usa la regla de los 3 segundos. Antes de responder a un ataque, cuenta hasta 3 respirando profundo." },
-            { title: "Resiliencia", emoji: "🌱", color: "emerald", shortDesc: "Tu capacidad de rebotar y crecer.", desc: "La habilidad de adaptarse positivamente frente a la adversidad o el estrés severo. Es permitirte que el dolor te atraviese y usarlo como motor.", myth: "Mito: 'Las personas resilientes no sufren'. Realidad: Sufren, pero encuentran un significado para avanzar.", tip: "Práctica: Recuerda la última crisis que superaste. ¿Qué fortaleza descubriste de ti mismo en ese momento?" },
-            { title: "Empatía", emoji: "🤝", color: "purple", shortDesc: "Ver el mundo con otros ojos.", desc: "La capacidad de comprender y resonar con la perspectiva del otro. No requiere que estés de acuerdo, solo que valides su emoción.", myth: "Mito: 'Ser empático significa solucionar el problema del otro'. Realidad: Significa acompañar sin intentar arreglar.", tip: "Práctica: Cuando alguien te cuente un problema, elimina el 'Al menos...'. Simplemente di: 'Lamento que pases por esto'." },
-            { title: "Límites Saludables", emoji: "🛑", color: "red", shortDesc: "El cerco que protege tu energía.", desc: "Reglas claras y asertivas que estableces para enseñarle al mundo cómo tratarte. Son un acto puro de amor propio.", myth: "Mito: 'Poner límites es ser egoísta'. Realidad: Los límites mejoran las relaciones al evitar resentimiento.", tip: "Práctica: Aprende a decir un 'No' sin sobre-explicaciones. Ej: 'Me encantaría ayudarte, pero no tengo capacidad ahora'." },
-            { title: "Distorsiones Cognitivas", emoji: "🎭", color: "orange", shortDesc: "Los lentes sucios de tu mente.", desc: "Son 'errores' que hace tu cerebro al interpretar la realidad, haciéndote ver las cosas más oscuras de lo que son (ej. Catastrofizar).", myth: "Mito: 'Si lo pienso, debe ser verdad'. Realidad: Tu mente te miente a menudo bajo estrés.", tip: "Práctica: Cuando pienses 'TODO me sale mal', busca 2 excepciones recientes donde sí te salieron bien." },
-            { title: "Autocompasión", emoji: "🫂", color: "yellow", shortDesc: "Ser tu propio refugio.", desc: "Brindarte a ti mismo la misma calidez y cuidado que le darías a un ser querido cuando fracasa o sufre.", myth: "Mito: 'La autocompasión es darme lástima'. Realidad: Es la fuerza que te permite perdonarte rápido.", tip: "Práctica: Ponte la mano en el corazón y dite: 'Este es un momento difícil. Que pueda ser amable conmigo ahora'." }
+            { title: "Autoconocimiento", emoji: "🪞", theme: "theme-indigo", shortDesc: "El mapa de tu mundo interior.", desc: "Es la capacidad de observar y entender tus propias emociones, pensamientos y fortalezas. No puedes gestionar lo que no conoces.", myth: "Mito: 'Ya me conozco, soy así y punto'. Realidad: Cambiamos constantemente.", tip: "Práctica: Cada noche, pregúntate: '¿Cuál fue la emoción más fuerte que sentí hoy y qué la detonó?'" },
+            { title: "Autoconcepto", emoji: "👤", theme: "theme-teal", shortDesc: "La historia que te cuentas sobre ti.", desc: "Es el conjunto de creencias, imágenes y etiquetas que tienes sobre ti mismo (ej. 'soy inteligente', 'soy torpe').", myth: "Mito: 'Mi autoconcepto es la verdad absoluta'. Realidad: Es solo una creencia y puedes reescribirla.", tip: "Práctica: Haz una lista de 3 etiquetas negativas que te pones y busca evidencias reales que demuestren lo contrario." },
+            { title: "Autoestima", emoji: "💖", theme: "theme-rose", shortDesc: "Cuánto valoras tu propia historia.", desc: "Es el sentido de valor propio, el merecimiento y el respeto incondicional hacia ti mismo, incluso cuando te equivocas.", myth: "Mito: 'La autoestima alta es creerse superior'. Realidad: Es sentirte valioso sin compararte.", tip: "Práctica: Trátate como tratarías a tu mejor amigo. Si fallas, dite: 'Hiciste lo mejor que pudiste'." },
+            { title: "Autopercepción", emoji: "👁️", theme: "theme-amber", shortDesc: "Tus acciones revelan tus emociones.", desc: "Muchas veces descubrimos nuestras propias actitudes al observar cómo nos comportamos (ej. 'Si tiemblo, debo estar ansioso').", myth: "Mito: 'Siempre sé por qué hago las cosas'. Realidad: A veces actuamos en piloto automático.", tip: "Práctica: Observa tu postura corporal ahora mismo. ¿Estás tenso? Tu cuerpo te dice cómo está tu mente." },
+            { title: "Regulación Emocional", emoji: "🎛️", theme: "theme-blue", shortDesc: "El termostato de tu mente.", desc: "No es reprimir, sino tener la capacidad de influir en cómo experimentas tus emociones. Es el espacio de pausa entre estímulo y respuesta.", myth: "Mito: 'Controlar significa no llorar ni enojarse'. Realidad: Significa sentir sin que la emoción decida por ti.", tip: "Práctica: Usa la regla de los 3 segundos. Antes de responder a un ataque, cuenta hasta 3 respirando profundo." },
+            { title: "Resiliencia", emoji: "🌱", theme: "theme-emerald", shortDesc: "Tu capacidad de rebotar y crecer.", desc: "La habilidad de adaptarse positivamente frente a la adversidad o el estrés severo. Es permitirte que el dolor te atraviese y usarlo como motor.", myth: "Mito: 'Las personas resilientes no sufren'. Realidad: Sufren, pero encuentran un significado para avanzar.", tip: "Práctica: Recuerda la última crisis que superaste. ¿Qué fortaleza descubriste de ti mismo en ese momento?" },
+            { title: "Empatía", emoji: "🤝", theme: "theme-purple", shortDesc: "Ver el mundo con otros ojos.", desc: "La capacidad de comprender y resonar con la perspectiva del otro. No requiere que estés de acuerdo, solo que valides su emoción.", myth: "Mito: 'Ser empático significa solucionar el problema del otro'. Realidad: Significa acompañar sin intentar arreglar.", tip: "Práctica: Cuando alguien te cuente un problema, elimina el 'Al menos...'. Simplemente di: 'Lamento que pases por esto'." },
+            { title: "Límites Saludables", emoji: "🛑", theme: "theme-red", shortDesc: "El cerco que protege tu energía.", desc: "Reglas claras y asertivas que estableces para enseñarle al mundo cómo tratarte. Son un acto puro de amor propio.", myth: "Mito: 'Poner límites es ser egoísta'. Realidad: Los límites mejoran las relaciones al evitar resentimiento.", tip: "Práctica: Aprende a decir un 'No' sin sobre-explicaciones. Ej: 'Me encantaría ayudarte, pero no tengo capacidad ahora'." },
+            { title: "Distorsiones Cognitivas", emoji: "🎭", theme: "theme-orange", shortDesc: "Los lentes sucios de tu mente.", desc: "Son 'errores' que hace tu cerebro al interpretar la realidad, haciéndote ver las cosas más oscuras de lo que son (ej. Catastrofizar).", myth: "Mito: 'Si lo pienso, debe ser verdad'. Realidad: Tu mente te miente a menudo bajo estrés.", tip: "Práctica: Cuando pienses 'TODO me sale mal', busca 2 excepciones recientes donde sí te salieron bien." },
+            { title: "Autocompasión", emoji: "🫂", theme: "theme-yellow", shortDesc: "Ser tu propio refugio.", desc: "Brindarte a ti mismo la misma calidez y cuidado que le darías a un ser querido cuando fracasa o sufre.", myth: "Mito: 'La autocompasión es darme lástima'. Realidad: Es la fuerza que te permite perdonarte rápido.", tip: "Práctica: Ponte la mano en el corazón y dite: 'Este es un momento difícil. Que pueda ser amable conmigo ahora'." }
         ];
 
         const CHAT_CASES = [
@@ -403,11 +580,11 @@
         ];
 
         const EI_PILLARS = [
-            { id: 'conciencia', name: 'Autoconciencia', emoji: '🪞', color: 'blue', desc: 'Observar tus propias emociones en tiempo real sin juzgarlas.', power: 'Claridad mental', reto: 'Hoy, ponle nombre exacto a 3 emociones que sientas.' },
-            { id: 'regulacion', name: 'Autorregulación', emoji: '🎛️', color: 'emerald', desc: 'Elegir cómo reaccionar. Es la pausa entre el estímulo y la respuesta.', power: 'Autodominio', reto: 'Antes de responder un mensaje que te molesta, respira 5 veces.' },
-            { id: 'motivacion', name: 'Motivación', emoji: '🚀', color: 'orange', desc: 'Usar la energía emocional para dirigirte hacia tus metas.', power: 'Resiliencia', reto: 'Encuentra un "para qué" personal a una tarea aburrida de hoy.' },
-            { id: 'empatia', name: 'Empatía', emoji: '🤝', color: 'purple', desc: 'Leer el "radar social" y validar la experiencia de los demás.', power: 'Conexión profunda', reto: 'Escucha hoy a alguien durante 5 minutos sin dar consejos.' },
-            { id: 'social', name: 'Habilidades Sociales', emoji: '🌉', color: 'rose', desc: 'Comunicarse asertivamente y construir puentes en lugar de muros.', power: 'Liderazgo positivo', reto: 'Expresa un límite usando "Yo siento..." en lugar de "Tú siempre...".' }
+            { id: 'conciencia', name: 'Autoconciencia', emoji: '🪞', theme: 'theme-blue', desc: 'Observar tus propias emociones en tiempo real sin juzgarlas.', power: 'Claridad mental', reto: 'Hoy, ponle nombre exacto a 3 emociones que sientas.' },
+            { id: 'regulacion', name: 'Autorregulación', emoji: '🎛️', theme: 'theme-emerald', desc: 'Elegir cómo reaccionar. Es la pausa entre el estímulo y la respuesta.', power: 'Autodominio', reto: 'Antes de responder un mensaje que te molesta, respira 5 veces.' },
+            { id: 'motivacion', name: 'Motivación', emoji: '🚀', theme: 'theme-orange', desc: 'Usar la energía emocional para dirigirte hacia tus metas.', power: 'Resiliencia', reto: 'Encuentra un "para qué" personal a una tarea aburrida de hoy.' },
+            { id: 'empatia', name: 'Empatía', emoji: '🤝', theme: 'theme-purple', desc: 'Leer el "radar social" y validar la experiencia de los demás.', power: 'Conexión profunda', reto: 'Escucha hoy a alguien durante 5 minutos sin dar consejos.' },
+            { id: 'social', name: 'Habilidades Sociales', emoji: '🌉', theme: 'theme-rose', desc: 'Comunicarse asertivamente y construir puentes en lugar de muros.', power: 'Liderazgo positivo', reto: 'Expresa un límite usando "Yo siento..." en lugar de "Tú siempre...".' }
         ];
 
         const GYM_THOUGHTS = [
@@ -438,26 +615,21 @@
 
         function SupportSection() {
             return (
-                <section className="mt-12 bg-white rounded-[32px] p-8 md:p-12 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] border-b-8 border-indigo-200 text-center relative overflow-hidden animate-fade-in">
-                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-                    <div className="max-w-2xl mx-auto">
-                        <div className="flex justify-center mb-6">
+                <section className="support-box animate-fade-in">
+                    <div className="support-gradient"></div>
+                    <div className="content-wrapper" style={{maxWidth: '42rem'}}>
+                        <div style={{display:'flex', justifyContent:'center', marginBottom:'1.5rem'}}>
                             <span className="text-6xl figure-3d animate-pulse">💖</span>
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-black text-slate-800 mb-4 tracking-tight">Reconocer tus emociones es un acto valiente.</h3>
-                        <p className="text-slate-600 mb-8 leading-relaxed text-base md:text-lg">
+                        <h3 className="text-2xl font-black mb-4">Reconocer tus emociones es un acto valiente.</h3>
+                        <p className="text-lg text-muted" style={{marginBottom: '2rem'}}>
                             Si alguna emoción te desborda o simplemente necesitas procesar lo que estás viviendo, 
                             aquí puedes pedir tu espacio de escucha profesional. No tienes que transitar esto a solas.
                         </p>
-                        <a 
-                            href="https://ucn.edu.co/consultame/" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-10 rounded-2xl btn-3d-base shadow-[0_6px_0_#4338ca] hover:shadow-[0_4px_0_#4338ca] text-lg"
-                        >
-                            <Icon name="message-circle" className="w-6 h-6" />
+                        <a href="https://ucn.edu.co/consultame/" target="_blank" rel="noopener noreferrer" className="btn-primary btn-3d-base">
+                            <Icon name="message-circle" className="icon" />
                             Quiero hablar
-                            <Icon name="external-link" className="w-5 h-5 opacity-70" />
+                            <Icon name="external-link" className="icon-sm" style={{opacity: 0.7}} />
                         </a>
                     </div>
                 </section>
@@ -466,22 +638,22 @@
 
         function PAESection() {
             return (
-                <section className="card-3d bg-rose-50 border-rose-100 p-8 md:p-10 animate-fade-in mb-8 mt-12">
-                    <h2 className="text-2xl font-black text-rose-800 mb-4 flex items-center gap-3">
+                <section className="card-3d pae-section animate-fade-in">
+                    <h2 className="pae-title">
                         <span className="text-3xl figure-3d">🩹</span> Primeros Auxilios Emocionales (para otros)
                     </h2>
-                    <p className="text-rose-700 mb-8 font-medium">Cómo apoyar a alguien que no se siente bien emocionalmente:</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <p style={{color: 'var(--rose-700)', fontWeight: 500}}>Cómo apoyar a alguien que no se siente bien emocionalmente:</p>
+                    <div className="pae-grid">
                         {[
                             { title: 'Validar', desc: 'Dile: "Es comprensible que te sientas así". No juzgues su emoción.', icon: 'check-circle' },
                             { title: 'Acompañar', desc: 'Hazle saber que estás ahí, incluso en silencio o a la distancia.', icon: 'users' },
                             { title: 'No Minimizar', desc: 'Evita decir "no es para tanto" o "podría ser peor". Respeta su dolor.', icon: 'heart-off' },
                             { title: 'Preguntar', desc: 'Pregunta: "¿Necesitas un consejo o solo que te escuche?". Dale el control.', icon: 'help-circle' }
                         ].map((item, i) => (
-                            <div key={i} className="bg-white p-6 rounded-[24px] border border-rose-100 shadow-sm hover:shadow-md transition-shadow">
-                                <Icon name={item.icon} className="w-8 h-8 text-rose-500 mb-4" />
-                                <h4 className="font-black text-rose-900 text-lg mb-2">{item.title}</h4>
-                                <p className="text-sm text-rose-700 leading-relaxed">{item.desc}</p>
+                            <div key={i} className="pae-card">
+                                <Icon name={item.icon} className="icon-lg" style={{color: 'var(--rose-500)', marginBottom: '1rem'}} />
+                                <h4 className="text-lg font-black" style={{color: 'var(--rose-900)', marginBottom: '0.5rem'}}>{item.title}</h4>
+                                <p className="text-sm" style={{color: 'var(--rose-700)'}}>{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -491,61 +663,54 @@
 
         function PAPSection() {
             return (
-                <section className="card-3d bg-indigo-900 border-indigo-800 text-white p-8 md:p-10 animate-fade-in mb-10 overflow-hidden relative">
-                    <div className="absolute -top-10 -right-10 p-4 opacity-10">
-                        <Icon name="life-buoy" className="w-64 h-64" />
-                    </div>
-                    <div className="relative z-10">
-                        <h2 className="text-2xl font-black mb-4 flex items-center gap-3">
+                <section className="card-3d pap-section animate-fade-in">
+                    <Icon name="life-buoy" className="pap-bg-icon" />
+                    <div style={{position: 'relative', zIndex: 10}}>
+                        <h2 className="text-2xl font-black" style={{marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.75rem'}}>
                             <span className="text-3xl figure-3d">🤝</span> Primeros Auxilios Psicológicos (PAP)
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                            <div className="bg-indigo-800/60 p-6 rounded-[24px] border border-indigo-600/50 backdrop-blur-sm">
-                                <h4 className="font-bold text-indigo-300 mb-3 flex items-center gap-3">
-                                    <span className="flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full text-white text-sm font-black shadow-inner">1</span> Observar
+                        <div className="pap-grid">
+                            <div className="pap-card">
+                                <h4 className="font-bold" style={{color: 'var(--indigo-300)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.75rem'}}>
+                                    <span className="pap-num">1</span> Observar
                                 </h4>
-                                <p className="text-sm text-indigo-100 leading-relaxed">Analiza el entorno y las necesidades básicas inmediatas del otro.</p>
+                                <p className="text-sm" style={{color: 'var(--indigo-100)'}}>Analiza el entorno y las necesidades básicas inmediatas del otro.</p>
                             </div>
-                            <div className="bg-indigo-800/60 p-6 rounded-[24px] border border-indigo-600/50 backdrop-blur-sm">
-                                <h4 className="font-bold text-indigo-300 mb-3 flex items-center gap-3">
-                                    <span className="flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full text-white text-sm font-black shadow-inner">2</span> Escuchar
+                            <div className="pap-card">
+                                <h4 className="font-bold" style={{color: 'var(--indigo-300)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.75rem'}}>
+                                    <span className="pap-num">2</span> Escuchar
                                 </h4>
-                                <p className="text-sm text-indigo-100 leading-relaxed">Escucha activamente, permitiendo que la persona se desahogue sin juzgarla.</p>
+                                <p className="text-sm" style={{color: 'var(--indigo-100)'}}>Escucha activamente, permitiendo que la persona se desahogue sin juzgarla.</p>
                             </div>
-                            <div className="bg-indigo-800/60 p-6 rounded-[24px] border border-indigo-600/50 backdrop-blur-sm">
-                                <h4 className="font-bold text-indigo-300 mb-3 flex items-center gap-3">
-                                    <span className="flex items-center justify-center w-8 h-8 bg-indigo-500 rounded-full text-white text-sm font-black shadow-inner">3</span> Conectar
+                            <div className="pap-card">
+                                <h4 className="font-bold" style={{color: 'var(--indigo-300)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.75rem'}}>
+                                    <span className="pap-num">3</span> Conectar
                                 </h4>
-                                <p className="text-sm text-indigo-100 leading-relaxed">Ayuda a la persona a contactar con su red de apoyo o servicios profesionales.</p>
+                                <p className="text-sm" style={{color: 'var(--indigo-100)'}}>Ayuda a la persona a contactar con su red de apoyo o servicios profesionales.</p>
                             </div>
                         </div>
                         
-                        <div className="space-y-4">
-                            <div className="bg-indigo-950/60 p-6 rounded-[24px] border border-indigo-500/30 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
-                                <h4 className="font-bold text-indigo-200 text-base text-center md:text-left flex items-center gap-2">
-                                    <Icon name="wind" className="w-5 h-5"/> Guía de estabilidad (Respiración 4-7-8)
+                        <div>
+                            <div className="guide-box">
+                                <h4 className="font-bold" style={{color: 'var(--indigo-200)', display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                                    <Icon name="wind" className="icon-sm"/> Guía de estabilidad (Respiración 4-7-8)
                                 </h4>
-                                <div className="flex flex-wrap justify-center gap-3">
-                                    <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Inhala (4s)</span>
-                                    <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Mantén (7s)</span>
-                                    <span className="px-5 py-2 bg-indigo-500/20 rounded-xl border border-indigo-500/50 text-xs font-black uppercase tracking-widest shadow-sm">Exhala (8s)</span>
+                                <div className="guide-pills">
+                                    <span className="guide-pill">Inhala (4s)</span>
+                                    <span className="guide-pill">Mantén (7s)</span>
+                                    <span className="guide-pill">Exhala (8s)</span>
                                 </div>
                             </div>
 
-                            <div className="bg-indigo-600/20 p-6 rounded-[24px] border border-indigo-400/30 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-sm">
-                                <div className="text-center md:text-left">
-                                    <h4 className="font-bold text-white text-lg mb-1 flex items-center justify-center md:justify-start gap-2">
-                                        <Icon name="phone-call" className="w-5 h-5 text-indigo-300" /> Directorio Nacional
+                            <div className="dir-box">
+                                <div>
+                                    <h4 className="font-bold text-lg" style={{marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center'}}>
+                                        <Icon name="phone-call" className="icon-sm" style={{color: 'var(--indigo-300)'}} /> Directorio Nacional
                                     </h4>
-                                    <p className="text-sm text-indigo-200">Líneas de ayuda en salud mental en Colombia (PDF oficial).</p>
+                                    <p className="text-sm" style={{color: 'var(--indigo-200)'}}>Líneas de ayuda en salud mental en Colombia (PDF oficial).</p>
                                 </div>
-                                <a 
-                                    href="https://www.colpsic.org.co/wp-content/uploads/2021/08/Directorio-salud-mental-Colombia.pdf" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 bg-white text-indigo-900 hover:bg-indigo-50 font-black py-4 px-8 rounded-2xl btn-3d-base shadow-[0_4px_0_#c7d2fe] hover:shadow-[0_2px_0_#c7d2fe] transition-all text-center"
-                                >
-                                    Ver Directorio <Icon name="external-link" className="w-4 h-4" />
+                                <a href="https://www.colpsic.org.co/wp-content/uploads/2021/08/Directorio-salud-mental-Colombia.pdf" target="_blank" rel="noopener noreferrer" className="btn-white btn-3d-base">
+                                    Ver Directorio <Icon name="external-link" className="icon-sm" />
                                 </a>
                             </div>
                         </div>
@@ -582,86 +747,76 @@
 
             if (selectedEmotion) {
                 return (
-                    <div className="animate-fade-in space-y-8">
-                        <button onClick={() => setSelectedEmotion(null)} className="mb-4 text-slate-500 hover:text-indigo-600 flex items-center gap-2 font-bold transition-all px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200">
-                            <Icon name="arrow-left" className="w-5 h-5" /> Volver al selector
+                    <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+                        <button onClick={() => setSelectedEmotion(null)} style={{display:'inline-flex', alignItems:'center', gap:'0.5rem', fontWeight: 700, padding:'0.5rem 1rem', background:'var(--white)', borderRadius:'var(--radius-full)', border:'1px solid var(--slate-200)', width:'max-content', color:'var(--slate-500)', transition:'color 0.2s'}}>
+                            <Icon name="arrow-left" className="icon-sm" /> Volver al selector
                         </button>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            <div className="lg:col-span-1 space-y-6">
-                                <div className={`p-10 rounded-[32px] border-2 ${selectedEmotion.color} flex flex-col items-center text-center shadow-lg relative overflow-hidden`}>
-                                    <span className="text-8xl figure-3d mb-6">{selectedEmotion.emoji}</span>
-                                    <h2 className="text-3xl font-black uppercase tracking-tight z-10">{selectedEmotion.name}</h2>
-                                    <p className="mt-4 text-base opacity-95 font-medium leading-relaxed z-10">{selectedEmotion.description}</p>
+                        <div className="detail-grid">
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
+                                <div className={`detail-hero ${selectedEmotion.theme} theme-card`}>
+                                    <span className="detail-emoji figure-3d">{selectedEmotion.emoji}</span>
+                                    <h2 className="detail-title">{selectedEmotion.name}</h2>
+                                    <p className="detail-desc">{selectedEmotion.description}</p>
                                 </div>
-                                <div className="card-3d p-8">
-                                    <h3 className="font-black flex items-center gap-2 text-slate-800 mb-4 text-lg">
-                                        <Icon name="eye" className="w-5 h-5 text-indigo-500" /> Ejemplo real
+                                <div className="card-3d" style={{padding: '2rem'}}>
+                                    <h3 className="box-title" style={{color: 'var(--slate-800)'}}>
+                                        <Icon name="eye" className="icon-sm" style={{color: 'var(--indigo-500)'}} /> Ejemplo real
                                     </h3>
-                                    <p className="text-sm text-slate-600 italic border-l-4 border-indigo-300 pl-4 py-1 leading-relaxed bg-slate-50/50 rounded-r-xl">
-                                        "{selectedEmotion.example}"
-                                    </p>
+                                    <p className="example-text">"{selectedEmotion.example}"</p>
                                 </div>
-                                <div className="card-3d p-8">
-                                    <h3 className="text-lg font-black mb-4 flex items-center gap-2 text-indigo-700">
-                                        <Icon name="book-open" className="w-5 h-5" /> Mi reflexión
+                                <div className="card-3d" style={{padding: '2rem'}}>
+                                    <h3 className="box-title" style={{color: 'var(--indigo-700)'}}>
+                                        <Icon name="book-open" className="icon-sm" /> Mi reflexión
                                     </h3>
                                     <textarea
-                                        className="w-full h-32 p-4 text-sm border-2 border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-100 focus:border-indigo-400 outline-none transition-all resize-none shadow-inner bg-slate-50"
+                                        className="reflection-input"
                                         placeholder="¿Qué originó esta emoción? Escríbelo aquí..."
                                         value={reflection}
-                                        onChange={(e) => {
-                                            setReflection(e.target.value);
-                                            if (isReleased) setIsReleased(false);
-                                        }}
+                                        onChange={(e) => { setReflection(e.target.value); if (isReleased) setIsReleased(false); }}
                                     ></textarea>
                                     
-                                    <div className="mt-4">
+                                    <div style={{marginTop: '1rem'}}>
                                         {!isReleased ? (
                                             <button 
                                                 onClick={handleRelease}
                                                 disabled={reflection.trim() === ""}
-                                                className={`w-full py-3.5 rounded-xl font-black flex items-center justify-center gap-2 transition-all duration-300 ${reflection.trim() === "" ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed' : 'bg-indigo-100 text-indigo-700 border-2 border-indigo-200 hover:bg-indigo-200 hover:shadow-md btn-3d-base'}`}
+                                                className={`btn-submit ${reflection.trim() === "" ? 'disabled' : 'active btn-3d-base'}`}
                                             >
-                                                <Icon name="send" className="w-5 h-5" /> Entregar
+                                                <Icon name="send" className="icon-sm" /> Entregar
                                             </button>
                                         ) : (
-                                            <div className="w-full py-4 bg-emerald-50 text-emerald-800 rounded-xl border-2 border-emerald-200 flex flex-col items-center justify-center gap-2 animate-fade-in shadow-inner">
-                                                <Icon name="sparkles" className="w-6 h-6 text-emerald-500" />
-                                                <span className="font-black text-sm text-center px-4 leading-relaxed">{selectedEmotion.releaseMessage}</span>
+                                            <div className="success-msg animate-fade-in">
+                                                <Icon name="sparkles" className="icon" />
+                                                <span className="font-black text-sm text-center">{selectedEmotion.releaseMessage}</span>
                                             </div>
                                         )}
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="lg:col-span-2">
-                                <div className="card-3d p-8 md:p-12 h-full">
-                                    <h3 className="text-2xl font-black mb-8 flex items-center gap-3 text-slate-800">
-                                        <Icon name="clock" className="w-7 h-7 text-indigo-500" /> Sugerencias Prácticas
-                                    </h3>
-                                    <div className="space-y-5">
-                                        {selectedEmotion.activities.map((act, idx) => (
-                                            <div key={idx} onClick={() => toggleActivity(idx)} 
-                                                className={`p-6 rounded-[24px] border-2 cursor-pointer transition-all flex items-start gap-5 
-                                                ${completedActivities[idx] ? 'bg-emerald-50 border-emerald-300 opacity-70 scale-[0.98]' : 'bg-white border-slate-200 hover:border-indigo-300 btn-3d-base shadow-[0_4px_0_#e2e8f0] hover:shadow-[0_4px_0_#a5b4fc]'}`}>
-                                                <div className={`mt-1 flex-shrink-0 w-8 h-8 rounded-full border-[3px] flex items-center justify-center transition-colors
-                                                    ${completedActivities[idx] ? 'bg-emerald-500 border-emerald-500' : 'border-slate-300'}`}>
-                                                    {completedActivities[idx] && <Icon name="check" className="w-5 h-5 text-white" />}
-                                                </div>
-                                                <div>
-                                                    <h4 className={`font-black text-lg ${completedActivities[idx] ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{act.title}</h4>
-                                                    <p className="text-base text-slate-600 mt-2 leading-relaxed">{act.desc}</p>
-                                                </div>
+                            <div className="card-3d" style={{padding: '2rem', height: '100%'}}>
+                                <h3 className="box-title text-2xl" style={{marginBottom: '2rem'}}>
+                                    <Icon name="clock" className="icon-lg" style={{color: 'var(--indigo-500)'}} /> Sugerencias Prácticas
+                                </h3>
+                                <div className="activity-list">
+                                    {selectedEmotion.activities.map((act, idx) => (
+                                        <div key={idx} onClick={() => toggleActivity(idx)} className={`activity-card btn-3d-base ${completedActivities[idx] ? 'completed' : ''}`}>
+                                            <div className="act-check">
+                                                {completedActivities[idx] && <Icon name="check" className="icon-sm" />}
                                             </div>
-                                        ))}
-                                    </div>
-                                    {Object.values(completedActivities).filter(Boolean).length === selectedEmotion.activities.length && (
-                                        <div className="mt-10 p-6 bg-emerald-50 text-emerald-700 rounded-2xl border-2 border-emerald-200 text-center font-black text-lg animate-bounce shadow-sm">
-                                            ✨ ¡Bien hecho! Te estás cuidando mucho.
+                                            <div>
+                                                <h4 className="act-title">{act.title}</h4>
+                                                <p className="act-desc">{act.desc}</p>
+                                            </div>
                                         </div>
-                                    )}
+                                    ))}
                                 </div>
+                                {Object.values(completedActivities).filter(Boolean).length === selectedEmotion.activities.length && (
+                                    <div className="animate-bounce" style={{marginTop: '2.5rem', padding: '1.5rem', background: 'var(--emerald-50)', color: 'var(--emerald-700)', borderRadius: 'var(--radius-2xl)', border: '2px solid var(--emerald-200)', textAlign: 'center', fontWeight: 900, fontSize: '1.125rem'}}>
+                                        ✨ ¡Bien hecho! Te estás cuidando mucho.
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <SupportSection />
@@ -670,22 +825,21 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-12">
-                    <section className="card-3d p-8 md:p-12">
-                        <h2 className="text-2xl font-black mb-10 text-center text-slate-800 tracking-wide uppercase">Explora lo que sientes</h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4 md:gap-8">
+                <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '3rem'}}>
+                    <section className="card-3d" style={{padding: '2rem'}}>
+                        <h2 className="text-2xl font-black uppercase text-center" style={{marginBottom: '2.5rem', letterSpacing: '0.05em'}}>Explora lo que sientes</h2>
+                        <div className="emotion-grid">
                             {EMOTIONS.map(emotion => (
-                                <button key={emotion.id} onClick={() => handleSelect(emotion)}
-                                    className={`flex flex-col items-center justify-center p-6 md:p-8 rounded-[32px] border-2 btn-3d-base ${emotion.color} ${emotion.btn3d}`}>
-                                    <span className="text-5xl md:text-6xl mb-4 figure-3d">{emotion.emoji}</span>
-                                    <span className="text-xs md:text-base font-black uppercase tracking-widest">{emotion.name}</span>
+                                <button key={emotion.id} onClick={() => handleSelect(emotion)} className={`emotion-item theme-card theme-card-interactive btn-3d-base ${emotion.theme}`}>
+                                    <span className="emotion-item-emoji figure-3d">{emotion.emoji}</span>
+                                    <span className="emotion-item-title">{emotion.name}</span>
                                 </button>
                             ))}
                         </div>
                     </section>
                     
-                    <section className="text-center p-8 bg-indigo-50 rounded-[32px] border-2 border-indigo-100 shadow-inner">
-                        <h3 className="text-indigo-900 text-xl font-medium italic">"Todas las emociones son mensajeras, ninguna es mala por sí misma."</h3>
+                    <section style={{textAlign: 'center', padding: '2rem', background: 'var(--indigo-50)', borderRadius: 'var(--radius-3xl)', border: '2px solid var(--indigo-100)', boxShadow: 'var(--shadow-inner)'}}>
+                        <h3 className="italic font-medium text-xl" style={{color: 'var(--indigo-900)'}}>"Todas las emociones son mensajeras, ninguna es mala por sí misma."</h3>
                     </section>
 
                     <PAESection />
@@ -712,10 +866,7 @@
                     let maxEmotion = 'sadness';
                     let maxVal = newScores['sadness'];
                     for (let key in newScores) {
-                        if (newScores[key] > maxVal) {
-                            maxVal = newScores[key];
-                            maxEmotion = key;
-                        }
+                        if (newScores[key] > maxVal) { maxVal = newScores[key]; maxEmotion = key; }
                     }
                     const fullEmotion = EMOTIONS.find(e => e.id === maxEmotion) || EMOTIONS[0];
                     setResult(fullEmotion);
@@ -727,39 +878,45 @@
 
             if (result) {
                 return (
-                    <div className="animate-fade-in space-y-8">
-                        <div className="card-3d p-8 md:p-14 text-center">
-                            <span className="text-6xl figure-3d mb-6 block">🔬</span>
-                            <h2 className="text-3xl font-black text-slate-800 mb-4">Resultado de tu Escáner</h2>
-                            <p className="text-slate-600 mb-10 text-lg font-medium">Según tus respuestas, es muy probable que estés experimentando:</p>
+                    <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+                        <div className="card-3d" style={{padding: '2rem', textAlign: 'center'}}>
+                            <span className="text-6xl figure-3d" style={{display:'block', marginBottom:'1.5rem'}}>🔬</span>
+                            <h2 className="text-3xl font-black mb-4">Resultado de tu Escáner</h2>
+                            <p className="text-lg font-medium" style={{color:'var(--slate-600)', marginBottom:'2.5rem'}}>Según tus respuestas, es muy probable que estés experimentando:</p>
                             
-                            <div className={`p-12 rounded-[40px] border-b-8 border-2 ${result.color} inline-block mb-10 shadow-xl relative overflow-hidden`}>
-                                <span className="text-8xl figure-3d block mb-6">{result.emoji}</span>
-                                <h3 className="text-4xl font-black uppercase tracking-tight z-10 relative">{result.name}</h3>
+                            <div className={`result-wrapper theme-card ${result.theme}`}>
+                                <span className="text-8xl figure-3d" style={{display:'block', marginBottom:'1.5rem'}}>{result.emoji}</span>
+                                <h3 className="text-4xl font-black uppercase">{result.name}</h3>
                             </div>
 
-                            <div className="space-y-8 max-w-3xl mx-auto text-left">
-                                <div className="bg-slate-50 p-8 rounded-3xl border-2 border-slate-100 shadow-inner">
-                                    <h4 className="font-black text-slate-800 mb-3 flex items-center gap-2 text-xl"><Icon name="info" className="text-indigo-500 w-6 h-6"/> ¿Qué significa esto?</h4>
-                                    <p className="text-slate-600 leading-relaxed text-lg">{result.description}</p>
+                            <div style={{maxWidth: '48rem', margin: '0 auto', textAlign: 'left'}}>
+                                <div className="info-panel">
+                                    <h4 className="font-black text-xl" style={{display:'flex', alignItems:'center', gap:'0.5rem', marginBottom:'0.75rem'}}>
+                                        <Icon name="info" className="icon-lg" style={{color:'var(--indigo-500)'}}/> ¿Qué significa esto?
+                                    </h4>
+                                    <p className="text-lg" style={{color:'var(--slate-600)'}}>{result.description}</p>
                                 </div>
                                 
-                                <div className="mt-10">
-                                    <h4 className="font-black text-slate-800 mb-6 flex items-center gap-2 text-2xl"><Icon name="tool" className="text-emerald-500 w-8 h-8"/> Recomendaciones Prácticas para ti</h4>
-                                    <div className="grid gap-4">
+                                <div style={{marginTop: '2.5rem'}}>
+                                    <h4 className="font-black text-2xl" style={{display:'flex', alignItems:'center', gap:'0.5rem', marginBottom:'1.5rem'}}>
+                                        <Icon name="tool" className="icon-lg" style={{color:'var(--emerald-500)'}}/> Recomendaciones Prácticas
+                                    </h4>
+                                    <div>
                                         {result.activities.map((act, i) => (
-                                            <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
-                                                <div className="bg-indigo-100 p-2 rounded-xl text-indigo-600"><Icon name="check-circle" className="w-6 h-6"/></div>
+                                            <div key={i} className="rec-item">
+                                                <div style={{background:'var(--indigo-100)', padding:'0.5rem', borderRadius:'var(--radius-xl)', color:'var(--indigo-600)', height:'max-content'}}>
+                                                    <Icon name="check-circle" className="icon" />
+                                                </div>
                                                 <div>
-                                                    <h5 className="font-bold text-lg text-slate-800">{act.title}</h5>
-                                                    <p className="text-slate-600 mt-1">{act.desc}</p>
+                                                    <h5 className="font-bold text-lg">{act.title}</h5>
+                                                    <p style={{color:'var(--slate-600)', marginTop:'0.25rem'}}>{act.desc}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
-                                <button onClick={reset} className="w-full mt-10 py-5 bg-slate-800 text-white font-black rounded-2xl btn-3d-base shadow-[0_6px_0_#0f172a] hover:shadow-[0_4px_0_#0f172a] text-lg">
+                                <button onClick={reset} className="btn-dark btn-3d-base" style={{marginTop:'2.5rem'}}>
                                     Realizar otro escáner
                                 </button>
                             </div>
@@ -770,25 +927,24 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-10">
-                    <div className="card-3d p-8 md:p-14 max-w-3xl mx-auto">
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                            <h2 className="text-2xl font-black flex items-center gap-3 text-slate-800"><span className="text-3xl figure-3d">🔬</span> Simulador Emocional</h2>
-                            <span className="text-sm font-black text-indigo-600 bg-indigo-50 px-5 py-2 rounded-full border border-indigo-200 shadow-inner">
-                                Pregunta {step + 1} de {SIMULATOR_QUESTIONS.length}
-                            </span>
+                <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '2.5rem'}}>
+                    <div className="card-3d" style={{padding: '2rem', maxWidth: '48rem', margin: '0 auto'}}>
+                        <div className="sim-header">
+                            <h2 className="text-2xl font-black" style={{display:'flex', alignItems:'center', gap:'0.75rem'}}>
+                                <span className="text-3xl figure-3d">🔬</span> Simulador Emocional
+                            </h2>
+                            <span className="sim-badge">Pregunta {step + 1} de {SIMULATOR_QUESTIONS.length}</span>
                         </div>
                         
-                        <div className="w-full bg-slate-100 h-4 rounded-full mb-12 overflow-hidden shadow-inner border border-slate-200">
-                            <div className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-500 ease-out" style={{width: `${((step)/SIMULATOR_QUESTIONS.length)*100}%`}}></div>
+                        <div className="progress-track">
+                            <div className="progress-fill" style={{width: `${((step)/SIMULATOR_QUESTIONS.length)*100}%`}}></div>
                         </div>
 
-                        <h3 className="text-2xl md:text-3xl text-slate-800 font-black mb-10 leading-relaxed">{SIMULATOR_QUESTIONS[step].q}</h3>
+                        <h3 className="question-text">{SIMULATOR_QUESTIONS[step].q}</h3>
                         
-                        <div className="space-y-4">
+                        <div>
                             {SIMULATOR_QUESTIONS[step].options.map((opt, i) => (
-                                <button key={i} onClick={() => handleAnswer(opt.effect)}
-                                    className="w-full text-left p-6 rounded-2xl border-2 border-slate-200 bg-white hover:bg-indigo-50 hover:border-indigo-300 transition-all text-lg text-slate-700 font-medium btn-3d-base shadow-[0_4px_0_#e2e8f0] hover:shadow-[0_4px_0_#a5b4fc]">
+                                <button key={i} onClick={() => handleAnswer(opt.effect)} className="option-btn btn-3d-base">
                                     {opt.text}
                                 </button>
                             ))}
@@ -803,74 +959,57 @@
             const [expandedConcept, setExpandedConcept] = useState(null);
 
             const toggleConcept = (idx) => {
-                if (expandedConcept === idx) {
-                    setExpandedConcept(null);
-                } else {
-                    setExpandedConcept(idx);
-                }
+                setExpandedConcept(expandedConcept === idx ? null : idx);
             };
 
             return (
-                <div className="animate-fade-in space-y-10">
-                    <div className="text-center mb-10 card-3d p-8 md:p-12 shadow-sm border border-slate-200 rounded-3xl bg-white">
-                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
+                <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '2.5rem'}}>
+                    <div className="card-3d" style={{padding: '2rem', textAlign: 'center'}}>
+                        <h2 className="text-3xl font-black" style={{display:'flex', alignItems:'center', justifyContent:'center', gap:'1rem'}}>
                             <span className="text-5xl figure-3d">🧠</span> Psicoeducación
                         </h2>
-                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                        <p className="text-lg font-medium" style={{color:'var(--slate-600)', marginTop:'1.5rem', maxWidth:'42rem', margin:'1.5rem auto 0'}}>
                             Aprende los conceptos fundamentales de la psicología para entender cómo funcionas por dentro. Toca cualquier tarjeta para expandir tu conocimiento.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="edu-grid">
                         {PSICO_CONTENT.map((item, idx) => {
                             const isExpanded = expandedConcept === idx;
                             return (
-                                <div 
-                                    key={idx} 
-                                    onClick={() => toggleConcept(idx)}
-                                    className={`relative overflow-hidden group transition-all duration-500 cursor-pointer rounded-3xl border-2 shadow-sm hover:shadow-lg
-                                    ${isExpanded ? `bg-${item.color}-50 border-${item.color}-300 ring-4 ring-${item.color}-100 scale-[1.02] z-10` : `bg-white border-slate-200 hover:border-${item.color}-200`}`}
-                                >
-                                    <div className="p-8 relative z-10">
-                                        <div className="flex items-start justify-between mb-4">
-                                            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-${item.color}-200 shadow-inner bg-${item.color}-100/50`}>
+                                <div key={idx} onClick={() => toggleConcept(idx)} className={`concept-card ${isExpanded ? 'expanded theme-card' : ''} ${item.theme}`}>
+                                    <div className="concept-inner">
+                                        <div className="concept-header">
+                                            <div className="concept-icon-box theme-card" style={{borderColor: 'var(--t-border)', background: 'var(--t-bg)', color: 'var(--t-text)'}}>
                                                 <span className="text-3xl figure-3d">{item.emoji}</span>
                                             </div>
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-500 ${isExpanded ? 'rotate-180 bg-slate-800 text-white' : 'bg-slate-100 text-slate-500'}`}>
-                                                <Icon name={isExpanded ? "chevron-up" : "chevron-down"} className="w-5 h-5" />
+                                            <div className="concept-chevron">
+                                                <Icon name={isExpanded ? "chevron-up" : "chevron-down"} className="icon" />
                                             </div>
                                         </div>
                                         
-                                        <h3 className={`text-2xl font-black mb-2 ${isExpanded ? `text-${item.color}-900` : 'text-slate-800'}`}>{item.title}</h3>
-                                        <p className="text-base text-slate-600 font-medium leading-relaxed">{item.shortDesc}</p>
+                                        <h3 className="text-2xl font-black" style={{marginBottom: '0.5rem', color: isExpanded ? 'var(--t-text)' : 'var(--slate-800)'}}>{item.title}</h3>
+                                        <p className="text-base font-medium" style={{color: 'var(--slate-600)'}}>{item.shortDesc}</p>
 
-                                        {/* Expanded Content */}
-                                        <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}`}>
-                                            <div className="space-y-6">
-                                                <p className="text-sm text-slate-700 leading-relaxed border-l-4 border-slate-300 pl-4">
-                                                    {item.desc}
-                                                </p>
-                                                
-                                                <div className="bg-white/60 p-4 rounded-xl border border-slate-200/60 shadow-sm backdrop-blur-sm">
-                                                    <h4 className="text-xs font-black text-slate-800 uppercase tracking-widest mb-2 flex items-center gap-2">
-                                                        <Icon name="alert-triangle" className="w-4 h-4 text-amber-500"/> Rompiendo el Mito
-                                                    </h4>
-                                                    <p className="text-sm text-slate-700 italic">{item.myth}</p>
-                                                </div>
+                                        <div className="concept-body">
+                                            <p className="text-sm" style={{color: 'var(--slate-700)', borderLeft: '4px solid var(--slate-300)', paddingLeft: '1rem'}}>{item.desc}</p>
+                                            
+                                            <div className="myth-box">
+                                                <h4 className="font-black text-xs uppercase" style={{display:'flex', alignItems:'center', gap:'0.5rem', marginBottom:'0.5rem'}}>
+                                                    <Icon name="alert-triangle" className="icon-sm" style={{color:'var(--amber-500)'}}/> Rompiendo el Mito
+                                                </h4>
+                                                <p className="text-sm italic" style={{color: 'var(--slate-700)'}}>{item.myth}</p>
+                                            </div>
 
-                                                <div className={`bg-${item.color}-100/80 border border-${item.color}-200 p-5 rounded-2xl shadow-inner`}>
-                                                    <h4 className={`text-xs font-black text-${item.color}-800 uppercase tracking-widest mb-2 flex items-center gap-2`}>
-                                                        <Icon name="zap" className="w-4 h-4"/> Práctica de 1 minuto
-                                                    </h4>
-                                                    <p className={`text-sm text-${item.color}-900 font-bold leading-relaxed`}>{item.tip}</p>
-                                                </div>
+                                            <div className="practice-box theme-card" style={{borderColor: 'var(--t-border)', background: 'var(--white)'}}>
+                                                <h4 className="font-black text-xs uppercase" style={{display:'flex', alignItems:'center', gap:'0.5rem', marginBottom:'0.5rem', color:'var(--t-text)'}}>
+                                                    <Icon name="zap" className="icon-sm"/> Práctica de 1 minuto
+                                                </h4>
+                                                <p className="text-sm font-bold" style={{color: 'var(--t-text)'}}>{item.tip}</p>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    {/* Abstract background decorative element */}
-                                    <div className={`absolute -right-10 -bottom-10 w-40 h-40 rounded-full blur-3xl transition-opacity duration-700 pointer-events-none
-                                        ${isExpanded ? `bg-${item.color}-400 opacity-20` : 'opacity-0'}`}></div>
+                                    <div className="bg-blob" style={{backgroundColor: 'var(--t-hover)'}}></div>
                                 </div>
                             );
                         })}
@@ -885,43 +1024,40 @@
 
             if (activeCase) {
                 return (
-                    <div className="animate-fade-in space-y-10">
-                        <div className="bg-[#efeae2] rounded-3xl border border-slate-300 overflow-hidden shadow-2xl max-w-2xl mx-auto flex flex-col h-[750px]">
-                            {/* Header del Chat */}
-                            <div className="bg-[#075e54] text-white p-4 flex items-center gap-4 shadow-md z-10">
-                                <button onClick={() => setActiveCase(null)} className="hover:bg-white/20 p-2 rounded-full transition-colors">
-                                    <Icon name="arrow-left" className="w-6 h-6"/>
+                    <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '2.5rem'}}>
+                        <div className="chat-container">
+                            <div className="chat-header">
+                                <button onClick={() => setActiveCase(null)} className="chat-back">
+                                    <Icon name="arrow-left" className="icon"/>
                                 </button>
-                                <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center border border-white/30 shadow-inner">
-                                    <span className="text-2xl figure-3d">{activeCase.emoji}</span>
+                                <div className="chat-avatar">
+                                    <span className="figure-3d">{activeCase.emoji}</span>
                                 </div>
-                                <div className="flex-1">
-                                    <h3 className="font-bold text-lg leading-tight truncate">{activeCase.title}</h3>
-                                    <p className="text-xs text-white/80 font-medium flex items-center gap-1">
-                                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Psicólogo UCN en línea
+                                <div style={{flex: 1}}>
+                                    <h3 className="font-bold text-lg" style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>{activeCase.title}</h3>
+                                    <p className="text-xs font-medium" style={{display:'flex', alignItems:'center', gap:'0.25rem', opacity:0.9}}>
+                                        <span className="chat-status animate-pulse"></span> Psicólogo UCN en línea
                                     </p>
                                 </div>
                             </div>
                             
-                            {/* Área de Mensajes */}
-                            <div className="flex-1 p-4 md:p-6 overflow-y-auto space-y-6 scroll-smooth bg-[url('https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg')] bg-cover bg-center bg-fixed bg-opacity-50">
-                                <div className="text-center mb-6">
-                                    <span className="text-xs font-bold bg-[#e1e2e3] text-slate-600 px-4 py-2 rounded-lg shadow-sm shadow-black/5">Inicio de la simulación de contención</span>
+                            <div className="chat-body">
+                                <div className="chat-sys-msg">
+                                    <span className="chat-sys-pill">Inicio de la simulación de contención</span>
                                 </div>
                                 
                                 {activeCase.messages.map((msg, idx) => (
-                                    <div key={idx} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-slide-up`} style={{animationDelay: `${idx * 0.15}s`, animationFillMode: 'both'}}>
-                                        <div className={`max-w-[85%] md:max-w-[75%] p-4 rounded-2xl text-[15px] shadow-sm relative font-medium leading-relaxed
-                                            ${msg.sender === 'user' ? 'bg-[#dcf8c6] text-slate-800 rounded-tr-sm' : 'bg-white text-slate-800 rounded-tl-sm'}`}>
-                                            {msg.sender === 'psico' && <span className="text-xs font-black text-[#075e54] block mb-1">Psicólogo UCN</span>}
+                                    <div key={idx} className={`msg-row ${msg.sender} animate-slide-up`} style={{animationDelay: `${idx * 0.15}s`, animationFillMode: 'both'}}>
+                                        <div className="msg-bubble">
+                                            {msg.sender === 'psico' && <span className="msg-sender">Psicólogo UCN</span>}
                                             {msg.text}
-                                            <span className="text-[10px] text-slate-400 absolute right-3 bottom-1.5">{10 + idx}:{15 + (idx*2)} AM</span>
+                                            <span className="msg-time">{10 + idx}:{15 + (idx*2)} AM</span>
                                         </div>
                                     </div>
                                 ))}
                                 
-                                <div className="text-center mt-10 pb-4">
-                                    <span className="text-xs font-bold bg-[#e1e2e3] text-slate-600 px-4 py-2 rounded-lg shadow-sm shadow-black/5">Fin de la sesión</span>
+                                <div className="chat-sys-msg" style={{marginTop: '2.5rem', paddingBottom: '1rem'}}>
+                                    <span className="chat-sys-pill">Fin de la sesión</span>
                                 </div>
                             </div>
                         </div>
@@ -931,27 +1067,26 @@
             }
 
             return (
-                <div className="animate-fade-in space-y-10">
-                    <div className="text-center mb-12 bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
-                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
+                <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '2.5rem'}}>
+                    <div className="card-3d" style={{padding: '2rem', textAlign: 'center'}}>
+                        <h2 className="text-3xl font-black" style={{display:'flex', alignItems:'center', justifyContent:'center', gap:'1rem'}}>
                             <span className="text-5xl figure-3d">💬</span> Casos Reales
                         </h2>
-                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
+                        <p className="text-lg font-medium" style={{color:'var(--slate-600)', marginTop:'1.5rem', maxWidth:'42rem', margin:'1.5rem auto 0'}}>
                             Explora cómo los profesionales manejan situaciones de crisis comunes. Lee estas simulaciones de chat para aprender técnicas de contención paso a paso.
                         </p>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="cases-grid">
                         {CHAT_CASES.map(c => (
-                            <button key={c.id} onClick={() => setActiveCase(c)}
-                                className="bg-white p-6 rounded-3xl border-2 border-slate-200 shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-indigo-300 transition-all duration-300 text-left flex flex-col items-start gap-4 group">
-                                <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center shadow-inner group-hover:bg-indigo-50 transition-colors border border-slate-200">
-                                    <span className="text-3xl figure-3d group-hover:scale-110 transition-transform">{c.emoji}</span>
+                            <button key={c.id} onClick={() => setActiveCase(c)} className="case-btn group">
+                                <div className="case-icon-wrapper">
+                                    <span className="text-3xl figure-3d">{c.emoji}</span>
                                 </div>
                                 <div>
-                                    <h3 className="font-black text-slate-800 text-lg mb-2 leading-tight group-hover:text-indigo-700 transition-colors">{c.title}</h3>
-                                    <p className="text-xs text-indigo-600 font-bold flex items-center gap-1 bg-indigo-50 px-3 py-1.5 rounded-full w-max border border-indigo-100">
-                                        <Icon name="eye" className="w-3.5 h-3.5"/> Abrir Simulación
+                                    <h3 className="font-black text-lg" style={{marginBottom: '0.5rem', color: 'var(--slate-800)'}}>{c.title}</h3>
+                                    <p className="case-tag">
+                                        <Icon name="eye" className="icon-sm"/> Abrir Simulación
                                     </p>
                                 </div>
                             </button>
@@ -971,18 +1106,9 @@
             const [controlFeedback, setControlFeedback] = useState(null);
             const [controlFinished, setControlFinished] = useState(false);
 
-            const toggleFlip = (id) => {
-                setFlippedThoughts(prev => ({ ...prev, [id]: !prev[id] }));
-            };
-
-            const changeScenario = (id) => {
-                setActiveScenario(id);
-                setRevealedNodes({ emotional: false, rational: false, wise: false });
-            };
-
-            const toggleNode = (node) => {
-                setRevealedNodes(prev => ({ ...prev, [node]: true }));
-            };
+            const toggleFlip = (id) => setFlippedThoughts(prev => ({ ...prev, [id]: !prev[id] }));
+            const changeScenario = (id) => { setActiveScenario(id); setRevealedNodes({ emotional: false, rational: false, wise: false }); };
+            const toggleNode = (node) => setRevealedNodes(prev => ({ ...prev, [node]: true }));
 
             const handleControlAnswer = (userSaysInControl) => {
                 const currentItem = CONTROL_ITEMS[controlStep];
@@ -991,79 +1117,62 @@
                 } else {
                     setControlFeedback({ type: 'error', text: `Piénsalo de nuevo... ${currentItem.explanation}` });
                 }
-                
                 setTimeout(() => {
                     setControlFeedback(null);
-                    if (controlStep < CONTROL_ITEMS.length - 1) {
-                        setControlStep(controlStep + 1);
-                    } else {
-                        setControlFinished(true);
-                    }
+                    if (controlStep < CONTROL_ITEMS.length - 1) setControlStep(controlStep + 1);
+                    else setControlFinished(true);
                 }, 4000);
             };
 
-            const resetControl = () => {
-                setControlStep(0);
-                setControlFinished(false);
-                setControlFeedback(null);
-            };
-
+            const resetControl = () => { setControlStep(0); setControlFinished(false); setControlFeedback(null); };
             const currentScenario = WISE_MIND_SCENARIOS.find(s => s.id === activeScenario);
 
             return (
-                <div className="animate-fade-in space-y-12">
-                    <div className="text-center mb-10 card-3d p-8 md:p-12">
-                        <h2 className="text-3xl md:text-4xl font-black text-slate-800 flex items-center justify-center gap-4">
+                <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', gap: '3rem'}}>
+                    <div className="card-3d" style={{padding: '2rem', textAlign: 'center'}}>
+                        <h2 className="text-3xl font-black" style={{display:'flex', alignItems:'center', justifyContent:'center', gap:'1rem'}}>
                             <span className="text-5xl figure-3d">💡</span> Inteligencia Emocional
                         </h2>
-                        <p className="text-slate-600 text-lg mt-6 max-w-2xl mx-auto font-medium leading-relaxed">
-                            No se trata de suprimir lo que sientes, sino de usar tus emociones a tu favor. Explora los 5 pilares fundamentales y entrena tu gimnasio mental para transformar tu forma de reaccionar.
+                        <p className="text-lg font-medium" style={{color:'var(--slate-600)', marginTop:'1.5rem', maxWidth:'42rem', margin:'1.5rem auto 0'}}>
+                            No se trata de suprimir lo que sientes, sino de usar tus emociones a tu favor. Explora los 5 pilares fundamentales y entrena tu gimnasio mental.
                         </p>
                     </div>
 
-                    <div className="rounded-[32px] p-8 md:p-12 shadow-2xl relative overflow-hidden bg-slate-900 bg-[url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center bg-blend-overlay">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-30 -mr-20 -mt-20 pointer-events-none"></div>
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500 rounded-full blur-3xl opacity-20 -ml-20 -mb-20 pointer-events-none"></div>
+                    <div className="ei-hero">
+                        <div className="ei-overlay"></div>
+                        <div className="ei-blob-1"></div>
+                        <div className="ei-blob-2"></div>
                         
-                        <div className="text-center mb-10 relative z-10">
-                            <h3 className="text-2xl md:text-3xl font-black text-white flex items-center justify-center gap-3 drop-shadow-md">
+                        <div style={{textAlign: 'center', position: 'relative', zIndex: 10, marginBottom: '2.5rem'}}>
+                            <h3 className="text-2xl font-black text-white" style={{display:'flex', alignItems:'center', justifyContent:'center', gap:'0.75rem'}}>
                                 <span className="text-4xl figure-3d">🏛️</span> Los 5 Pilares de Goleman
                             </h3>
-                            <p className="text-slate-300 mt-2 font-medium">Toca cada pilar para descubrir su poder oculto</p>
+                            <p style={{color: 'var(--slate-300)', marginTop: '0.5rem', fontWeight: 500}}>Toca cada pilar para descubrir su poder oculto</p>
                         </div>
                         
-                        <div className="flex flex-wrap justify-center gap-6 relative z-10">
+                        <div className="pillars-grid">
                             {EI_PILLARS.map((p) => {
                                 const isActive = activePillar === p.id;
                                 return (
-                                    <button 
-                                        key={p.id} 
-                                        onClick={() => setActivePillar(isActive ? null : p.id)}
-                                        className={`text-left p-6 rounded-[28px] border-2 transition-all duration-300 ease-out btn-3d-base w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col
-                                        ${isActive ? 'bg-white border-white scale-[1.05] shadow-[0_15px_30px_-5px_rgba(0,0,0,0.5)] z-20' : 'bg-slate-800/60 border-slate-500/50 hover:bg-slate-700/80 hover:border-slate-400 backdrop-blur-md shadow-lg'}`}
-                                    >
-                                        <div className="flex items-center gap-4 mb-2">
-                                            <div className={`flex flex-shrink-0 items-center justify-center w-14 h-14 rounded-2xl text-3xl figure-3d transition-colors ${isActive ? `bg-${p.color}-100` : 'bg-slate-900/80'}`}>
-                                                {p.emoji}
-                                            </div>
-                                            <h4 className={`text-lg font-black leading-tight ${isActive ? 'text-slate-800' : 'text-slate-100'}`}>{p.name}</h4>
+                                    <button key={p.id} onClick={() => setActivePillar(isActive ? null : p.id)} className={`pillar-card btn-3d-base ${isActive ? 'active' : ''} ${p.theme}`}>
+                                        <div className="pillar-header">
+                                            <div className="pillar-icon figure-3d">{p.emoji}</div>
+                                            <h4 className="pillar-title">{p.name}</h4>
                                         </div>
-
-                                        <div className={`overflow-hidden transition-all duration-300 ${isActive ? 'max-h-64 opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'}`}>
-                                            <p className="text-sm text-slate-600 mb-4 font-medium leading-relaxed">{p.desc}</p>
-                                            <div className={`bg-${p.color}-50 p-4 rounded-xl border border-${p.color}-100 shadow-inner`}>
-                                                <div className={`text-xs font-black text-${p.color}-800 uppercase tracking-widest mb-2 flex items-center gap-2`}>
-                                                    <Icon name="star" className="w-4 h-4"/> Súperpoder: {p.power}
+                                        <div className="pillar-content">
+                                            <p className="text-sm font-medium" style={{color: 'var(--slate-600)', marginBottom: '1rem'}}>{p.desc}</p>
+                                            <div className="pillar-tip-box">
+                                                <div className="font-black text-xs uppercase" style={{display:'flex', alignItems:'center', gap:'0.5rem', marginBottom:'0.5rem', color: 'var(--t-text)'}}>
+                                                    <Icon name="star" className="icon-sm"/> Súperpoder: {p.power}
                                                 </div>
-                                                <p className={`text-sm text-${p.color}-900 font-bold leading-snug flex gap-2`}>
+                                                <p className="text-sm font-bold" style={{color: 'var(--t-text)', display: 'flex', gap: '0.5rem'}}>
                                                     <span>🎯</span> {p.reto}
                                                 </p>
                                             </div>
                                         </div>
-                                        
                                         {!isActive && (
-                                            <div className="text-center mt-auto pt-4">
-                                                <span className="text-[10px] uppercase font-black tracking-widest text-slate-300 bg-slate-900/50 px-3 py-1.5 rounded-full border border-slate-500/50">Toca para abrir</span>
+                                            <div className="pillar-footer">
+                                                <span className="pillar-hint">Toca para abrir</span>
                                             </div>
                                         )}
                                     </button>
@@ -1072,49 +1181,36 @@
                         </div>
                     </div>
 
-                    <div className="card-3d p-8 md:p-12">
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-                            <div>
-                                <h3 className="text-2xl font-black text-slate-800 flex items-center gap-3 mb-2">
-                                    <span className="text-3xl figure-3d">🏋️‍♀️</span> Estación 1: Pensamientos
-                                </h3>
-                                <p className="text-slate-600 font-medium">Toca las tarjetas para hackear la trampa mental y fortalecer tu inteligencia.</p>
+                    <div className="card-3d" style={{padding: '2rem'}}>
+                        <div style={{display:'flex', flexDirection:'column', gap:'0.5rem', marginBottom:'2.5rem'}}>
+                            <h3 className="text-2xl font-black" style={{display:'flex', alignItems:'center', gap:'0.75rem'}}>
+                                <span className="text-3xl figure-3d">🏋️‍♀️</span> Estación 1: Pensamientos
+                            </h3>
+                            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                                <p className="font-medium" style={{color:'var(--slate-600)'}}>Toca las tarjetas para hackear la trampa mental.</p>
+                                <span className="font-black text-xs uppercase" style={{color:'var(--emerald-800)', background:'var(--emerald-100)', padding:'0.5rem 1rem', borderRadius:'var(--radius-full)', border:'1px solid var(--emerald-200)'}}>{GYM_THOUGHTS.length} Ejercicios</span>
                             </div>
-                            <span className="text-xs font-black uppercase tracking-widest bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full border border-emerald-200 shadow-sm whitespace-nowrap">
-                                8 Ejercicios
-                            </span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="gym-grid">
                             {GYM_THOUGHTS.map((t) => {
                                 const isFlipped = flippedThoughts[t.id];
                                 return (
-                                    <div 
-                                        key={t.id} 
-                                        onClick={() => toggleFlip(t.id)} 
-                                        className={`cursor-pointer min-h-[240px] p-6 rounded-[28px] border-2 transition-all duration-500 ease-in-out btn-3d-base shadow-lg flex flex-col items-center justify-center text-center relative overflow-hidden
-                                        ${isFlipped ? 'bg-emerald-50 border-emerald-300 shadow-emerald-200/50' : 'bg-rose-50 border-rose-200 shadow-rose-200/50'}`}
-                                    >
+                                    <div key={t.id} onClick={() => toggleFlip(t.id)} className={`thought-card btn-3d-base ${isFlipped ? 'theme-emerald theme-card' : 'theme-rose theme-card'}`}>
                                         {!isFlipped ? (
-                                            <div className="animate-fade-in w-full">
-                                                <span className="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest bg-rose-100 text-rose-600 px-2 py-1 rounded-md shadow-sm border border-rose-200">
-                                                    {t.type}
-                                                </span>
-                                                <span className="text-5xl mb-4 block figure-3d opacity-90 mt-4">{t.emoji}</span>
-                                                <h4 className="font-black text-rose-800 text-xs uppercase tracking-widest mb-2">Automático</h4>
-                                                <p className="text-sm md:text-base font-bold text-rose-900 leading-snug px-2">"{t.negative}"</p>
-                                                <div className="mt-4">
-                                                    <span className="text-[10px] uppercase font-black text-rose-500 bg-white/60 px-3 py-1 rounded-full shadow-sm">Toca para transformar</span>
-                                                </div>
+                                            <div className="animate-fade-in" style={{width: '100%'}}>
+                                                <span className="thought-badge theme-card" style={{background: 'var(--white)'}}>{t.type}</span>
+                                                <span className="thought-emoji figure-3d" style={{opacity: 0.9}}>{t.emoji}</span>
+                                                <h4 className="font-black text-xs uppercase" style={{marginBottom: '0.5rem'}}>Automático</h4>
+                                                <p className="text-sm font-bold">"{t.negative}"</p>
+                                                <span style={{fontSize:'0.625rem', textTransform:'uppercase', fontWeight:900, background:'rgba(255,255,255,0.6)', padding:'0.25rem 0.75rem', borderRadius:'var(--radius-full)', display:'inline-block', marginTop:'1rem', color:'var(--rose-500)'}}>Toca para transformar</span>
                                             </div>
                                         ) : (
-                                            <div className="animate-fade-in w-full">
-                                                <span className="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md shadow-sm border border-emerald-200">
-                                                    Hackeado
-                                                </span>
-                                                <span className="text-5xl mb-4 block figure-3d animate-bounce mt-4">{t.emojiPos}</span>
-                                                <h4 className="font-black text-emerald-800 text-xs uppercase tracking-widest mb-2">Respuesta Inteligente</h4>
-                                                <p className="text-sm font-bold text-emerald-900 leading-snug px-2">"{t.positive}"</p>
+                                            <div className="animate-fade-in" style={{width: '100%'}}>
+                                                <span className="thought-badge theme-card" style={{background: 'var(--white)'}}>Hackeado</span>
+                                                <span className="thought-emoji figure-3d animate-bounce">{t.emojiPos}</span>
+                                                <h4 className="font-black text-xs uppercase" style={{marginBottom: '0.5rem'}}>Respuesta Inteligente</h4>
+                                                <p className="text-sm font-bold">"{t.positive}"</p>
                                             </div>
                                         )}
                                     </div>
@@ -1123,122 +1219,115 @@
                         </div>
                     </div>
 
-                    <div className="card-3d p-8 md:p-12 bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-100">
-                        <div className="mb-10">
-                            <h3 className="text-2xl font-black text-indigo-900 flex items-center gap-3 mb-3">
+                    <div className="card-3d wise-layout">
+                        <div style={{marginBottom: '2.5rem'}}>
+                            <h3 className="text-2xl font-black" style={{display:'flex', alignItems:'center', gap:'0.75rem', marginBottom:'0.75rem', color: 'var(--indigo-900)'}}>
                                 <span className="text-3xl figure-3d">⚖️</span> Estación 2: La Mente Sabia
                             </h3>
-                            <p className="text-indigo-800/80 font-medium text-lg">
+                            <p className="text-lg font-medium" style={{color: 'var(--indigo-800)', opacity: 0.8}}>
                                 La <strong>Mente Emocional</strong> siente sin filtro. La <strong>Mente Racional</strong> analiza fríamente. 
-                                La <strong>Mente Sabia</strong> es la integración perfecta de ambas. Selecciona un escenario y descubre las 3 perspectivas.
+                                La <strong>Mente Sabia</strong> es la integración perfecta.
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-3 mb-8 justify-center">
+                        <div style={{display: 'flex', flexWrap:'wrap', gap: '0.75rem', justifyContent: 'center', marginBottom: '2rem'}}>
                             {WISE_MIND_SCENARIOS.map(s => (
-                                <button 
-                                    key={s.id} 
-                                    onClick={() => changeScenario(s.id)}
-                                    className={`px-6 py-3 rounded-full font-black text-sm border-2 transition-all shadow-sm ${activeScenario === s.id ? 'bg-indigo-600 text-white border-indigo-600 scale-105 shadow-md' : 'bg-white text-indigo-600 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50'}`}>
+                                <button key={s.id} onClick={() => changeScenario(s.id)} className={`nav-btn btn-3d-base ${activeScenario === s.id ? 'active' : 'inactive'}`}>
                                     Escenario {s.id}
                                 </button>
                             ))}
                         </div>
 
-                        <div className="bg-white rounded-[32px] p-6 md:p-10 border-2 border-indigo-100 shadow-xl relative">
-                            <div className="text-center mb-10 bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
-                                <span className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2 block">Situación</span>
-                                <h4 className="font-black text-indigo-950 text-xl md:text-2xl">"{currentScenario.context}"</h4>
+                        <div style={{background: 'var(--white)', borderRadius: 'var(--radius-3xl)', padding: '2rem', border: '2px solid var(--indigo-100)', boxShadow: 'var(--shadow-lg)'}}>
+                            <div className="scenario-box">
+                                <span className="font-black text-xs uppercase" style={{color: 'var(--indigo-500)', display: 'block', marginBottom: '0.5rem', letterSpacing: '0.1em'}}>Situación</span>
+                                <h4 className="font-black text-xl" style={{color: 'var(--indigo-950)'}}>"{currentScenario.context}"</h4>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                                <div onClick={() => toggleNode('emotional')} className={`cursor-pointer min-h-[180px] p-6 rounded-[28px] border-2 transition-all duration-500 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.emotional ? 'bg-rose-50 border-rose-300 shadow-md' : 'bg-slate-50 border-slate-200 hover:border-rose-300'}`}>
+                            <div className="mind-nodes">
+                                <div onClick={() => toggleNode('emotional')} className={`mind-node btn-3d-base ${revealedNodes.emotional ? 'theme-rose theme-card' : 'theme-slate theme-card'}`} style={{borderColor: revealedNodes.emotional ? 'var(--t-border)' : 'var(--slate-200)', background: revealedNodes.emotional ? 'var(--t-bg)' : 'var(--slate-50)'}}>
                                     {!revealedNodes.emotional ? (
                                         <div className="animate-fade-in">
-                                            <span className="text-5xl mb-4 block figure-3d">🔥</span>
-                                            <span className="font-black text-slate-500 uppercase text-xs tracking-widest bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Toca para ver Emoción</span>
+                                            <span className="text-5xl block figure-3d" style={{marginBottom: '1rem'}}>🔥</span>
+                                            <span className="mind-node-hint">Toca para ver Emoción</span>
                                         </div>
                                     ) : (
                                         <div className="animate-fade-in">
-                                            <span className="text-4xl mb-3 block">{currentScenario.emotional.emoji}</span>
-                                            <h5 className="font-black text-rose-800 text-xs uppercase mb-3 tracking-widest">Mente Emocional</h5>
-                                            <p className="text-sm font-bold text-rose-900 leading-relaxed">"{currentScenario.emotional.text}"</p>
+                                            <span className="text-4xl block" style={{marginBottom: '0.75rem'}}>{currentScenario.emotional.emoji}</span>
+                                            <h5 className="font-black text-xs uppercase" style={{marginBottom: '0.75rem', letterSpacing: '0.1em'}}>Mente Emocional</h5>
+                                            <p className="text-sm font-bold">"{currentScenario.emotional.text}"</p>
                                         </div>
                                     )}
                                 </div>
 
-                                <div onClick={() => toggleNode('rational')} className={`cursor-pointer min-h-[180px] p-6 rounded-[28px] border-2 transition-all duration-500 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.rational ? 'bg-blue-50 border-blue-300 shadow-md' : 'bg-slate-50 border-slate-200 hover:border-blue-300'}`}>
+                                <div onClick={() => toggleNode('rational')} className={`mind-node btn-3d-base ${revealedNodes.rational ? 'theme-blue theme-card' : 'theme-slate theme-card'}`} style={{borderColor: revealedNodes.rational ? 'var(--t-border)' : 'var(--slate-200)', background: revealedNodes.rational ? 'var(--t-bg)' : 'var(--slate-50)'}}>
                                     {!revealedNodes.rational ? (
                                          <div className="animate-fade-in">
-                                            <span className="text-5xl mb-4 block figure-3d">🤖</span>
-                                            <span className="font-black text-slate-500 uppercase text-xs tracking-widest bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm">Toca para ver Razón</span>
+                                            <span className="text-5xl block figure-3d" style={{marginBottom: '1rem'}}>🤖</span>
+                                            <span className="mind-node-hint">Toca para ver Razón</span>
                                         </div>
                                     ) : (
                                         <div className="animate-fade-in">
-                                            <span className="text-4xl mb-3 block">{currentScenario.rational.emoji}</span>
-                                            <h5 className="font-black text-blue-800 text-xs uppercase mb-3 tracking-widest">Mente Racional</h5>
-                                            <p className="text-sm font-bold text-blue-900 leading-relaxed">"{currentScenario.rational.text}"</p>
+                                            <span className="text-4xl block" style={{marginBottom: '0.75rem'}}>{currentScenario.rational.emoji}</span>
+                                            <h5 className="font-black text-xs uppercase" style={{marginBottom: '0.75rem', letterSpacing: '0.1em'}}>Mente Racional</h5>
+                                            <p className="text-sm font-bold">"{currentScenario.rational.text}"</p>
                                         </div>
                                     )}
                                 </div>
                             </div>
 
-                            <div className="flex justify-center mt-4">
-                                <div onClick={() => toggleNode('wise')} className={`w-full md:w-3/4 cursor-pointer min-h-[200px] p-8 rounded-[32px] border-4 transition-all duration-700 flex flex-col items-center justify-center text-center btn-3d-base ${revealedNodes.wise ? 'bg-purple-100 border-purple-400 shadow-[0_15px_40px_-10px_rgba(168,85,247,0.4)] scale-105 z-10' : 'bg-slate-50 border-slate-200 hover:border-purple-300'}`}>
-                                    {!revealedNodes.wise ? (
-                                        <div className="animate-fade-in">
-                                            <span className="text-6xl mb-4 block figure-3d opacity-70">🦉</span>
-                                            <span className="font-black text-slate-500 uppercase text-xs tracking-widest bg-white px-5 py-2 rounded-full border border-slate-200 shadow-sm">Toca para integrar la Mente Sabia</span>
-                                            {(!revealedNodes.emotional || !revealedNodes.rational) && <p className="text-[10px] text-slate-400 mt-4 font-bold uppercase">(Sugerencia: Descubre primero las otras dos)</p>}
-                                        </div>
-                                    ) : (
-                                        <div className="animate-fade-in">
-                                            <span className="text-6xl mb-4 block figure-3d animate-pulse">{currentScenario.wise.emoji}</span>
-                                            <h5 className="font-black text-purple-800 text-lg uppercase mb-4 tracking-widest">🧠 Mente Sabia</h5>
-                                            <p className="text-lg font-black text-purple-950 leading-relaxed">"{currentScenario.wise.text}"</p>
-                                        </div>
-                                    )}
-                                </div>
+                            <div onClick={() => toggleNode('wise')} className={`mind-node wise-node btn-3d-base ${revealedNodes.wise ? 'theme-purple theme-card' : 'theme-slate theme-card'}`} style={{borderColor: revealedNodes.wise ? 'var(--t-border)' : 'var(--slate-200)', background: revealedNodes.wise ? 'var(--t-bg)' : 'var(--slate-50)'}}>
+                                {!revealedNodes.wise ? (
+                                    <div className="animate-fade-in">
+                                        <span className="text-6xl block figure-3d" style={{marginBottom: '1rem', opacity: 0.7}}>🦉</span>
+                                        <span className="mind-node-hint">Toca para integrar la Mente Sabia</span>
+                                    </div>
+                                ) : (
+                                    <div className="animate-fade-in">
+                                        <span className="text-6xl block figure-3d animate-pulse" style={{marginBottom: '1rem'}}>{currentScenario.wise.emoji}</span>
+                                        <h5 className="font-black text-lg uppercase" style={{marginBottom: '1rem', letterSpacing: '0.1em'}}>🧠 Mente Sabia</h5>
+                                        <p className="text-lg font-black" style={{color: 'var(--indigo-950)'}}>"{currentScenario.wise.text}"</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
 
-                    <div className="card-3d p-8 md:p-12 mt-12 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100 relative overflow-hidden">
-                        <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-300 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
-                        <div className="mb-10 relative z-10">
-                            <h3 className="text-2xl font-black text-emerald-900 flex items-center gap-3 mb-3">
+                    <div className="control-layout theme-emerald theme-card" style={{background: 'var(--white)', border: '2px solid var(--t-border)'}}>
+                        <div style={{marginBottom: '2.5rem', position: 'relative', zIndex: 10}}>
+                            <h3 className="text-2xl font-black" style={{display:'flex', alignItems:'center', gap:'0.75rem', marginBottom:'0.75rem'}}>
                                 <span className="text-3xl figure-3d">⭕</span> Estación 3: El Círculo de Control
                             </h3>
-                            <p className="text-emerald-800/80 font-medium text-lg">
+                            <p className="text-lg font-medium" style={{opacity: 0.8}}>
                                 Gran parte de nuestra ansiedad se dispara cuando intentamos controlar lo incontrolable. 
-                                Evalúa la siguiente situación y decide: <strong>¿Está en tus manos?</strong>
+                                Evalúa la situación: <strong>¿Está en tus manos?</strong>
                             </p>
                         </div>
 
-                        <div className="bg-white rounded-[32px] p-6 md:p-10 border-2 border-emerald-100 shadow-xl relative z-10 min-h-[350px] flex flex-col justify-center">
+                        <div style={{background: 'var(--white)', borderRadius: 'var(--radius-3xl)', padding: '2rem', border: '2px solid var(--t-border)', boxShadow: 'var(--shadow-lg)', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '350px'}}>
                             {!controlFinished ? (
                                 <>
-                                    <div className="text-center mb-8">
-                                        <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full border border-emerald-200">
+                                    <div style={{textAlign: 'center', marginBottom: '2rem'}}>
+                                        <span className="font-black text-sm" style={{background: 'var(--t-bg)', padding: '0.5rem 1rem', borderRadius: 'var(--radius-full)', border: '1px solid var(--t-border)'}}>
                                             Situación {controlStep + 1} de {CONTROL_ITEMS.length}
                                         </span>
                                     </div>
 
                                     {controlFeedback ? (
-                                        <div className={`animate-fade-in p-8 rounded-3xl text-center border-2 shadow-sm ${controlFeedback.type === 'success' ? 'bg-emerald-100 border-emerald-400 text-emerald-900' : 'bg-rose-100 border-rose-400 text-rose-900'}`}>
-                                            <span className="text-5xl block mb-4 figure-3d">{controlFeedback.type === 'success' ? '✅' : '🤔'}</span>
-                                            <p className="text-xl font-black leading-relaxed">{controlFeedback.text}</p>
+                                        <div className="animate-fade-in" style={{padding: '2rem', borderRadius: 'var(--radius-3xl)', textAlign: 'center', border: '2px solid', background: controlFeedback.type === 'success' ? 'var(--emerald-100)' : 'var(--rose-100)', borderColor: controlFeedback.type === 'success' ? 'var(--emerald-400)' : 'var(--rose-400)', color: controlFeedback.type === 'success' ? 'var(--emerald-900)' : 'var(--rose-900)'}}>
+                                            <span className="text-5xl block figure-3d" style={{marginBottom: '1rem'}}>{controlFeedback.type === 'success' ? '✅' : '🤔'}</span>
+                                            <p className="text-xl font-black">{controlFeedback.text}</p>
                                         </div>
                                     ) : (
-                                        <div className="animate-fade-in flex flex-col items-center">
-                                            <h4 className="font-black text-slate-800 text-2xl md:text-3xl text-center mb-10 leading-tight">
+                                        <div className="animate-fade-in" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                            <h4 className="text-2xl font-black text-center" style={{marginBottom: '2.5rem'}}>
                                                 "{CONTROL_ITEMS[controlStep].text}"
                                             </h4>
-                                            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-                                                <button onClick={() => handleControlAnswer(true)} className="flex-1 max-w-xs py-4 px-6 bg-emerald-50 border-2 border-emerald-200 rounded-2xl font-black text-emerald-800 hover:bg-emerald-100 hover:border-emerald-400 hover:-translate-y-1 transition-all shadow-[0_4px_0_#a7f3d0] active:translate-y-1 active:shadow-none">
+                                            <div className="control-btns">
+                                                <button onClick={() => handleControlAnswer(true)} className="control-btn btn-3d-base theme-emerald theme-card" style={{border: '2px solid var(--t-border)', boxShadow: '0 4px 0 var(--t-border)'}}>
                                                     🎯 En mi control
                                                 </button>
-                                                <button onClick={() => handleControlAnswer(false)} className="flex-1 max-w-xs py-4 px-6 bg-slate-50 border-2 border-slate-200 rounded-2xl font-black text-slate-700 hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-1 transition-all shadow-[0_4px_0_#e2e8f0] active:translate-y-1 active:shadow-none">
+                                                <button onClick={() => handleControlAnswer(false)} className="control-btn btn-3d-base" style={{border: '2px solid var(--slate-200)', background: 'var(--slate-50)', color: 'var(--slate-700)', boxShadow: '0 4px 0 var(--slate-200)'}}>
                                                     🌬️ Fuera de mi control
                                                 </button>
                                             </div>
@@ -1247,12 +1336,12 @@
                                 </>
                             ) : (
                                 <div className="animate-fade-in text-center">
-                                    <span className="text-6xl mb-4 block figure-3d">🏆</span>
-                                    <h4 className="text-3xl font-black text-emerald-900 mb-4">¡Entrenamiento Completado!</h4>
-                                    <p className="text-lg text-emerald-800 font-medium mb-8 max-w-xl mx-auto">
+                                    <span className="text-6xl block figure-3d" style={{marginBottom: '1rem'}}>🏆</span>
+                                    <h4 className="text-3xl font-black mb-4">¡Entrenamiento Completado!</h4>
+                                    <p className="text-lg font-medium" style={{marginBottom: '2rem', maxWidth: '36rem', margin: '0 auto 2rem', color:'var(--emerald-900)'}}>
                                         Recuerda: Tu paz mental crece exponencialmente cuando sueltas lo que no puedes controlar y te enfocas 100% en lo que sí depende de ti.
                                     </p>
-                                    <button onClick={resetControl} className="py-4 px-8 bg-emerald-600 text-white font-black rounded-2xl transition-all shadow-[0_6px_0_#059669] hover:shadow-[0_4px_0_#059669] hover:translate-y-1 active:shadow-none active:translate-y-2">
+                                    <button onClick={resetControl} className="btn-primary btn-3d-base" style={{background:'var(--emerald-600)', boxShadow:'0 6px 0 var(--emerald-800)'}}>
                                         Volver a entrenar
                                     </button>
                                 </div>
@@ -1267,20 +1356,16 @@
             const [activeTab, setActiveTab] = useState('chequeador');
 
             return (
-                <div className="min-h-screen relative flex flex-col bg-[#f1f5f9] font-sans pb-20">
-                    <div className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-                        <div className="flex justify-between items-center px-4 py-3 max-w-6xl mx-auto">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-indigo-600 rounded-xl shadow-md shadow-indigo-100">
-                                    <Icon name="sparkles" className="w-5 h-5 text-white" />
-                                </div>
-                                <span className="text-[10px] md:text-xs font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm">
-                                    Pastoral y bienestar UCN
-                                </span>
+                <div className="app-container">
+                    <div className="header">
+                        <div className="header-top">
+                            <div className="header-badge">
+                                <div className="header-icon-bg"><Icon name="sparkles" className="icon" /></div>
+                                <span className="header-tag">Pastoral y bienestar UCN</span>
                             </div>
                         </div>
-                        <div className="max-w-6xl mx-auto px-4 overflow-x-auto no-scrollbar border-t border-slate-100 bg-slate-50/50 backdrop-blur-md">
-                            <div className="flex justify-start md:justify-center min-w-max p-2 gap-2">
+                        <div className="nav-scroll no-scrollbar">
+                            <div className="nav-container">
                                 {[
                                     { id: 'chequeador', name: 'Chequeador', emoji: '🎛️' },
                                     { id: 'inteligencia', name: 'Inteligencia Emocional', emoji: '💡' },
@@ -1289,8 +1374,7 @@
                                     { id: 'educacion', name: 'Psicoeducación', emoji: '🧠' }
                                 ].map(tab => (
                                     <button key={tab.id} onClick={() => {setActiveTab(tab.id); window.scrollTo(0,0);}}
-                                        className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-black transition-all whitespace-nowrap btn-3d-base
-                                        ${activeTab === tab.id ? 'bg-indigo-600 text-white shadow-[0_4px_0_#4338ca]' : 'bg-white border-2 border-slate-200 text-slate-600 hover:bg-slate-100 shadow-[0_4px_0_#e2e8f0]'}`}>
+                                        className={`nav-btn btn-3d-base ${activeTab === tab.id ? 'active' : 'inactive'}`}>
                                         <span>{tab.emoji}</span> {tab.name}
                                     </button>
                                 ))}
@@ -1298,19 +1382,15 @@
                         </div>
                     </div>
 
-                    <div className="flex-1 p-4 md:p-8 pt-8">
-                        <div className="max-w-5xl mx-auto">
+                    <main className="main-content">
+                        <div className="content-wrapper">
                             {activeTab === 'chequeador' && (
                                 <div>
-                                    <header className="mb-12 text-center animate-fade-in pt-4">
-                                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight drop-shadow-sm">
-                                            Refugio Emocional
-                                        </h1>
-                                        <div className="max-w-2xl mx-auto">
-                                            <p className="text-slate-600 text-lg md:text-xl font-medium leading-relaxed">
-                                                Tu espacio seguro para identificar, comprender y transformar tus emociones con <span className="text-indigo-600 font-bold border-b-2 border-indigo-200">consciencia y cuidado integral.</span>
-                                            </p>
-                                        </div>
+                                    <header className="hero-header animate-fade-in">
+                                        <h1 className="hero-title">Refugio Emocional</h1>
+                                        <p className="hero-desc">
+                                            Tu espacio seguro para identificar, comprender y transformar tus emociones con <span className="hero-highlight">consciencia y cuidado integral.</span>
+                                        </p>
                                     </header>
                                     <ChequeadorView />
                                 </div>
@@ -1320,7 +1400,7 @@
                             {activeTab === 'educacion' && <PsicoEduView />}
                             {activeTab === 'inteligencia' && <InteligenciaEmocionalView />}
                         </div>
-                    </div>
+                    </main>
                 </div>
             );
         }
